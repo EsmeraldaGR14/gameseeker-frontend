@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getGamesByTitle } from "../Api/API";
+import "./SearchResults.css"
 
 function SearchResultsPage() {
   const [searchResults, setSearchResults] = useState([]);
@@ -20,13 +21,12 @@ function SearchResultsPage() {
     if (searchCriteria.title) {
       handleSearch();
     } else {
-      // If searchCriteria.title is empty, you can choose to display a message or leave the list empty.
       setSearchResults([]);
     }
   }, [searchCriteria.title]);
 
   return (
-    <div>
+    <div className="search">
       <h1>Search Results</h1>
       <div>
         <input
@@ -40,18 +40,19 @@ function SearchResultsPage() {
         <button onClick={handleSearch}>Search</button>
       </div>
       <div>
-        {searchCriteria.title ? (
-          searchResults.map((game) => (
+        {searchResults.length > 0 ? (
+          <p>{searchResults.length} result(s) found for "{searchCriteria.title}":</p>
+        ) : (
+          <p>Sorry, there are no results.</p>
+        )}
+          {searchResults.map((game) => (
             <div key={game.id}>
               <h2>
                 {game.title} ({game.released_year})
               </h2>
               <h3>{game.platform}</h3>
             </div>
-          ))
-        ) : (
-          <p>Enter a title to search for games.</p>
-        )}
+          ))}
       </div>
     </div>
   );
