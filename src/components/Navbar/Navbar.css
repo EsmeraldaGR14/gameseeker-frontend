@@ -1,0 +1,14 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    background-color: #5e17eb;
+    padding: 10px 0;
+    
+}
+
+.navbar-links {
+    display: flex;
+    justify-content: space-between;
+    max-width: 600px;
+    width: 100%;
+}

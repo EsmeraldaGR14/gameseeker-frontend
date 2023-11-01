@@ -3,7 +3,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Spinner from "./components/common/Spinner/Spinner";
 import SearchResultsPage from "./components/SearchResults/SearchResults";
-
+import Navbar from "./components/Navbar/Navbar";
 function App() {
   return (
     <div className="App">
@@ -14,7 +14,11 @@ function App() {
           <Route path="*" element={<h1>404 Not Found!</h1>} />
         </Routes>
       </Router>
-    </div>
+    
+    <Router>
+      <Navbar/>
+    </Router>
+  </div>
   );
 }
 
