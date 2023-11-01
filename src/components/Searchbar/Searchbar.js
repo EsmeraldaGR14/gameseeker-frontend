@@ -1,10 +1,26 @@
-import React from 'react'
-import { Search } from 'react-router-dom'
+import React, {useState} from 'react';
 
-function Searchbar() {
+
+const SearchBar = () => {
+    const [searchInput, setSearchInput] = useState('');
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+         window.location.href = "/search?q=" + searchInput;
+    };
   return (
-    <div>Searchbar</div>
-  )
-}
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchInput}
+        onChange={(e) => setSearchInput(e.target.value)}
+      />
+      <button type="submit">Search</button>
+    </form>
+  );
+ 
+};
 
-export default Searchbar
+
+export default SearchBar
