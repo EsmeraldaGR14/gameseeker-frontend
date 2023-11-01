@@ -1,12 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
+import SearchBar from "../Searchbar/Searchbar";
 
 function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-icon"></div>
       <div className="navbar-links">
+        <SearchBar/>
         <NavLink className="navbar-link" to="/">
           Home
         </NavLink>
