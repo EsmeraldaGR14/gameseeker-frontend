@@ -9,4 +9,13 @@ async function getGamesByTitle(title) {
   }
 }
 
-export { getGamesByTitle };
+async function getCovers() {
+  try {
+    const result = await Axios.get("/fetchCovers");
+    return result;
+  } catch (e) {
+    return e;
+  }
+}
+
+export { getGamesByTitle, getCovers };
