@@ -5,10 +5,15 @@ import Spinner from "./components/common/Spinner/Spinner";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
 function App() {
+
   return <div className="App">
     <Router>
       <Navbar/>
-      <Home/>
+    
+      <Routes>
+        <Route path="/" element={<Home/>}></Route>
+      </Routes>
+  
     </Router>
   </div>;
 }
