@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getAllGames } from "../Api/API";
+import { getAllGames } from "../../utilities/Api/Games";
 import "./SearchResults.css";
 import { useLocation } from "react-router-dom";
 

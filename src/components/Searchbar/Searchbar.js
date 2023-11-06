@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllGames } from "../Api/API";
+import { getAllGames } from "../../utilities/Api/Games";
 import SearchResultsOverlay from "../SearchResultsOverlay/SearchResultsOverlay";
 
 const SearchBar = () => {
