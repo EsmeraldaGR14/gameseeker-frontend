@@ -1,9 +1,11 @@
-import React from 'react';
-import "./Home.css";
-
+import React from 'react'
+import Carousel1 from '../Carousel/Carousel'
 function Home() {
+  
   return (
-    <div>Home</div>
+    <div class="homepage">
+        <Carousel1/>
+    </div>
   )
 }
 
