@@ -1,26 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { getGamesByTitle } from "../Api/API";
+import { getAllGames } from "../Api/API";
 import SearchResultsOverlay from "../SearchResultsOverlay/SearchResultsOverlay";
 
 const SearchBar = () => {
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
+  const searchInputRef = useRef(null);
+  const [overlayVisible, setOverlayVisible] = useState(false);
 
   const handleSearch = async (query) => {
     try {
-      const response = await getGamesByTitle(query);
-      setSearchResults(response.data || []); // Ensure searchResults is always an array
+      const allGames = await getAllGames();
+      const filteredGames = allGames.filter((game) =>
+        game.title.toLowerCase().includes(query.toLowerCase())
+      );
+      setSearchResults(filteredGames || []);
+      setOverlayVisible(true);
     } catch (error) {
       console.error("Error fetching search results:", error);
-      setSearchResults([]); // Handle the error by setting an empty array
+      setSearchResults([]);
+      setOverlayVisible(false);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate(`/searchresults?title=${searchInput}`);
+    navigate(`/searchresults?query=${searchInput}`);
+    setOverlayVisible(false);
   };
 
   const handleInputChange = (e) => {
@@ -34,6 +42,23 @@ const SearchBar = () => {
     }
   };
 
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        searchInputRef.current &&
+        !searchInputRef.current.contains(event.target)
+      ) {
+        setOverlayVisible(false);
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
     <form onSubmit={handleSubmit}>
       <input
@@ -41,11 +66,10 @@ const SearchBar = () => {
         placeholder="Search..."
         value={searchInput}
         onChange={handleInputChange}
+        ref={searchInputRef}
       />
       <button type="submit">Search</button>
-      {searchResults.length > 0 && (
-        <SearchResultsOverlay searchResults={searchResults} />
-      )}
+      {overlayVisible && <SearchResultsOverlay searchResults={searchResults} />}
     </form>
   );
 };

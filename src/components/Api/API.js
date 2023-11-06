@@ -1,21 +1,13 @@
 import Axios from "./Axios";
 
-async function getGamesByTitle(title) {
+async function getAllGames() {
   try {
-    const result = await Axios.get("/search", { params: { title } });
-    return result;
-  } catch (e) {
-    return e;
+    const response = await Axios.get("/games");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching games by title:", error);
+    throw error;
   }
 }
 
-async function getCovers() {
-  try {
-    const result = await Axios.get("/fetchCovers");
-    return result;
-  } catch (e) {
-    return e;
-  }
-}
-
-export { getGamesByTitle, getCovers };
+export { getAllGames };

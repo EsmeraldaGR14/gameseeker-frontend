@@ -1,45 +1,34 @@
 import React, { useState, useEffect } from "react";
-import { getGamesByTitle, getCovers } from "../Api/API";
-import "./SearchResults.css"
+import { getAllGames } from "../Api/API";
+import "./SearchResults.css";
 import { useLocation } from "react-router-dom";
 
 function SearchResultsPage() {
   const [searchResults, setSearchResults] = useState([]);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const searchQuery = searchParams.get("title");
-  const [covers, setCovers] = useState([]);
+  const searchQuery = searchParams.get("query");
 
-  const fetchCovers = async () => {
+  const handleSearch = async (query) => {
     try {
-      const coverData = await getCovers();
-      setCovers(coverData);
+      const allGames = await getAllGames();
+      const filteredGames = allGames.filter((game) =>
+        game.title.toLowerCase().includes(query.toLowerCase())
+      );
+      setSearchResults(filteredGames || []);
     } catch (error) {
-      console.error("Error fetching covers:", error);
-    }
-  };
-
-  const handleSearch = async () => {
-    try {
-      const response = await getGamesByTitle(searchQuery);
-      setSearchResults(response.data);
-      fetchCovers();
-    } catch (error) {
-      console.log("Error fetching search results:", error);
+      console.error("Error fetching search results:", error);
+      setSearchResults([]);
     }
   };
 
   useEffect(() => {
     if (searchQuery) {
-      handleSearch();
+      handleSearch(searchQuery);
     } else {
       setSearchResults([]);
     }
   }, [searchQuery]);
-
-  useEffect(() => {
-    fetchCovers();
-  }, []);
 
   return (
     <div className="search">
@@ -57,20 +46,7 @@ function SearchResultsPage() {
             <h2>
               {game.title} ({game.released_year})
             </h2>
-            <h3>{game.platform}</h3>
-            {/* Map through covers and find the one with the matching game ID */}
-            {covers.map((cover) => {
-              if (cover.game === game.id) {
-                return (
-                  <img
-                    key={cover.id}
-                    src={cover.url}
-                    alt={`${game.title} Cover`}
-                  />
-                );
-              }
-              return null;
-            })}
+            <h3>{game.platforms.join(", ")}</h3>
           </div>
         ))}
       </div>
