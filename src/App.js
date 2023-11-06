@@ -4,11 +4,16 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Spinner from "./components/common/Spinner/Spinner";
 import Navbar from "./components/Navbar/Navbar";
 function App() {
-  return <div className="App">
-    <Router>
-      <Navbar/>
-    </Router>
-  </div>;
+  return (
+    <div className="App">
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route></Route>
+        </Routes>
+      </Router>
+    </div>
+  );
 }
 
 export default App;
