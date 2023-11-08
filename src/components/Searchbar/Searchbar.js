@@ -67,6 +67,7 @@ const SearchBar = () => {
         value={searchInput}
         onChange={handleInputChange}
         ref={searchInputRef}
+        required
       />
       <button type="submit">Search</button>
       {overlayVisible && <SearchResultsOverlay searchResults={searchResults} />}

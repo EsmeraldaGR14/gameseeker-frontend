@@ -1,9 +1,8 @@
 import React from 'react'
+import "./Spinner.css"
 
 function Spinner() {
-  return (
-    <div>Spinner</div>
-  )
+  return <div class="pong-loader"></div>;
 }
 
-export default Spinner
+export default Spinner;
