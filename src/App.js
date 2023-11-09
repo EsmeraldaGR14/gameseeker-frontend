@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -8,6 +9,10 @@ const SearchResultsPage = React.lazy(() => import("./components/SearchResults/Se
 );
 
 function App() {
+  return (
+    <div className="App">
+      <Router>
+        <Navbar />
 
   return (
     <div className="App">
