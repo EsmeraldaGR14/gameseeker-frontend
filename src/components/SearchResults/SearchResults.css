@@ -1,0 +1,40 @@
+.sort-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sort-buttons button {
+  margin-top: 10px;  
+  margin-right: 10px;
+}
+
+.list-view .search-results {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.list-view .search-results-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #f9f9f9;
+}
+
+.grid-view .search-results {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); 
+  grid-template-rows: repeat(5, 1fr);
+  gap: 10px;
+  justify-items: center; 
+}
+
+.grid-view .search-results-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: #f9f9f9;
+  text-align: center; 
+  width: calc(16.66% - 20px);
+  box-sizing: border-box;
+  margin: 5px; 
+}

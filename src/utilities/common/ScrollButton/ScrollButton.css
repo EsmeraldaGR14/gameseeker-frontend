@@ -1,0 +1,15 @@
+.scroll-top-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #5E17EB;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.scroll-top-button:hover {
+  background-color: #FF0BFF;
+}
