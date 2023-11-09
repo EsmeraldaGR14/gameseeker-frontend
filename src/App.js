@@ -9,10 +9,6 @@ const SearchResultsPage = React.lazy(() => import("./components/SearchResults/Se
 );
 
 function App() {
-  return (
-    <div className="App">
-      <Router>
-        <Navbar />
 
   return (
     <div className="App">
