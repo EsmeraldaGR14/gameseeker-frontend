@@ -86,18 +86,24 @@ function SearchResultsPage() {
           viewType === "list" ? "list-view" : "grid-view"
         }`}
       >
+        <div className={`search-results-title`}>
         <h1>Search Results</h1>
-        <div>
-          {searchResults.length > 0 ? (
-            <p>
-              {searchResults.length} result(s) found for "{searchQuery}":
-            </p>
-          ) : (
-            <p>Sorry, there are no results.</p>
-          )}
+        {searchResults.length > 0 ? (
+          <p>
+            {searchResults.length} result(s) found for "{searchQuery}":
+          </p>
+        ) : (
+          <p>Sorry, there are no results.</p>
+        )}
+        </div>
+        <div
+          className={`search-results ${
+            viewType === "list" ? "list-view" : "grid-view"
+          }`}
+        >
           {searchResults.map((game) => (
             <div className="search-results-item" key={game.id}>
-              <Link to={`/game/${game.id}`}>
+              <Link to={`/games/${game.id}`}>
                 <h2>
                   {game.title} ({extractYear(game.released_year)})
                 </h2>

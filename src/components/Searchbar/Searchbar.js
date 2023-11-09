@@ -35,7 +35,6 @@ const SearchBar = () => {
     const query = e.target.value;
     setSearchInput(query);
     if (query === "") {
-      // Clear search results when the input field is empty
       setSearchResults([]);
     } else {
       handleSearch(query);
