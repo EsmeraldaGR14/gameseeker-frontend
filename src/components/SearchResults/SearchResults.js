@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { getAllGames } from "../../utilities/Api/Games";
 import "./SearchResults.css";
@@ -7,7 +8,7 @@ import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
 function SearchResultsPage() {
   const [searchResults, setSearchResults] = useState([]);
   const [sortCriteria, setSortCriteria] = useState("relevance");
-  const [viewType, setViewType] = useState("list")
+  const [viewType, setViewType] = useState("list");
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const searchQuery = searchParams.get("query");
@@ -23,12 +24,11 @@ function SearchResultsPage() {
           a.title.toLowerCase().localeCompare(b.title.toLowerCase())
         );
       } else if (sortCriteria === "releaseDate") {
-        filteredGames.sort((a, b) => 
-        a.released_year.localeCompare(b.released_year));
+        filteredGames.sort((a, b) =>
+          a.released_year.localeCompare(b.released_year)
+        );
       } else if (sortCriteria === "rating") {
-       filteredGames.sort((a, b) =>
-         a.rating.localeCompare(b.rating)
-       );
+        filteredGames.sort((a, b) => a.rating.localeCompare(b.rating));
       }
       setSearchResults(filteredGames || []);
     } catch (error) {
@@ -47,9 +47,9 @@ function SearchResultsPage() {
     handleSearch(searchQuery);
   };
 
-  const handleView= (view) => {
-    setViewType(view)
-  }
+  const handleView = (view) => {
+    setViewType(view);
+  };
 
   useEffect(() => {
     if (searchQuery) {
