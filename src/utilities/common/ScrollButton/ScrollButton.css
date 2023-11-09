@@ -2,7 +2,7 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #007bff;
+  background-color: #5E17EB;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -11,5 +11,5 @@
 }
 
 .scroll-top-button:hover {
-  background-color: #0056b3;
+  background-color: #FF0BFF;
 }
