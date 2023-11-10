@@ -1,0 +1,43 @@
+.game-details {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+
+  gap: 16px;
+}
+.game-details-boxart {
+  border: 1px solid #ccc;
+  padding: 16px;
+  box-sizing: border-box;
+}
+.game-details-title {
+  border: 1px solid #ccc;
+  padding: 16px;
+  box-sizing: border-box;
+}
+.game-details-subscription {
+  border: 1px solid #ccc;
+  padding: 16px;
+  box-sizing: border-box;
+}
+button {
+  background-color: #5e17eb;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+.rating-circle {
+  width: 30px;
+  height: 30px;
+  background-color: green; 
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; 
+}
+/* .filter {
+    border: #0c0c0c;
+} */
+
