@@ -31,6 +31,7 @@ function SearchResultsPage() {
         filteredGames.sort((a, b) => a.rating.localeCompare(b.rating));
       }
       setSearchResults(filteredGames || []);
+      console.log(searchResults)
     } catch (error) {
       console.error("Error fetching search results:", error);
       setSearchResults([]);
@@ -87,14 +88,14 @@ function SearchResultsPage() {
         }`}
       >
         <div className={`search-results-title`}>
-        <h1>Search Results</h1>
-        {searchResults.length > 0 ? (
-          <p>
-            {searchResults.length} result(s) found for "{searchQuery}":
-          </p>
-        ) : (
-          <p>Sorry, there are no results.</p>
-        )}
+          <h1>Search Results</h1>
+          {searchResults.length > 0 ? (
+            <p>
+              {searchResults.length} result(s) found for "{searchQuery}":
+            </p>
+          ) : (
+            <p>Sorry, there are no results.</p>
+          )}
         </div>
         <div
           className={`search-results ${
@@ -104,10 +105,17 @@ function SearchResultsPage() {
           {searchResults.map((game) => (
             <div className="search-results-item" key={game.id}>
               <Link to={`/games/${game.id}`}>
+                <img className="boxart"
+                  style={{ height: "10rem" }}
+                  src={game.boxart}
+                  alt={`${game.title} Box Art`}
+                />
+                <div>
                 <h2>
-                  {game.title} ({extractYear(game.released_year)})
+                  {game.title} ({extractYear(game.release_date)})
                 </h2>
                 <h3>{game.platforms.join(", ")}</h3>
+                </div>
               </Link>
             </div>
           ))}

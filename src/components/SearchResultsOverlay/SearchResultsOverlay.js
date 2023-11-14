@@ -9,7 +9,7 @@ const SearchResultsOverlay = ({ searchResults }) => {
           {searchResults.map((result) => (
             <Link to={`/games/${result.id}`}>
             <li className="search-results-item" key={result.id}>
-              {result.title} ({result.released_year})
+              {result.title} ({result.release_date})
             </li>
             </Link>
           ))}
