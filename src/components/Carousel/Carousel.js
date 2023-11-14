@@ -2,7 +2,7 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-function Carousel1() {
+function GenericCarousel({items}) {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -18,41 +18,6 @@ function Carousel1() {
     },
   };
 
-  const items = [
-    <div>
-      <img
-        src="https://images.unsplash.com/photo-1549989476-69a92fa57c36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-        alt="Item 1"
-      />
-      <p>React Carousel with Server Side Rendering Support – Part 1</p>
-      <p>w3js.com - web front-end studio</p>
-    </div>,
-    <div>
-      <img
-        src="https://images.unsplash.com/photo-1549396535-c11d5c55b9df?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
-        alt="Item 2"
-      />
-      <p>React Carousel with Server Side Rendering Support – Part 2</p>
-      <p>w3js.com - web front-end studio</p>
-    </div>,
-    <div>
-      <img
-        src="https://images.unsplash.com/photo-1549989476-69a92fa57c36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-        alt="Item 1"
-      />
-      <p>React Carousel with Server Side Rendering Support – Part 1</p>
-      <p>w3js.com - web front-end studio</p>
-    </div>,
-    <div>
-      <img
-        src="https://images.unsplash.com/photo-1549989476-69a92fa57c36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-        alt="Item 1"
-      />
-      <p>React Carousel with Server Side Rendering Support – Part 1</p>
-      <p>w3js.com - web front-end studio</p>
-    </div>,
-  ];
-
   return (
     <Carousel
       responsive={responsive}
@@ -60,9 +25,14 @@ function Carousel1() {
       autoPlaySpeed={3000}
       infinite={true}
     >
-      {items}
+      {items.map((item)=>(
+        <div key={item.id}>
+          <img src={item.image} alt={item.name}/>
+          <p>{item.name}</p>
+        </div>
+      ))}
     </Carousel>
   );
 }
 
-export default Carousel1;
+export default GenericCarousel;
