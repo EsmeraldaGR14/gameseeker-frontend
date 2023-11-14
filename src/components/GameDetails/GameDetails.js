@@ -31,15 +31,18 @@ function GameDetails() {
           <label htmlFor="completed">Completed</label>
           <input type="checkbox" id="abandoned" name="abandoned" />
           <label htmlFor="abandoned">Abandoned</label>
-
-          <button onClick={() => console.log("I've been added to the backlog")}>
-            Add to backlog
-          </button>
-          <button
-            onClick={() => console.log("I've been added to the collection")}
-          >
-            Add to collection
-          </button>
+          <div>
+            <button
+              onClick={() => console.log("I've been added to the backlog")}
+            >
+              Add to backlog
+            </button>
+            <button
+              onClick={() => console.log("I've been added to the collection")}
+            >
+              Add to collection
+            </button>
+          </div>
         </div>
         <div className="game-details-title">
           <h1>{game.title}</h1>
