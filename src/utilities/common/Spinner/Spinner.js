@@ -2,7 +2,7 @@ import React from 'react'
 import "./Spinner.css"
 
 function Spinner() {
-  return <div class="pong-loader"></div>;
+  return <div className="pong-loader"></div>;
 }
 
 export default Spinner;
