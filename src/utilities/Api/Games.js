@@ -10,4 +10,9 @@ async function getAllGames() {
   }
 }
 
-export { getAllGames };
+const extractYear = (dateString) => {
+  const date = new Date(dateString);
+  return date.getFullYear();
+};
+
+export { getAllGames, extractYear };

@@ -36,8 +36,10 @@ const SearchBar = () => {
     setSearchInput(query);
     if (query === "") {
       setSearchResults([]);
+      setOverlayVisible(false);
     } else {
       handleSearch(query);
+      setOverlayVisible(true);
     }
   };
 
@@ -59,18 +61,25 @@ const SearchBar = () => {
   }, []);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Search..."
-        value={searchInput}
-        onChange={handleInputChange}
-        ref={searchInputRef}
-        required
-      />
-      <button type="submit">Search</button>
-      {overlayVisible && <SearchResultsOverlay searchResults={searchResults} />}
-    </form>
+    <div className={`box ${overlayVisible ? "overlay-visible" : ""}`}>
+      <form className="search" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchInput}
+          onChange={handleInputChange}
+          ref={searchInputRef}
+          required
+        />
+        <button type="submit">Search</button>
+        {overlayVisible && (
+          <SearchResultsOverlay
+            searchResults={searchResults}
+          />
+        )}
+      </form>
+      <div className="overlay-background"></div>
+    </div>
   );
 };
 

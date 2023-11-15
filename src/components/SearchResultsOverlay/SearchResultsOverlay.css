@@ -1,13 +1,28 @@
+.overlay-background {
+  position: fixed;
+  top: 6%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2); 
+  z-index: 1; 
+  display: none;
+}
+
+.overlay-visible .overlay-background {
+  display: block;
+}
+
 .search-results-overlay {
-  position: fixed; 
-  top: 42px; 
-  left: 400px;
+  position: fixed;
+  top: 6%;
+  left: 23%;
   background-color: #fff;
   border: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 1;
-  max-height: 200px; 
-  overflow-y: auto; 
+  z-index: 2;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 .search-results-list {
@@ -17,9 +32,15 @@
 }
 
 .search-results-item {
+  display: flex;
+  align-items: center;
   padding: 8px 16px;
   cursor: pointer;
   transition: background-color 0.2s;
+}
+
+.boxart {
+  padding-right: 20px;
 }
 
 .search-results-item:hover {
