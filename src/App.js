@@ -12,6 +12,7 @@ function App() {
 
   return (
     <div className="App">
+
       <React.Suspense fallback={<Spinner />}>
         <Router>
           <Navbar />
