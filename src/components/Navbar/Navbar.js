@@ -8,7 +8,7 @@ function Navbar() {
     <nav className="navbar">
       <div className="navbar-icon"></div>
       <div className="navbar-links">
-        <SearchBar/>
+        <SearchBar />
         <NavLink className="navbar-link" to="/">
           Home
         </NavLink>
