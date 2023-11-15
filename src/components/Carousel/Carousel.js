@@ -3,7 +3,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { getTopXGamesAPI } from "../../utilities/Api/Games";
 
-function Carousel1() {
+function GenericCarousel({items}) {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -69,8 +69,9 @@ function Carousel1() {
           <p>{game.name}</p>
         </div>
       ))}  
+
     </Carousel>
   );
 }
 
-export default Carousel1;
+export default GenericCarousel;
