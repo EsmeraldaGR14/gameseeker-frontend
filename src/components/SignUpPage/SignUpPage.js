@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./SignUpPage.css";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 function SignUpPage() {
   const [email, setEmail] = useState("");
@@ -8,7 +8,7 @@ function SignUpPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState('')
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleSignUp = (e) => {
     e.preventDefault();
