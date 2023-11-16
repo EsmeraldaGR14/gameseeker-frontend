@@ -3,9 +3,13 @@ import { Link } from "react-router-dom";
 import { extractYear } from "../../utilities/Api/Games";
 import React from "react";
 
-const SearchResultsOverlay = ({ searchResults }) => {
+const SearchResultsOverlay = ({ searchResults, overlayVisible }) => {
   return (
-    <div className="search-results-overlay">
+    <>
+    {overlayVisible && (
+        <div className="overlay-background"></div>
+      )}
+    <div className={`search-results-overlay ${overlayVisible ? "visible" : ""}`}>
       {searchResults.length > 0 && (
         <ul className="search-results-list">
           {searchResults.map((result) => (
@@ -24,6 +28,7 @@ const SearchResultsOverlay = ({ searchResults }) => {
         </ul>
       )}
     </div>
+    </>
   );
 };
 
