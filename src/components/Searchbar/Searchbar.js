@@ -72,13 +72,15 @@ const SearchBar = () => {
           required
         />
         <button type="submit">Search</button>
+      </form>
+      <div>
         {overlayVisible && (
           <SearchResultsOverlay
             searchResults={searchResults}
+            overlayVisible={overlayVisible}
           />
         )}
-      </form>
-      <div className="overlay-background"></div>
+      </div>
     </div>
   );
 };

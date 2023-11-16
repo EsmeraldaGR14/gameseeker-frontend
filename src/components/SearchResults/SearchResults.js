@@ -27,7 +27,7 @@ function SearchResultsPage() {
         );
       } else if (sortCriteria === "releaseDate") {
         filteredGames.sort((a, b) =>
-          a.release_date.localeCompare(b.release_date)
+          extractYear(a.release_date).toString().localeCompare(extractYear(b.release_date).toString())
         );
       } else if (sortCriteria === "rating") {
         filteredGames.sort((a, b) => a.rating.localeCompare(b.rating));
