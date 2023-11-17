@@ -7,8 +7,20 @@ async function getAllGames() {
     );
     return response.data;
   } catch (error) {
-    console.error("Error fetching games by title:", error);
+    console.log("Error fetching all games:", error);
     throw error;
+  }
+}
+
+async function getXGamesAtATime(data) {
+  try {
+    const response = await Axios.get(
+      "https://gameseeker-2.onrender.com/games/get-x-games-at-a-time",
+      data
+    );
+    return response.data;
+  } catch (error) {
+    console.log("Error fetching x games at a time:", error);
   }
 }
 
@@ -17,4 +29,4 @@ const extractYear = (dateString) => {
   return date.getFullYear();
 };
 
-export { getAllGames, extractYear };
+export { getAllGames, extractYear, getXGamesAtATime };
