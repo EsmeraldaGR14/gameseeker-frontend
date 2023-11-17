@@ -4,10 +4,12 @@ import { getAllGames } from "../../utilities/Api/Games";
 import "./SearchResults.css";
 import { useLocation, Link } from "react-router-dom";
 import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
+import { extractYear } from "../../utilities/helpers/extractYear";
 
 function SearchResultsPage() {
   const [searchResults, setSearchResults] = useState([]);
   const [sortCriteria, setSortCriteria] = useState("relevance");
+  const [selectedSortCriteria, setSelectedSortCriteria] = useState("relevance");
   const [viewType, setViewType] = useState("list");
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -25,7 +27,7 @@ function SearchResultsPage() {
         );
       } else if (sortCriteria === "releaseDate") {
         filteredGames.sort((a, b) =>
-          a.released_year.localeCompare(b.released_year)
+          extractYear(a.release_date).toString().localeCompare(extractYear(b.release_date).toString())
         );
       } else if (sortCriteria === "rating") {
         filteredGames.sort((a, b) => a.rating.localeCompare(b.rating));
@@ -38,13 +40,9 @@ function SearchResultsPage() {
     }
   };
 
-  const extractYear = (dateString) => {
-    const date = new Date(dateString);
-    return date.getFullYear();
-  };
-
   const handleSort = (criteria) => {
     setSortCriteria(criteria);
+    setSelectedSortCriteria(criteria);
     handleSearch(searchQuery);
   };
 
@@ -69,16 +67,32 @@ function SearchResultsPage() {
         <button type="button" onClick={() => handleView("grid")}>
           Grid View
         </button>
-        <button type="button" onClick={() => handleSort("relevance")}>
+        <button
+          type="button"
+          onClick={() => handleSort("relevance")}
+          className={selectedSortCriteria === "relevance" ? "selected" : ""}
+        >
           Relevance
         </button>
-        <button type="button" onClick={() => handleSort("title")}>
+        <button
+          type="button"
+          onClick={() => handleSort("title")}
+          className={selectedSortCriteria === "title" ? "selected" : ""}
+        >
           Title
         </button>
-        <button type="button" onClick={() => handleSort("releaseDate")}>
+        <button
+          type="button"
+          onClick={() => handleSort("releaseDate")}
+          className={selectedSortCriteria === "releaseDate" ? "selected" : ""}
+        >
           Release Date
         </button>
-        <button type="button" onClick={() => handleSort("rating")}>
+        <button
+          type="button"
+          onClick={() => handleSort("rating")}
+          className={selectedSortCriteria === "rating" ? "selected" : ""}
+        >
           Rating
         </button>
       </div>
@@ -105,16 +119,17 @@ function SearchResultsPage() {
           {searchResults.map((game) => (
             <div className="search-results-item" key={game.id}>
               <Link to={`/games/${game.id}`}>
-                <img className="boxart"
+                <img
+                  className="boxart"
                   style={{ height: "10rem" }}
                   src={game.boxart}
                   alt={`${game.title} Box Art`}
                 />
                 <div>
-                <h2>
-                  {game.title} ({extractYear(game.release_date)})
-                </h2>
-                <h3>{game.platforms.join(", ")}</h3>
+                  <h2>
+                    {game.title} ({extractYear(game.release_date)})
+                  </h2>
+                  <h3>{game.platforms.join(", ")}</h3>
                 </div>
               </Link>
             </div>

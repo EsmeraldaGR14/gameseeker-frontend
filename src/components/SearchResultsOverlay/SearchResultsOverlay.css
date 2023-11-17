@@ -1,13 +1,14 @@
 .search-results-overlay {
-  position: fixed; 
-  top: 42px; 
-  left: 400px;
+  position: absolute;
+  top: 5%;
+  left: 23%;
   background-color: #fff;
   border: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 1;
-  max-height: 200px; 
-  overflow-y: auto; 
+  z-index: 3;
+  max-height: 200px;
+  overflow-y: auto;
+  border-radius: 5px;
 }
 
 .search-results-list {
@@ -17,11 +18,27 @@
 }
 
 .search-results-item {
+  display: flex;
+  align-items: center;
   padding: 8px 16px;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
+.boxart {
+  padding-right: 20px;
+}
+
 .search-results-item:hover {
   background-color: #f0f0f0;
+}
+
+.overlay-visible .overlay-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1); 
+  z-index: 1;
 }
