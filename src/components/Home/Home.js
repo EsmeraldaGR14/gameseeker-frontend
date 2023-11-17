@@ -1,12 +1,13 @@
-import React from 'react'
-import Carousel1 from '../Carousel/Carousel'
+import React from "react";
+import Carousel1 from "../Carousel/Carousel";
+import BoxArt from "../BoxArt/BoxArt";
 function Home() {
-  
   return (
     <div class="homepage">
-        <Carousel1/>
+      <BoxArt />
+      <Carousel1 />
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
