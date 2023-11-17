@@ -1,5 +1,6 @@
-import React from "react";
-// import
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { getAllGames } from "../../utilities/Api/Games";
 
 /*
  ** should show a range of 35 games in a page
@@ -8,6 +9,17 @@ import React from "react";
  */
 
 function Catalog() {
+  useEffect(() => {
+    (async function getAllGamesForTheCatalog() {
+      try {
+        let response = await getAllGames();
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+
   return <div></div>;
 }
 
