@@ -5,6 +5,7 @@ async function getAllGames() {
     const response = await Axios.get(
       "https://gameseeker-2.onrender.com/games/games"
     );
+    console.log("getAllGames");
     return response.data;
   } catch (error) {
     console.log("Error fetching all games:", error);
@@ -18,9 +19,11 @@ async function getXGamesAtATime(data) {
       "https://gameseeker-2.onrender.com/games/get-x-games-at-a-time",
       data
     );
+    console.log("getXGamesAtATime", data);
     return response.data;
   } catch (error) {
     console.log("Error fetching x games at a time:", error);
+    return error;
   }
 }
 
