@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import GenericCarousel from '../Carousel/Carousel';
-//import {getLatestGamesAPI} 
+import { getLatestGamesAPI } from '../../utilities/Api/Games';
 
 function LastestGamesCarousel() {
 const [latestGames, setLatestGames] = useState([]);
