@@ -10,4 +10,19 @@ async function getAllGames() {
   }
 }
 
-export { getAllGames };
+async function getLatestGamesAPI() {
+  try {
+    const response = await Axios.get("/games/latest-games");
+   
+    return response.data;
+
+  } catch (error) {
+    console.error("Error fetching games by release date:", error);
+    throw error;
+  } 
+}
+
+
+
+
+export { getAllGames, getLatestGamesAPI };

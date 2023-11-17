@@ -8,7 +8,7 @@ import "./BoxArt.css";
 
 function BoxArt({ image, name, year }) {
   return (
-    <div class="card">
+    <div className="card">
       <img src={image} alt="" height="300px"></img>
       <div>{name}</div>
     </div>

@@ -1,9 +1,11 @@
-import React from "react";
-import Carousel1 from "../Carousel/Carousel";
+import React from 'react'
+// import GenericCarousel from '../Carousel/Carousel'
+import LastestGamesCarousel from '../LatestGames/LastestGames'
+
 function Home() {
   return (
-    <div class="homepage">
-      <Carousel1 />
+    <div className="homepage">
+        <LastestGamesCarousel/>
     </div>
   );
 }
