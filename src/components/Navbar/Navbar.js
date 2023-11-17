@@ -8,7 +8,7 @@ function Navbar() {
     <nav className="navbar">
       <div className="navbar-icon"></div>
       <div className="navbar-links">
-        <SearchBar/>
+        <SearchBar />
         <NavLink className="navbar-link" to="/">
           Home
         </NavLink>
@@ -24,8 +24,11 @@ function Navbar() {
         <NavLink className="navbar-link" to="/help">
           Help
         </NavLink>
-        <NavLink className="navbar-link" to="/account">
-          Sign Up/Login
+        <NavLink className="navbar-link" to="/login">
+          Log In
+        </NavLink>
+        <NavLink className="navbar-link" to="/signup">
+          Sign Up
         </NavLink>
       </div>
     </nav>

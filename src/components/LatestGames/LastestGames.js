@@ -1,25 +1,25 @@
-import React, {useEffect, useState} from 'react';
-import GenericCarousel from '../Carousel/Carousel';
-import { getLatestGamesAPI } from '../../utilities/Api/Games';
+import React, { useEffect, useState } from "react";
+import GenericCarousel from "../Carousel/Carousel";
+import { getLatestGamesAPI } from "../../utilities/Api/Games";
 
 function LastestGamesCarousel() {
-const [latestGames, setLatestGames] = useState([]);
+  const [latestGames, setLatestGames] = useState([]);
 
-useEffect(() => {
+  useEffect(() => {
     const fetchLatestGames = async () => {
-        try {
-            const response = await getLatestGamesAPI();
-            setLatestGames(response.data);
+      try {
+        const response = await getLatestGamesAPI();
 
-        }catch (error) {
-            console.error("Error fetching latest games:", error);
-        }
+        setLatestGames(response);
+      } catch (error) {
+        console.error("Error fetching latest games:", error);
+      }
     };
     fetchLatestGames();
-}, []);
+  }, []);
+  console.log(latestGames);
 
-  return <GenericCarousel items={latestGames}/>
-  
+  return <GenericCarousel items={latestGames} />;
 }
 
 export default LastestGamesCarousel;

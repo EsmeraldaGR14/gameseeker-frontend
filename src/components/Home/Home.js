@@ -3,12 +3,11 @@ import React from 'react'
 import LastestGamesCarousel from '../LatestGames/LastestGames'
 
 function Home() {
-  
   return (
-    <div class="homepage">
+    <div className="homepage">
         <LastestGamesCarousel/>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
