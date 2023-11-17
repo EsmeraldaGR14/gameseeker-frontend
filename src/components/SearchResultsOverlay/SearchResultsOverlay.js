@@ -1,6 +1,6 @@
 import "./SearchResultsOverlay.css";
 import { Link } from "react-router-dom";
-import { extractYear } from "../../utilities/Api/Games";
+import { extractYear } from "../../utilities/helpers/extractYear";
 import React from "react";
 
 const SearchResultsOverlay = ({ searchResults, overlayVisible }) => {

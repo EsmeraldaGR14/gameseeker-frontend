@@ -4,7 +4,7 @@ import { getAllGames } from "../../utilities/Api/Games";
 import "./SearchResults.css";
 import { useLocation, Link } from "react-router-dom";
 import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
-import { extractYear } from "../../utilities/Api/Games";
+import { extractYear } from "../../utilities/helpers/extractYear";
 
 function SearchResultsPage() {
   const [searchResults, setSearchResults] = useState([]);
