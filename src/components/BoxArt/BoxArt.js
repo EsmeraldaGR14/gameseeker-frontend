@@ -1,11 +1,11 @@
 import React from "react";
 import "./BoxArt.css";
 
-function BoxArt({ image, name }) {
+function BoxArt({ boxart, title }) {
   return (
     <div className="card">
-      <img src={image} alt="" height="300px"></img>
-      <div>{name}</div>
+      <img src={boxart} alt="" height="300px"></img>
+      <div>{title}</div>
     </div>
   );
 }

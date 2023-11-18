@@ -49,7 +49,7 @@ function Catalog() {
       <div>
         {games.map(({ id, title, boxart }) => (
           <div key={id}>
-            <BoxArt image={boxart} name={title} />
+            <BoxArt boxart={boxart} title={title} />
           </div>
         ))}
       </div>
