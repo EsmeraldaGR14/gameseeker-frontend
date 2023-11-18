@@ -1,14 +1,9 @@
 import React from "react";
 import "./BoxArt.css";
 
-/* BOX ART COMPONENT
- ** CARD THAT HAS IMAGE, NAME, AND YEAR
- ** HEIGHT FOR IMAGES? 300PX
- */
-
-function BoxArt({ image, name, year }) {
+function BoxArt({ image, name }) {
   return (
-    <div class="card">
+    <div className="card">
       <img src={image} alt="" height="300px"></img>
       <div>{name}</div>
     </div>
