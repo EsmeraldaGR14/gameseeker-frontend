@@ -9,14 +9,17 @@ import { getXGamesAtATime } from "../../utilities/Api/Games";
 
 function Catalog() {
   // I want to make it so that if a user presses next the page will refresh and show the next 25 games and so on and so forth.
+
+  const [games, setGames] = useState([]);
   const [limitAndOffset, setLimitAndOffset] = useState({
     limit: 25,
     offset: 0,
   });
+
   useEffect(() => {
     (async function getAllGamesForTheCatalog() {
       try {
-        let response = await getXGamesAtATime({ limit: 25, offset: 0 });
+        let response = await getXGamesAtATime(limitAndOffset);
 
         console.log(
           "getAllGamesForTheCatalog:",
@@ -30,7 +33,21 @@ function Catalog() {
     })();
   }, [limitAndOffset]);
 
-  return <div></div>;
+  return (
+    <div>
+      <button
+        onClick={() => {
+          let newOffset = limitAndOffset.offset + 25;
+          setLimitAndOffset((prevState) => ({
+            ...prevState,
+            offset: newOffset,
+          }));
+        }}
+      >
+        NEXT
+      </button>
+    </div>
+  );
 }
 
 export default Catalog;
