@@ -17,11 +17,8 @@ async function getXGamesAtATime({ limit, offset }) {
   try {
     const response = await Axios.get(
       `https://gameseeker-2.onrender.com/games/get-x-games-at-a-time?limit=${limit}&offset=${offset}`
-      // data
-      // "localhost:3001/games/get-x-games-at-a-time?limit=10&offset=0&_=" +
-      //   Date.now()
     );
-    console.log("getXGamesAtATime:", response.data);
+    // console.log("getXGamesAtATime:", response.data);
     return response.data;
   } catch (error) {
     console.log("Error fetching x games at a time:", error);

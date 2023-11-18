@@ -37,6 +37,17 @@ function Catalog() {
     <div>
       <button
         onClick={() => {
+          let newOffset = limitAndOffset.offset - 25;
+          setLimitAndOffset((prevState) => ({
+            ...prevState,
+            offset: newOffset,
+          }));
+        }}
+      >
+        BACK
+      </button>
+      <button
+        onClick={() => {
           let newOffset = limitAndOffset.offset + 25;
           setLimitAndOffset((prevState) => ({
             ...prevState,
