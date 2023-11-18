@@ -16,10 +16,12 @@ function Catalog() {
   useEffect(() => {
     (async function getAllGamesForTheCatalog() {
       try {
-        let response = await getXGamesAtATime(limitAndOffset);
+        let response = await getXGamesAtATime({ limit: 25, offset: 0 });
+
         console.log(
-          "getAllGamesForTheCatalog",
+          "getAllGamesForTheCatalog:",
           response.length,
+          response,
           limitAndOffset
         );
       } catch (error) {
