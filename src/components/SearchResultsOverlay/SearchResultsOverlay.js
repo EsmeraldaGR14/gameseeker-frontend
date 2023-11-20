@@ -17,6 +17,7 @@ const SearchResultsOverlay = ({ searchResults, overlayVisible }) => {
               <Link to={`/games/${result.id}`} key={result.id}>
                 <li className="search-results-item">
                   <BoxArt
+                    className="boxart"
                     image={result.boxart}
                     year={extractYear(result.release_date)}
                   />
@@ -26,7 +27,9 @@ const SearchResultsOverlay = ({ searchResults, overlayVisible }) => {
                   src={result.boxart}
                   alt={`${result.title} Box Art`}
                 /> */}
+                <div className="item-details">
                   {result.title} ({extractYear(result.release_date)})
+                  </div>
                 </li>
               </Link>
             ))}
