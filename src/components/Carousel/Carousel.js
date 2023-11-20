@@ -3,7 +3,8 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import BoxArt from "../BoxArt/BoxArt";
 
-function GenericCarousel({ items }) {
+function GenericCarousel({items}) {
+
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -19,6 +20,7 @@ function GenericCarousel({ items }) {
     },
   };
 
+
   return (
     <Carousel
       responsive={responsive}
@@ -26,9 +28,9 @@ function GenericCarousel({ items }) {
       autoPlaySpeed={3000}
       infinite={true}
     >
-      {(items || []).map((item) => (
+      {(items || []).map((item)=>(
         <React.Fragment key={item.id}>
-          <BoxArt image={item.boxart} name={item.title} />
+         <BoxArt image={item.boxart} name={item.title}/>
         </React.Fragment>
       ))}
     </Carousel>
