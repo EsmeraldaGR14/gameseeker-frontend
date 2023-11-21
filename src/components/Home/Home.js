@@ -1,6 +1,6 @@
 import React from 'react'
 // import GenericCarousel from '../Carousel/Carousel'
-import LastestGamesCarousel from '../LatestGames/LastestGames'
+import LastestGamesCarousel from '../LatestGames/LatestGames'
 
 function Home() {
   return (

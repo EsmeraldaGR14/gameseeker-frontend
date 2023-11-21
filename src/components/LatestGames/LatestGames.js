@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import GenericCarousel from "../Carousel/Carousel";
 import { getLatestGamesAPI } from "../../utilities/Api/Games";
 
-function LastestGamesCarousel() {
+function LatestGamesCarousel() {
   const [latestGames, setLatestGames] = useState([]);
 
   useEffect(() => {
@@ -22,4 +22,4 @@ function LastestGamesCarousel() {
   return <GenericCarousel items={latestGames} />;
 }
 
-export default LastestGamesCarousel;
+export default LatestGamesCarousel;
