@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getGameById } from "../Api/API";
+import { getGameById } from "../../utilities/Api/Games";
 import Platform from "./Platform";
 import Genre from "./Genre";
 import Publisher from "./Publisher";
