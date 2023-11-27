@@ -8,6 +8,7 @@ function SignUpPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState('')
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -33,6 +34,10 @@ function SignUpPage() {
     }
 };
 
+const togglePasswordVisibility = () => {
+  setShowPassword(!showPassword);
+};
+
   return (
     <div className="sign-up-container">
       <form className="sign-up-form" onSubmit={handleSignUp}>
@@ -51,6 +56,14 @@ function SignUpPage() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+
+        <button
+          type="button"
+          className="password-toggle"
+          onClick={togglePasswordVisibility}
+        >
+          {showPassword ? "Hide Password" : "Show Password"}
+        </button>
 
         <button type="submit">Sign Up</button>
       </form>

@@ -34,7 +34,7 @@ function SearchResultsPage() {
         filteredGames.sort((a, b) => a.rating.localeCompare(b.rating));
       }
       setSearchResults(filteredGames || []);
-      // console.log(searchResults)
+      console.log(searchResults)
     } catch (error) {
       console.error("Error fetching search results:", error);
       setSearchResults([]);
