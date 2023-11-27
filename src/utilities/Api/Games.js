@@ -36,4 +36,31 @@ async function getLatestGamesAPI() {
   } 
 }
 
+
+async function getGameById(id) {
+  try {
+    let result = await Axios.get(`/games/${id}`);
+
+    return result;
+  } catch (e) {
+    return e;
+  }
+}
+
+
+
 export { getAllGames, getLatestGamesAPI, getXGamesAtATime };
+
+async function getGameById(id) {
+  try {
+    let result = await Axios.get(`/games/${id}`);
+
+    return result;
+  } catch (e) {
+    return e;
+  }
+}
+
+
+
+export { getAllGames, getLatestGamesAPI, getGameById, getXGamesAtATime };
