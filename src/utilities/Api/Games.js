@@ -25,9 +25,18 @@ async function getXGamesAtATime({ limit, offset }) {
   }
 }
 
-const extractYear = (dateString) => {
-  const date = new Date(dateString);
-  return date.getFullYear();
-};
+async function getLatestGamesAPI() {
+  try {
+    const response = await Axios.get("/games/latest-games");
+   
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching games by release date:", error);
+    throw error;
+  } 
+}
 
-export { getAllGames, extractYear, getXGamesAtATime };
+
+
+
+export { getAllGames, getLatestGamesAPI, getXGamesAtATime };

@@ -1,9 +1,15 @@
-import React from "react";
-import Carousel1 from "../Carousel/Carousel";
+import React from 'react'
+// eslint-disable-next-line
+import GenericCarousel from '../Carousel/Carousel'
+import LatestGamesCarousel from '../LatestGames/LatestGames'
+
+
+
 function Home() {
   return (
-    <div class="homepage">
-      <Carousel1 />
+
+    <div className="homepage">
+        <LatestGamesCarousel/>
     </div>
   );
 }

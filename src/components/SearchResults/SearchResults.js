@@ -4,7 +4,8 @@ import { getAllGames } from "../../utilities/Api/Games";
 import "./SearchResults.css";
 import { useLocation, Link } from "react-router-dom";
 import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
-import { extractYear } from "../../utilities/Api/Games";
+import { extractYear } from "../../utilities/helpers/extractYear";
+import BoxArt from "../BoxArt/BoxArt";
 
 function SearchResultsPage() {
   const [searchResults, setSearchResults] = useState([]);
@@ -33,7 +34,7 @@ function SearchResultsPage() {
         filteredGames.sort((a, b) => a.rating.localeCompare(b.rating));
       }
       setSearchResults(filteredGames || []);
-      console.log(searchResults)
+      // console.log(searchResults)
     } catch (error) {
       console.error("Error fetching search results:", error);
       setSearchResults([]);
@@ -118,18 +119,26 @@ function SearchResultsPage() {
         >
           {searchResults.map((game) => (
             <div className="search-results-item" key={game.id}>
-              <Link to={`/games/${game.id}`}>
-                <img
+              <Link to={`/games/${game.id}`} className="item-link">
+                <BoxArt
                   className="boxart"
-                  style={{ height: "10rem" }}
-                  src={game.boxart}
-                  alt={`${game.title} Box Art`}
+                  image={game.boxart}
+                  name={game.title}
+                  year={extractYear(game.release_date)}
                 />
-                <div>
+                <div className="item-details">
                   <h2>
                     {game.title} ({extractYear(game.release_date)})
                   </h2>
-                  <h3>{game.platforms.join(", ")}</h3>
+                  <div className="platforms">
+                    {game.platforms.slice(0, 3).join(", ")}
+                    {game.platforms.length > 3 && (
+                      <span className="additional-platforms">
+                        {" "}
+                        + {game.platforms.length - 3} more
+                      </span>
+                    )}
+                  </div>
                 </div>
               </Link>
             </div>

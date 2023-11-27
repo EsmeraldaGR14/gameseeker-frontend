@@ -1,7 +1,8 @@
 import "./SearchResultsOverlay.css";
 import { Link } from "react-router-dom";
-import { extractYear } from "../../utilities/Api/Games";
+import { extractYear } from "../../utilities/helpers/extractYear";
 import React from "react";
+import BoxArt from "../BoxArt/BoxArt";
 
 const SearchResultsOverlay = ({ searchResults, overlayVisible }) => {
   return (
@@ -15,13 +16,15 @@ const SearchResultsOverlay = ({ searchResults, overlayVisible }) => {
             {searchResults.map((result) => (
               <Link to={`/games/${result.id}`} key={result.id}>
                 <li className="search-results-item">
-                  <img
+
+                  <BoxArt
                     className="boxart"
-                    style={{ height: "5rem" }}
-                    src={result.boxart}
-                    alt={`${result.title} Box Art`}
+                    image={result.boxart}
+                    year={extractYear(result.release_date)}
                   />
+                <div className="item-details">
                   {result.title} ({extractYear(result.release_date)})
+                  </div>
                 </li>
               </Link>
             ))}
