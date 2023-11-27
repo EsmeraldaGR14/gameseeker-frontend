@@ -2,14 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 150px; /* Set the width as needed */
-  height: 200px; /* Set the height as needed */
+  width: 150px; 
+  height: 200px; 
   perspective: 1000px;
 }
 
 img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Maintain the aspect ratio */
+  object-fit: cover; 
   transition: transform 0.5s;
 }
