@@ -13,6 +13,9 @@ const LoginPage = React.lazy(() => import("./components/LoginPage/LoginPage"));
 const SignUpPage = React.lazy(() =>
   import("./components/SignUpPage/SignUpPage")
 );
+const AccountPage = React.lazy(() =>
+  import("./components/AccountPage/AccountPage")
+);
 
 function App() {
   return (
@@ -26,6 +29,7 @@ function App() {
             <Route path="/catalog" element={<Catalog />}></Route>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/account" element={<AccountPage />} />
             <Route path="/404" element={<h1>404 Not Found!</h1>} />
             <Route path="*" element={<h1>404 Not Found!</h1>} />
           </Routes>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./SignUpPage.css";
 import { addUser } from "../../utilities/Api/Users";
-import { useNavigate } from "react-router-dom";
+
 
 function SignUpPage() {
   const [email, setEmail] = useState("");
@@ -9,8 +9,6 @@ function SignUpPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState('')
   const [showPassword, setShowPassword] = useState(false);
-
-  const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -27,7 +25,6 @@ function SignUpPage() {
       } else {
         setError("Sign-up failed. Please check your email and password.");
       }
-      navigate("/");
     } catch (error) {
       console.error("Error signing up:", error);
       setError("An error occurred while signing up.");
@@ -43,14 +40,14 @@ const togglePasswordVisibility = () => {
       <form className="sign-up-form" onSubmit={handleSignUp}>
         <h1>Sign Up</h1>
         <input
-          type="email"
+          type={showPassword ? "text" : "email"}
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
-          type="password"
+          type={showPassword ? "text" : "password"}
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./LoginPage.css";
 import { loginUser } from "../../utilities/Api/Users";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -8,6 +9,8 @@ function LoginPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleLogIn = async (e) => {
     e.preventDefault();
@@ -20,8 +23,11 @@ function LoginPage() {
 
       if (result) {
         setSuccess("Log-in successful!");
+        navigate(`/account?email=${email}`);
       } else {
-        setError("Log-in failed. Please check your email and password.");
+        setError(
+          result.error || "Log-in failed. Please check your email and password."
+        );
       }
     } catch (error) {
       console.error("Error logging in:", error);

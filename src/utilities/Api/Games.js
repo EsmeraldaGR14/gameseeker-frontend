@@ -36,7 +36,4 @@ async function getLatestGamesAPI() {
   } 
 }
 
-
-
-
 export { getAllGames, getLatestGamesAPI, getXGamesAtATime };
