@@ -35,6 +35,22 @@ button {
   justify-content: center;
   border-radius: 50%;
 }
-/* .filter {
-    border: #0c0c0c;
-} */
+.filter span {
+    margin: 0;
+    padding: 16px 4px;
+    min-height: 90px;
+    height: 95px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: .24px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(180deg);
+    writing-mode: vertical-lr;
+   
+    -ms-writing-mode: tb-lr; 
+}
