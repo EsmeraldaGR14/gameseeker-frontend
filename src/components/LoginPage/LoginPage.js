@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import axios from "axios";
 import "./LoginPage.css";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../utilities/Api/Users";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -14,22 +16,26 @@ function LoginPage() {
     e.preventDefault();
     setError(null); 
     try {
+      const result = await loginUser({
+        email,
+        password,
+      });
 
-      if (email === "test@example.com" && password === "password123") {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log("User successfully logged in!");
-      navigate(`/`);
-    } else {
-      throw new Error("Invalid email or password.");
-    }
+      if (result) {
+        setSuccess("Log-in successful!");
+      } else {
+        setError("Log-in failed. Please check your email and password.");
+      }
     } catch (error) {
-      console.error('Error during sign-in:', error);
-      setError(
-      error.message || "Sign-in failed. Please check your email and password."
-    );
-  }
-  setEmail("");
-  setPassword("");
+      console.error("Error logging in:", error);
+      setError("An error occurred while logging in.");
+    }
+    setEmail("");
+    setPassword("");
+};
+
+const togglePasswordVisibility = () => {
+  setShowPassword(!showPassword);
 };
 
   return (
@@ -43,16 +49,24 @@ function LoginPage() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button
+            type="button"
+            className="password-toggle"
+            onClick={togglePasswordVisibility}
+          >
+            {showPassword ? "Hide Password" : "Show Password"}
+          </button>
 
         <button type="submit">Log In</button>
       </form>
+      {success && <p className="success-message">{success}</p>}
       {error && <p className="error-message">{error}</p>}
     </div>
   );

@@ -126,17 +126,19 @@ function SearchResultsPage() {
                   name={game.title}
                   year={extractYear(game.release_date)}
                 />
-                {/* <img
-                  className="boxart"
-                  style={{ height: "10rem" }}
-                  src={game.boxart}
-                  alt={`${game.title} Box Art`}
-                /> */}
                 <div className="item-details">
                   <h2>
                     {game.title} ({extractYear(game.release_date)})
                   </h2>
-                  <h3>{game.platforms.join(", ")}</h3>
+                  <div className="platforms">
+                    {game.platforms.slice(0, 3).join(", ")}
+                    {game.platforms.length > 3 && (
+                      <span className="additional-platforms">
+                        {" "}
+                        + {game.platforms.length - 3} more
+                      </span>
+                    )}
+                  </div>
                 </div>
               </Link>
             </div>

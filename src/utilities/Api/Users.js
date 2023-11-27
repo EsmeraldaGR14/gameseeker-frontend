@@ -10,12 +10,12 @@ async function getAllUsers() {
   }
 }
 
-async function getSingleUser(id) {
+async function loginUser(userData) {
   try {
-    const response = await Axios.get(`users/get-user-by-id/${id}`);
+    const response = await Axios.post("/users/login/", userData);
     return response.data;
   } catch (error) {
-    console.error("Error fetching user", error);
+    console.error("Error logging user in", error);
     throw error;
   }
 }
@@ -50,4 +50,4 @@ async function deleteUser(id) {
   }
 }
 
-export { getAllUsers, getSingleUser, updateUser, addUser, deleteUser };
+export { getAllUsers, loginUser, updateUser, addUser, deleteUser };

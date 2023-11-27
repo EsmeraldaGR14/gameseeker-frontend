@@ -26,7 +26,7 @@ function SignUpPage() {
       } else {
         setError("Sign-up failed. Please check your email and password.");
       }
-      (navigate("/"));
+      navigate("/");
     } catch (error) {
       console.error("Error signing up:", error);
       setError("An error occurred while signing up.");

@@ -21,12 +21,6 @@ const SearchResultsOverlay = ({ searchResults, overlayVisible }) => {
                     image={result.boxart}
                     year={extractYear(result.release_date)}
                   />
-                  {/* <img
-                  className="boxart"
-                  style={{ height: "5rem" }}
-                  src={result.boxart}
-                  alt={`${result.title} Box Art`}
-                /> */}
                 <div className="item-details">
                   {result.title} ({extractYear(result.release_date)})
                   </div>
