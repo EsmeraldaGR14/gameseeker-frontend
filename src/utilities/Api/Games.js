@@ -15,7 +15,6 @@ async function getLatestGamesAPI() {
     const response = await Axios.get("/games/latest-games");
    
     return response.data;
-
   } catch (error) {
     console.error("Error fetching games by release date:", error);
     throw error;
