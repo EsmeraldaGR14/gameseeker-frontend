@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./LoginPage.css";
-import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../utilities/Api/Users";
 
 function LoginPage() {
@@ -9,8 +8,6 @@ function LoginPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
-  const navigate = useNavigate();
 
   const handleLogIn = async (e) => {
     e.preventDefault();
