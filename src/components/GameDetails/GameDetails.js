@@ -12,7 +12,7 @@ function GameDetails() {
 
   useEffect(() => {
     fetchGameById();
-  }, []);
+  },);
 
   async function fetchGameById() {
     try {
@@ -29,7 +29,7 @@ function GameDetails() {
     <>
       <div className="game-container">
         <div className="game-details-boxart">
-          <img src={game.boxart} />
+          <img src={game.boxart} alt="boxart"/>
           <div>
             <input type="checkbox" id="completed" name="completed" />
             <label htmlFor="completed">Completed</label>
