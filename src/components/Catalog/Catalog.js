@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getXGamesAtATime, getAllGames } from "../../utilities/Api/Games";
 import BoxArt from "../BoxArt/BoxArt";
+import "./Catalog.css";
 
 /*
- ** should show a range of 25 games in a page
- ** NEXT button
  ** filters
  */
 
@@ -44,11 +43,12 @@ function Catalog() {
       }
     })();
   }, [limitAndOffset]);
+
   return (
-    <div>
-      <div>
+    <div className="container">
+      <div className="grid-container">
         {games.map(({ id, title, boxart }) => (
-          <div key={id}>
+          <div key={id} className="boxart-container">
             <BoxArt boxart={boxart} title={title} />
           </div>
         ))}
@@ -81,7 +81,7 @@ function Catalog() {
                 offset: newOffset,
               }));
               window.scrollTo({
-                top: 100,
+                top: 0,
                 behavior: "smooth",
               });
             }}
