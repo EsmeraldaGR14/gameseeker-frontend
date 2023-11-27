@@ -2,6 +2,7 @@
 import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import GameDetails from "./components/GameDetails/GameDetails";
 import Spinner from "./utilities/common/Spinner/Spinner";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
@@ -23,6 +24,7 @@ function App() {
             <Route path="/searchresults" element={<SearchResultsPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/games/:id" element={<GameDetails />}/>
             <Route path="/404" element={<h1>404 Not Found!</h1>} />
             <Route path="*" element={<h1>404 Not Found!</h1>} />
           </Routes>
