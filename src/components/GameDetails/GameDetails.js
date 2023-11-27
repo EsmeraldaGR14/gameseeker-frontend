@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getGameById } from "../Api/API";
+import Platform from "./Platform";
+import Genre from "./Genre";
+import Publisher from "./Publisher";
 import "./game.css";
 
 function GameDetails() {
@@ -20,17 +23,30 @@ function GameDetails() {
       console.log(error);
     }
   }
+  function practice() {
+    let platform = game.platforms;
+    let string = " ";
+    for (let i = 0; i < platform.length; i++) {
+      const element = platform[i];
+      if (i === platform.length - 1) {
+        string += element;
+      } else string += element + ", ";
+    }
+    return { string };
+  }
 
   return (
     <>
       <div className="game-container">
         <div className="game-details-boxart">
-          <p>{game.boxart}</p>
+          <img src={game.boxart} />
+          <div>
+            <input type="checkbox" id="completed" name="completed" />
+            <label htmlFor="completed">Completed</label>
+            <input type="checkbox" id="abandoned" name="abandoned" />
+            <label htmlFor="abandoned">Abandoned</label>
+          </div>
 
-          <input type="checkbox" id="completed" name="completed" />
-          <label htmlFor="completed">Completed</label>
-          <input type="checkbox" id="abandoned" name="abandoned" />
-          <label htmlFor="abandoned">Abandoned</label>
           <div>
             <button
               onClick={() => console.log("I've been added to the backlog")}
@@ -46,10 +62,10 @@ function GameDetails() {
         </div>
         <div className="game-details-title">
           <h1>{game.title}</h1>
-          <p>({game.released_year})</p>
-          <p>{game.publisher}</p>
-          <p>{game.platform}</p>
-          <p>{game.genre}</p>
+          {game.publishers && <Publisher publisher={game.publishers}/>}
+          <p>{game.esrb}</p>
+          {game.platforms && <Platform platform={game.platforms} />}
+          {game.genres && <Genre genre={game.genres} />}
           <p>About: {game.description}</p>
         </div>
         <div className="game-details-subscription">
