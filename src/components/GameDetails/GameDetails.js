@@ -23,17 +23,7 @@ function GameDetails() {
       console.log(error);
     }
   }
-  function practice() {
-    let platform = game.platforms;
-    let string = " ";
-    for (let i = 0; i < platform.length; i++) {
-      const element = platform[i];
-      if (i === platform.length - 1) {
-        string += element;
-      } else string += element + ", ";
-    }
-    return { string };
-  }
+  
 
   return (
     <>
