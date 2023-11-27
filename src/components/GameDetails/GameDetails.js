@@ -12,7 +12,7 @@ function GameDetails() {
 
   useEffect(() => {
     fetchGameById();
-  },);
+  });
 
   async function fetchGameById() {
     try {
