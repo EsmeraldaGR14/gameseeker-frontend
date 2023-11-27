@@ -16,6 +16,7 @@ const SearchResultsOverlay = ({ searchResults, overlayVisible }) => {
             {searchResults.map((result) => (
               <Link to={`/games/${result.id}`} key={result.id}>
                 <li className="search-results-item">
+
                   <BoxArt
                     className="boxart"
                     image={result.boxart}
