@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Modular";
+    src: url("../Font-assets/Modulario.ttf");
+}
+
 .navbar {
     display: flex;
     justify-content: center;
@@ -7,8 +12,33 @@
 }
 
 .navbar-links {
-    display: flex;
-    justify-content: space-between;
+   display: flex;
+    justify-content: space-evenly; /* Use space-evenly for even spacing */
+    align-items:center; /* Align items vertically at the center */
     max-width: 600px;
     width: 100%;
+    font-family: "Modular", monospace;
+    color: white;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.navbar-links a {
+    text-decoration: none;
+    color: white;
+    margin-left: 3px;
+    margin-right: 15px;
+}
+
+.navbar-links a:hover{
+    color: #FF0BFF
+}
+
+.navbar-links a:active-link {
+    color: #00FFFF
+}
+.navbar-logo img{
+max-width: 400px; 
+max-height: 200px; 
+align-items: flex-start;
 }
