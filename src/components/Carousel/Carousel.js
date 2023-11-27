@@ -4,6 +4,7 @@ import "react-multi-carousel/lib/styles.css";
 import BoxArt from "../BoxArt/BoxArt";
 
 function GenericCarousel({ items }) {
+
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },

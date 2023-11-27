@@ -34,12 +34,12 @@ const SearchBar = () => {
   const handleInputChange = (e) => {
     const query = e.target.value;
     setSearchInput(query);
-    if (query === "") {
-      setSearchResults([]);
-      setOverlayVisible(false);
-    } else {
+    if (query.length >= 3) {
       handleSearch(query);
       setOverlayVisible(true);
+    } else {
+      setSearchResults([]);
+      setOverlayVisible(false);
     }
   };
 

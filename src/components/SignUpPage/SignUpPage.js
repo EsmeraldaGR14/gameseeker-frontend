@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./SignUpPage.css";
-// import { useNavigate } from "react-router-dom";
+import { addUser } from "../../utilities/Api/Users";
+import { useNavigate } from "react-router-dom";
 
 function SignUpPage() {
   const [email, setEmail] = useState("");
@@ -8,18 +9,28 @@ function SignUpPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState('')
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     setError(null);
-    if (email !== "" && password !== "") {
-      setSuccess("User successfully signed up!");
-      setEmail("");
-      setPassword("");
-    } else {
-      setError("Sign-up failed. Please check your email and password.");
-    } 
+
+    try {
+      const result = await addUser({
+        email,
+        password,
+      });
+
+      if (result) {
+        setSuccess("Sign-up successful!");
+      } else {
+        setError("Sign-up failed. Please check your email and password.");
+      }
+      navigate("/");
+    } catch (error) {
+      console.error("Error signing up:", error);
+      setError("An error occurred while signing up.");
+    }
 };
 
   return (
@@ -53,4 +64,4 @@ function SignUpPage() {
 }
 
 
-export default SignUpPage
+export default SignUpPage;

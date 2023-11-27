@@ -1,12 +1,21 @@
 .card {
-  /* align-self: stretch; */
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
   justify-content: flex-start;
-  width: 275px;
+  width: 200px;
   margin: 5px 10px;
   padding: 5px 5px;
   /* background: linear-gradient(180deg, #11181f, rgba(17, 24, 31, 0)); */
   border-radius: 16px;
+/*   width: 150px;  */
+  height: 200px; 
+  perspective: 1000px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  transition: transform 0.5s;
 }
