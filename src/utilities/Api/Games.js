@@ -1,5 +1,4 @@
 import AxiosInstance from "./Axios";
-import Axios from "./Axios";
 
 async function getAllGames() {
   try {
