@@ -3,7 +3,7 @@ import Axios from "./Axios";
 async function getAllGames() {
   try {
     const response = await Axios.get(
-      "https://gameseeker-2.onrender.com/games/games"
+      "https://gameseeker-2.onrender.com/games"
     );
     console.log("getAllGames");
     return response.data;
