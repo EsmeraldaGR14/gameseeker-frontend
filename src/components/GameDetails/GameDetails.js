@@ -6,15 +6,16 @@ import Platform from "./Platform";
 import Genre from "./Genre";
 import Publisher from "./Publisher";
 import "./game.css";
-import { addGameToCollection } from "../../utilities/Api/Collection"
-import { useUser } from "../UserContext"
+import { addGameToCollection } from "../../utilities/Api/Collection";
+import { addGameToBacklog } from "../../utilities/Api/Backlog";
+import { useUser } from "../UserContext";
 
 function GameDetails() {
   const { id } = useParams();
   const [game, setGame] = useState([]);
   const { user } = useUser();
   const [success, setSuccess] = useState("");
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetchGameById();
@@ -30,24 +31,34 @@ function GameDetails() {
     }
   }
 
-   const handleAddToCollection = async () => {
-     try {
-       await addGameToCollection(user.id, id);
-       setSuccess("Game successfully added to collection!");
-     } catch (error) {
-       console.error("Error adding game to collection:", error);
-       setError("Game not added to collection.");
-     }
-   };
+  const handleAddToCollection = async () => {
+    try {
+      await addGameToCollection(user.id, id);
+      setSuccess("Game successfully added to collection!");
+    } catch (error) {
+      console.error("Error adding game to collection:", error);
+      setError("Game not added to collection.");
+    }
+  };
 
-   useEffect(() => {
-     const timer = setTimeout(() => {
-       setSuccess("");
-       setError("");
-     }, 5000);
+  async function handleAddToBacklog() {
+    try {
+      await addGameToBacklog(user.id, id);
+      setSuccess("Game successfully added to backlog!");
+    } catch (error) {
+      console.error("Error adding game to backlog:", error);
+      setError("Game not added to backlog.");
+    }
+  }
 
-     return () => clearTimeout(timer);
-   }, [success, error]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSuccess("");
+      setError("");
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [success, error]);
 
   return (
     <>
@@ -62,11 +73,10 @@ function GameDetails() {
           </div>
 
           <div>
-            <button
-              onClick={() => console.log("I've been added to the backlog")}
-            >
-              Add to backlog
-            </button>
+            <button onClick={handleAddToBacklog}>Add to backlog</button>
+            {success && <p className="success-message">{success}</p>}
+
+            {error && <p className="error-message">{error}</p>}
             <button onClick={handleAddToCollection}>Add to collection</button>
             {success && <p className="success-message">{success}</p>}
 
