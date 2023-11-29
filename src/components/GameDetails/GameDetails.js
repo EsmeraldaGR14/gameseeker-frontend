@@ -5,14 +5,19 @@ import Platform from "./Platform";
 import Genre from "./Genre";
 import Publisher from "./Publisher";
 import "./game.css";
+import { addGameToCollection } from "../../utilities/Api/Collection"
+import { useUser } from "../UserContext"
 
 function GameDetails() {
   const { id } = useParams();
   const [game, setGame] = useState([]);
+  const { user } = useUser();
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("")
 
   useEffect(() => {
     fetchGameById();
-  });
+  }, []);
 
   async function fetchGameById() {
     try {
@@ -23,13 +28,32 @@ function GameDetails() {
       console.log(error);
     }
   }
+
+   const handleAddToCollection = async () => {
+     try {
+       await addGameToCollection(user.id, id);
+       setSuccess("Game successfully added to collection!");
+     } catch (error) {
+       console.error("Error adding game to collection:", error);
+       setError("Game not added to collection.");
+     }
+   };
+
+   useEffect(() => {
+     const timer = setTimeout(() => {
+       setSuccess("");
+       setError("");
+     }, 5000);
+
+     return () => clearTimeout(timer);
+   }, [success, error]);
   
 
   return (
     <>
       <div className="game-container">
         <div className="game-details-boxart">
-          <img src={game.boxart} alt="boxart"/>
+          <img src={game.boxart} alt="boxart" />
           <div>
             <input type="checkbox" id="completed" name="completed" />
             <label htmlFor="completed">Completed</label>
@@ -43,16 +67,15 @@ function GameDetails() {
             >
               Add to backlog
             </button>
-            <button
-              onClick={() => console.log("I've been added to the collection")}
-            >
-              Add to collection
-            </button>
+            <button onClick={handleAddToCollection}>Add to collection</button>
+            {success && <p className="success-message">{success}</p>}
+
+            {error && <p className="error-message">{error}</p>}
           </div>
         </div>
         <div className="game-details-title">
           <h1>{game.title}</h1>
-          {game.publishers && <Publisher publisher={game.publishers}/>}
+          {game.publishers && <Publisher publisher={game.publishers} />}
           <p>{game.esrb}</p>
           {game.platforms && <Platform platform={game.platforms} />}
           {game.genres && <Genre genre={game.genres} />}

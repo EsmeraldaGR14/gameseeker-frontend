@@ -12,7 +12,7 @@ async function getAllUsers() {
 
 async function loginUser(userData) {
   try {
-    const response = await Axios.post("/users/login/", userData);
+    const response = await Axios.post("/users/login", userData);
     return response.data;
   } catch (error) {
     console.error("Error logging user in", error);
@@ -22,7 +22,7 @@ async function loginUser(userData) {
 
 async function addUser(userData) {
   try {
-    const response = await Axios.post("/users/add-user/", userData);
+    const response = await Axios.post("/users/add-user", userData);
     return response.data;
   } catch (error) {
     console.error("Error adding user", error);

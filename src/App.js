@@ -2,6 +2,7 @@
 import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { UserProvider } from "./components/UserContext";
 import GameDetails from "./components/GameDetails/GameDetails";
 import Spinner from "./utilities/common/Spinner/Spinner";
 import Navbar from "./components/Navbar/Navbar";
@@ -22,20 +23,22 @@ function App() {
   return (
     <div className="App">
       <React.Suspense fallback={<Spinner />}>
-        <Router>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/searchresults" element={<SearchResultsPage />} />
-            <Route path="/catalog" element={<Catalog />}></Route>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/account" element={<AccountPage />} />
-            <Route path="/games/:id" element={<GameDetails />}/>
-            <Route path="/404" element={<h1>404 Not Found!</h1>} />
-            <Route path="*" element={<h1>404 Not Found!</h1>} />
-          </Routes>
-        </Router>
+        <UserProvider>
+          <Router>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/searchresults" element={<SearchResultsPage />} />
+              <Route path="/catalog" element={<Catalog />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
+              <Route path="/account" element={<AccountPage />} />
+              <Route path="/games/:id" element={<GameDetails />} />
+              <Route path="/404" element={<h1>404 Not Found!</h1>} />
+              <Route path="*" element={<h1>404 Not Found!</h1>} />
+            </Routes>
+          </Router>
+        </UserProvider>
       </React.Suspense>
     </div>
   );
