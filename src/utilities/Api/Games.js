@@ -1,10 +1,8 @@
-import Axios from "./Axios";
+import AxiosInstance from "./Axios";
 
 async function getAllGames() {
   try {
-    const response = await Axios.get(
-      "https://gameseeker-2.onrender.com/games"
-    );
+    const response = await AxiosInstance.get("/games");
     console.log("getAllGames");
     return response.data;
   } catch (error) {
@@ -15,8 +13,8 @@ async function getAllGames() {
 
 async function getXGamesAtATime({ limit, offset }) {
   try {
-    const response = await Axios.get(
-      `https://gameseeker-2.onrender.com/games/get-x-games-at-a-time?limit=${limit}&offset=${offset}`
+    const response = await AxiosInstance.get(
+      `/games/get-x-games-at-a-time?limit=${limit}&offset=${offset}`
     );
     return response.data;
   } catch (error) {
@@ -27,7 +25,7 @@ async function getXGamesAtATime({ limit, offset }) {
 
 async function getLatestGamesAPI() {
   try {
-    const response = await Axios.get("/games/latest-games");
+    const response = await AxiosInstance.get("/games/latest-games");
 
     return response.data;
   } catch (error) {
@@ -38,9 +36,7 @@ async function getLatestGamesAPI() {
 
 async function getGameById(id) {
   try {
-    const response = await Axios.get(
-      `https://gameseeker-2.onrender.com/games/${id}`
-    );
+    const response = await AxiosInstance.get(`/games/${id}`);
 
     return response.data;
   } catch (e) {
