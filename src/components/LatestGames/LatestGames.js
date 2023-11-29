@@ -9,7 +9,8 @@ function LatestGamesCarousel() {
     const fetchLatestGames = async () => {
       try {
         const response = await getLatestGamesAPI();
-        setLatestGames(response.data);
+        setLatestGames(response);
+        console.log(response);
       } catch (error) {
         console.error("Error fetching latest games:", error);
       }
