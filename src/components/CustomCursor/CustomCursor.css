@@ -1,0 +1,13 @@
+
+
+.custom-cursor {
+ position: fixed;
+  width: 40px;
+  height: 40px;
+  background: url("../Font-assets/icons8-map-pin-50.png") no-repeat center;
+  background-size: contain;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  
+}

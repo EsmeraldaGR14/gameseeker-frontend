@@ -28,19 +28,21 @@ async function getXGamesAtATime({ limit, offset }) {
 async function getLatestGamesAPI() {
   try {
     const response = await Axios.get("/games/latest-games");
-   
+
     return response.data;
   } catch (error) {
     console.error("Error fetching games by release date:", error);
     throw error;
-  } 
+  }
 }
 
 async function getGameById(id) {
   try {
-    let result = await Axios.get(`/games/${id}`);
+    const response = await Axios.get(
+      `https://gameseeker-2.onrender.com/games/${id}`
+    );
 
-    return result;
+    return response.data;
   } catch (e) {
     return e;
   }
