@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getGameById } from "../../utilities/Api/Games";
@@ -12,24 +13,23 @@ function GameDetails() {
 
   useEffect(() => {
     fetchGameById();
-  });
+  }, []);
 
   async function fetchGameById() {
     try {
       let result = await getGameById(id);
-      console.log(result.data[0]);
-      setGame(result.data[0]);
+      console.log("this is result:", result);
+      setGame(result[0]);
     } catch (error) {
       console.log(error);
     }
   }
-  
 
   return (
     <>
       <div className="game-container">
         <div className="game-details-boxart">
-          <img src={game.boxart} alt="boxart"/>
+          <img src={game.boxart} alt="boxart" />
           <div>
             <input type="checkbox" id="completed" name="completed" />
             <label htmlFor="completed">Completed</label>
@@ -52,7 +52,7 @@ function GameDetails() {
         </div>
         <div className="game-details-title">
           <h1>{game.title}</h1>
-          {game.publishers && <Publisher publisher={game.publishers}/>}
+          {game.publishers && <Publisher publisher={game.publishers} />}
           <p>{game.esrb}</p>
           {game.platforms && <Platform platform={game.platforms} />}
           {game.genres && <Genre genre={game.genres} />}

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getXGamesAtATime, getAllGames } from "../../utilities/Api/Games";
 import BoxArt from "../BoxArt/BoxArt";
 import "./Catalog.css";
@@ -14,6 +15,8 @@ function Catalog() {
     limit: 25,
     offset: 0,
   });
+
+  let navigate = useNavigate();
 
   useEffect(() => {
     (async function fetchAllGames() {
@@ -36,7 +39,7 @@ function Catalog() {
         //   "limitAndOffset:",
         //   limitAndOffset.offset
         // );
-        console.log(response[0]);
+        console.log(response.length);
         setGames(response);
       } catch (error) {
         console.log(error);
@@ -48,8 +51,14 @@ function Catalog() {
     <div className="container">
       <div className="grid-container">
         {games.map(({ id, title, boxart }) => (
-          <div key={id} className="boxart-container">
-            <BoxArt boxart={boxart} title={title} />
+          <div
+            key={id}
+            className="boxart-container"
+            onClick={() => {
+              navigate(`/games/${id}`);
+            }}
+          >
+            <BoxArt image={boxart} name={title} />
           </div>
         ))}
       </div>
