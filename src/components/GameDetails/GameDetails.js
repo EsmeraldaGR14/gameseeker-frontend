@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getGameById } from "../../utilities/Api/Games";
@@ -22,8 +23,8 @@ function GameDetails() {
   async function fetchGameById() {
     try {
       let result = await getGameById(id);
-      console.log(result.data[0]);
-      setGame(result.data[0]);
+      console.log("this is result:", result);
+      setGame(result[0]);
     } catch (error) {
       console.log(error);
     }
@@ -47,7 +48,6 @@ function GameDetails() {
 
      return () => clearTimeout(timer);
    }, [success, error]);
-  
 
   return (
     <>
