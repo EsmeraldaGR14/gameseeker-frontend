@@ -30,10 +30,12 @@ function GenericCarousel({ items }) {
       infinite={true}
     >
       {itemsArray.map((item) => {
-        const imageUrl = item.boxart;
+        const imageUrl = item?.boxart;
+        const itemID = item?.id;
+        const itemTitle = item?.title
         return (
-          <React.Fragment key={item.id}>
-            <BoxArt image={imageUrl} name={item.title} />
+          <React.Fragment key={itemID}>
+            <BoxArt image={imageUrl} name={itemTitle} />
           </React.Fragment>
         );
       })}
