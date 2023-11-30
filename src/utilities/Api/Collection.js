@@ -2,7 +2,7 @@ import Axios from "./Axios";
 
 async function getGameCollection(userId) {
   try {
-    const response = await Axios.get(`collection/${userId}`);
+    const response = await Axios.get(`/collection/${userId}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching collection", error);
@@ -12,7 +12,7 @@ async function getGameCollection(userId) {
 
 async function addGameToCollection(userId, gameId) {
   try {
-    const response = await Axios.post(`collection/${userId}/${gameId}`);
+    const response = await Axios.post(`/collection/${userId}/${gameId}`);
     return response.data;
   } catch (error) {
     console.error("Error adding game to collection", error);
@@ -22,7 +22,7 @@ async function addGameToCollection(userId, gameId) {
 
 async function deleteGameFromCollection(userId, gameId) {
   try {
-    const response = await Axios.delete(`collection/${userId}/${gameId}`);
+    const response = await Axios.delete(`/collection/${userId}/${gameId}`);
     return response.data;
   } catch (error) {
     console.error("Error deleting game from collection", error);

@@ -21,7 +21,7 @@ function SignUpPage() {
       });
 
       if (result) {
-        setSuccess("Sign-up successful!");
+        setSuccess("Sign-up successful! Try logging in.");
       } else {
         setError("Sign-up failed. Please check your email and password.");
       }

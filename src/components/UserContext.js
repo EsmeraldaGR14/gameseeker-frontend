@@ -22,16 +22,16 @@ export const UserProvider = ({ children }) => {
     try {
       const response = await loginUser(userData);
 
-      const { id, email } = response;
+      const { id } = response;
 
-      setUser({ isLoggedIn: true, id, email });
+      setUser({ isLoggedIn: true, id });
     } catch (error) {
       console.error("Error logging user in", error);
     }
   };
 
   const logout = () => {
-    setUser({ isLoggedIn: false, id: null, email: null });
+    setUser({ isLoggedIn: false, id: null });
   };
 
   return (

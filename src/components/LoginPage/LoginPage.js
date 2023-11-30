@@ -26,7 +26,7 @@ function LoginPage() {
 
       // Login successful
       setSuccess("Log-in successful!");
-      navigate("/account");
+      // navigate("/account");
     } catch (error) {
       console.error("Error logging in:", error);
       setError(
