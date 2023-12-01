@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import BoxArt from "../BoxArt/BoxArt";
@@ -34,7 +35,9 @@ function GenericCarousel({ items }) {
         const itemTitle = item?.title
         return (
           <React.Fragment key={itemID}>
-            <BoxArt image={imageUrl} name={itemTitle} />
+            <Link to={`/games/${itemID}`}>
+              <BoxArt image={imageUrl} name={itemTitle} />
+            </Link>
           </React.Fragment>
         );
       })}
