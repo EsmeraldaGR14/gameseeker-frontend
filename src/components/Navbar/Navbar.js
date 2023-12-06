@@ -8,12 +8,11 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-icon"></div>
-
+      <div className="navbar-logo">
+        <img src={logoImage} alt="Logo" />
+      </div>
+      <SearchBar />
       <div className="navbar-links">
-        <div className="navbar-logo">
-          <img src={logoImage} alt="Logo" />
-        </div>
-        <SearchBar />
         <NavLink className="navbar-link" activeClassName="active-link" to="/">
           HOME
         </NavLink>
@@ -50,14 +49,14 @@ function Navbar() {
           activeClassName="active-link"
           to="/login"
         >
-          LOG IN
+          LOG&nbsp;IN
         </NavLink>
         <NavLink
           className="navbar-link"
           activeClassName="active-link"
           to="/signup"
         >
-          SIGN UP
+          SIGN&nbsp;UP
         </NavLink>
       </div>
     </nav>
