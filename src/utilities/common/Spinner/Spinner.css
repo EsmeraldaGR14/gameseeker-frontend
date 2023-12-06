@@ -27,13 +27,13 @@
 
 @keyframes paddles {
   0% {
-    box-shadow: -25px -10px 0px black, 25px 10px 0px black;
+    box-shadow: -25px -10px 0px #5e17eb, 25px 10px 0px #5e17eb;
   }
   50% {
-    box-shadow: -25px 8px 0px black, 25px -10px 0px black;
+    box-shadow: -25px 8px 0px #5e17eb, 25px -10px 0px #5e17eb;
   }
   100% {
-    box-shadow: -25px -10px 0px black, 25px 10px 0px black;
+    box-shadow: -25px -10px 0px #5e17eb, 25px 10px 0px #5e17eb;
   }
 }
 

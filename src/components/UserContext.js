@@ -21,12 +21,13 @@ export const UserProvider = ({ children }) => {
   const login = async (userData) => {
     try {
       const response = await loginUser(userData);
-
+      console.log("Login successful. Response:", response);
       const { id } = response;
 
       setUser({ isLoggedIn: true, id });
     } catch (error) {
       console.error("Error logging user in", error);
+      throw error;
     }
   };
 

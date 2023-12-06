@@ -10,34 +10,40 @@ function LoginPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleLogIn = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setError(null);
 
     try {
-      // Use the login function from the useUser context
+      
       await login({
         email,
         password,
       });
 
-      // Login successful
+      
       setSuccess("Log-in successful!");
-      // navigate("/account");
+      navigate("/account")
     } catch (error) {
-      console.error("Error logging in:", error);
+      
       setError(
         error.response?.data.error ||
           "Log-in failed. Please check your email and password."
       );
+      console.error("Error logging in:", error);
+    } finally {
+      setLoading(false);
     }
 
     setEmail("");
     setPassword("");
   };
+
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -69,10 +75,13 @@ function LoginPage() {
           {showPassword ? "Hide Password" : "Show Password"}
         </button>
 
-        <button type="submit">Log In</button>
+        <button type="submit" disabled={loading}>
+          Log In
+        </button>
       </form>
-      {success && <p className="success-message">{success}</p>}
-      {error && <p className="error-message">{error}</p>}
+      {loading && <p>Logging in</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      {success && <p style={{ color: "green" }}>{success}</p>}
     </div>
   );
 }

@@ -2,33 +2,46 @@ import React, { useState } from "react";
 import "./SignUpPage.css";
 import { addUser } from "../../utilities/Api/Users";
 
-
 function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState('')
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setError(null);
 
-    try {
-      const result = await addUser({
-        email,
-        password,
-      });
+  if (password.length < 8 || password.length > 16) {
+    setError("Password must be between 8 and 16 characters long.");
+    setLoading(false);
+    return;
+  }
 
-      if (result) {
-        setSuccess("Sign-up successful! Try logging in.");
-      } else {
-        setError("Sign-up failed. Please check your email and password.");
-      }
-    } catch (error) {
-      console.error("Error signing up:", error);
-      setError("An error occurred while signing up.");
-    }
+  try {
+    await addUser({
+      email,
+      password,
+    });
+
+    
+    setSuccess("Sign-up successful! Try logging in.");
+    
+  } catch (error) {
+    console.error("Error signing up:", error);
+    setError(
+      error.response?.data.error ||
+        "Sign-up failed. Please check your email and password."
+    );
+  } finally {
+    setLoading(false);
+  }
+
+  setEmail("");
+  setPassword("");
 };
 
 const togglePasswordVisibility = () => {
@@ -62,13 +75,13 @@ const togglePasswordVisibility = () => {
           {showPassword ? "Hide Password" : "Show Password"}
         </button>
 
-        <button type="submit">Sign Up</button>
+        <button type="submit" disabled={loading}>
+          Sign Up
+        </button>
       </form>
-      {success ? (
-        <p className="success-message">{success}</p>
-      ) : (
-        error && <p className="error-message">{error}</p>
-      )}
+      {loading && <p>Signing up</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      {success && <p style={{ color: "green" }}>{success}</p>}
     </div>
   );
 }
