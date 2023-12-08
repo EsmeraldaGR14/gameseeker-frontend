@@ -6,7 +6,27 @@
 .grid-container {
   /* background-color: brown; */
   display: grid;
-
+  gap: 10px;
   grid-template-columns: repeat(5, 1fr);
   margin: 10px 30px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .grid-container {
+    display: grid;
+    gap: 10px;
+
+    grid-template-columns: repeat(3, 1fr);
+    margin: 10px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .grid-container {
+    display: grid;
+    gap: 5px;
+
+    grid-template-columns: repeat(1, 1fr);
+    margin: 5px;
+  }
 }
