@@ -49,12 +49,16 @@ function AccountPage() {
     }
   }, [user]);
 
-  const handleDeleteConfirmation = (gameId) => {
-    setShowConfirmation(true);
-    setGameToDelete(gameId);
+  const handleDelete = async (gameId, deleteCallback) => {
+    try {
+      await deleteCallback(gameId);
+      setShowConfirmation(false);
+    } catch (error) {
+      console.error("Error deleting game", error);
+    }
   };
 
-  const handleDeleteCancel = () => {
+  const handleCloseConfirmation = () => {
     setShowConfirmation(false);
     setGameToDelete(null);
   };
@@ -94,7 +98,9 @@ function AccountPage() {
         {games.map((game) => (
           <li key={game.id}>
             <Link to={`/games/${game.id}`}>{game.title}</Link>
-            <button onClick={() => handleDeleteConfirmation(game.id)}>
+            <button onClick={() => {
+              setShowConfirmation(true);
+              setGameToDelete(game)}}>
               Delete
             </button>
           </li>
@@ -119,7 +125,19 @@ function AccountPage() {
           <h2>Wishlist ({wishlist.length})</h2>
           {renderGameList(wishlist, handleDeleteFromWishlist)}
         </div>
-        
+        {showConfirmation && (
+          <div className="confirmation-modal">
+            <p>Are you sure you want to delete "{gameToDelete.title}"?</p>
+            <button
+              onClick={() =>
+                handleDelete(gameToDelete?.id, handleDeleteFromCollection)
+              }
+            >
+              Yes
+            </button>
+            <button onClick={handleCloseConfirmation}>No</button>
+          </div>
+        )}
       </div>
       <div className="account-actions">
         <button>Edit Profile</button>
