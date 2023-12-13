@@ -64,7 +64,7 @@ function GameDetails() {
     <>
       <div className="game-container">
         <div className="game-details-boxart">
-          <img src={game.boxart} alt="boxart" />
+          <img className="boxart-img" src={game.boxart} alt="boxart" />
           <div>
             <input type="checkbox" id="completed" name="completed" />
             <label htmlFor="completed">Completed</label>
@@ -74,9 +74,6 @@ function GameDetails() {
 
           <div>
             <button onClick={handleAddToBacklog}>Add to backlog</button>
-            {success && <p className="success-message">{success}</p>}
-
-            {error && <p className="error-message">{error}</p>}
             <button onClick={handleAddToCollection}>Add to collection</button>
             {success && <p className="success-message">{success}</p>}
 
@@ -102,9 +99,9 @@ function GameDetails() {
             </section>
           </article>
 
-          <div className="rating-circle">
+          {/* <div className="rating-circle">
             <p>{game.rating}</p>
-          </div>
+          </div> */}
         </div>
       </div>
     </>
