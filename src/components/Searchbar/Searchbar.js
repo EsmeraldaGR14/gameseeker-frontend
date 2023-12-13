@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllGames } from "../../utilities/Api/Games";
 import SearchResultsOverlay from "../SearchResultsOverlay/SearchResultsOverlay";
+import "../Searchbar/Searchbar.css";
+import searchButtonIcon from "../Font-assets/icons8-search.svg"
 
 const SearchBar = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -61,9 +63,10 @@ const SearchBar = () => {
   }, []);
 
   return (
-    <div className={`box ${overlayVisible ? "overlay-visible" : ""}`}>
+    <div className={`search-container ${overlayVisible ? "overlay-visible" : ""}`}>
       <form className="search" onSubmit={handleSubmit}>
         <input
+          className="search-input"
           type="text"
           placeholder="Search..."
           value={searchInput}
@@ -71,7 +74,9 @@ const SearchBar = () => {
           ref={searchInputRef}
           required
         />
-        <button type="submit">Search</button>
+        <button className="search-submit" type="submit" aria-label="search submit">
+          <img src={searchButtonIcon} alt=""/>
+        </button>
       </form>
       <div>
         {overlayVisible && (
