@@ -24,10 +24,6 @@ function Navbar() {
 
   return (
     <nav className={`navbar ${isMenuOpen ? "open" : ""}`}>
-      <div className="navbar-logo">
-        <img className="brand-logo" src={logoImage} alt="Logo" />
-      </div>
-      <SearchBar />
       <div className="navbar-links">
         <NavLink to="/" className="navbar-logo">
           <img src={logoImage} alt="Logo" />
