@@ -1,0 +1,12 @@
+:root{
+    --z-mobile-menu: 9999;
+}
+
+
+.App{
+    cursor: url(icons8-map-pin-50.png), auto;
+}
+
+a,a:visited,a:active,a:hover, button,button:hover {
+    cursor: url(icons8-map-pin-50.png), auto;
+}

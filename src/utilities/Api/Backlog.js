@@ -2,7 +2,7 @@ import Axios from "./Axios";
 
 async function getGameBacklog(userId) {
   try {
-    const response = await Axios.get(`backlog/${userId}`);
+    const response = await Axios.get(`/backlog/${userId}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching backlog", error);
@@ -12,7 +12,7 @@ async function getGameBacklog(userId) {
 
 async function addGameToBacklog(userId, gameId) {
   try {
-    const response = await Axios.post(`backlog/${userId}/${gameId}`);
+    const response = await Axios.post(`/backlog/${userId}/${gameId}`);
     return response.data;
   } catch (error) {
     console.error("Error adding game to backlog", error);
@@ -22,7 +22,7 @@ async function addGameToBacklog(userId, gameId) {
 
 async function deleteGameFromBacklog(userId, gameId) {
   try {
-    const response = await Axios.delete(`backlog/${userId}/${gameId}`);
+    const response = await Axios.delete(`/backlog/${userId}/${gameId}`);
     return response.data;
   } catch (error) {
     console.error("Error deleting game from backlog", error);

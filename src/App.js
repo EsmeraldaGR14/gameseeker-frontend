@@ -8,9 +8,13 @@ import Spinner from "./utilities/common/Spinner/Spinner";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
 import Catalog from "./components/Catalog/Catalog";
-import CustomCursor from "./components/CustomCursor/CustomCursor";
+
+
 import Backlog from "./components/Backlog/Backlog";
 import Collection from "./components/Collection/Collection";
+
+// import CustomCursor from "./components/CustomCursor/CustomCursor";
+
 const SearchResultsPage = React.lazy(() =>
   import("./components/SearchResults/SearchResults")
 );
@@ -25,7 +29,7 @@ const AccountPage = React.lazy(() =>
 function App() {
   return (
     <div className="App">
-      <CustomCursor/>
+      {/* <CustomCursor/> */}
       <React.Suspense fallback={<Spinner />}>
         <UserProvider>
           <Router>
@@ -51,3 +55,4 @@ function App() {
 }
 
 export default App;
+ 

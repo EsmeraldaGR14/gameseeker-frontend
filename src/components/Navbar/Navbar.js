@@ -1,64 +1,99 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import SearchBar from "../Searchbar/Searchbar";
 import logoImage from "../Font-assets/GameSeekerLogo.png";
+import hamburgerMenu from "../Font-assets/icons8-hamburger-menu.svg";
+import closeHamburgerMenu from "../Font-assets/icons8-x-96.png";
+import { useUser } from "../UserContext";
 
 function Navbar() {
-  return (
-    <nav className="navbar">
-      <div className="navbar-icon"></div>
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, logout } = useUser();
+  const navigate = useNavigate();
 
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+
+  return (
+    <nav className={`navbar ${isMenuOpen ? "open" : ""}`}>
       <div className="navbar-links">
-        <div className="navbar-logo">
+        <NavLink to="/" className="navbar-logo">
           <img src={logoImage} alt="Logo" />
-        </div>
+        </NavLink>
         <SearchBar />
-        <NavLink className="navbar-link" activeClassName="active-link" to="/">
+        <NavLink className="navbar-link" activeclassname="active-link" to="/">
           HOME
         </NavLink>
         <NavLink
           className="navbar-link"
-          activeClassName="active-link"
+          activeclassname="active-link"
           to="/catalog"
         >
-          GAMES
+          CATALOG
         </NavLink>
         <NavLink
           className="navbar-link"
-          activeClassName="active-link"
+          activeclassname="active-link"
           to="/collection"
         >
           COLLECTION
         </NavLink>
         <NavLink
           className="navbar-link"
-          activeClassName="active-link"
+          activeclassname="active-link"
           to="/backlog"
         >
           BACKLOG
         </NavLink>
         <NavLink
           className="navbar-link"
-          activeClassName="active-link"
+          activeclassname="active-link"
           to="/help"
         >
           HELP
         </NavLink>
-        <NavLink
-          className="navbar-link"
-          activeClassName="active-link"
-          to="/login"
-        >
-          LOG IN
-        </NavLink>
-        <NavLink
-          className="navbar-link"
-          activeClassName="active-link"
-          to="/signup"
-        >
-          SIGN UP
-        </NavLink>
+        {user.isLoggedIn ? (
+          <>
+            <NavLink
+              className="navbar-link"
+              activeclassname="active-link"
+              to="/account"
+            >
+              ACCOUNT
+            </NavLink>
+            <button className="navbar-link" onClick={handleLogout}>
+              LOG OUT
+            </button>
+          </>
+        ) : (
+          <>
+            <NavLink
+              className="navbar-link"
+              activeclassname="active-link"
+              to="/login"
+            >
+              LOG IN
+            </NavLink>
+            <NavLink
+              className="navbar-link"
+              activeclassname="active-link"
+              to="/signup"
+            >
+              SIGN UP
+            </NavLink>
+          </>
+        )}
+      </div>
+      <div className="navbar-icon" onClick={toggleMenu}>
+        <img className="burger-menu" src={isMenuOpen ? closeHamburgerMenu : hamburgerMenu } alt="" />
       </div>
     </nav>
   );

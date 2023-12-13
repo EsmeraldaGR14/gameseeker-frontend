@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getXGamesAtATime, getAllGames } from "../../utilities/Api/Games";
 import BoxArt from "../BoxArt/BoxArt";
+import Spinner from "../../utilities/common/Spinner/Spinner";
 import "./Catalog.css";
 
 /*
@@ -10,6 +11,7 @@ import "./Catalog.css";
 
 function Catalog() {
   const [games, setGames] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [allGamesLength, setAllGamesLength] = useState(0);
   const [limitAndOffset, setLimitAndOffset] = useState({
     limit: 25,
@@ -30,24 +32,49 @@ function Catalog() {
     })();
   }, []);
 
-  useEffect(() => {
-    (async function getAllGamesForTheCatalog() {
-      try {
-        let response = await getXGamesAtATime(limitAndOffset);
+  // useEffect(() => {
+  //   (async function getAllGamesForTheCatalog() {
+  //     try {
+  //       let response = await getXGamesAtATime(limitAndOffset);
 
-        // console.log(
-        //   "limitAndOffset:",
-        //   limitAndOffset.offset
-        // );
-        console.log(response.length);
-        setGames(response);
+  //       // console.log(
+  //       //   "limitAndOffset:",
+  //       //   limitAndOffset.offset
+  //       // );
+  //       console.log(response.length);
+  //       setGames(response);
+  //       setLoading(true);
+  //     } catch (error) {
+  //       console.log(error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   })();
+  // }, [limitAndOffset]);
+
+  useEffect(() => {
+    const getAllGamesForTheCatalog = async () => {
+      try {
+        // Simulate a loading state with a delay of 3 seconds
+        setLoading(true);
+        setTimeout(async () => {
+          let response = await getXGamesAtATime(limitAndOffset);
+          console.log(response.length);
+          setGames(response);
+          setLoading(false);
+        }, 2000); // 3000 milliseconds (3 seconds)
       } catch (error) {
         console.log(error);
+        setLoading(false);
       }
-    })();
+    };
+
+    getAllGamesForTheCatalog();
   }, [limitAndOffset]);
 
-  return (
+  return loading ? (
+    <Spinner />
+  ) : (
     <div className="container">
       <div className="grid-container">
         {games.map(({ id, title, boxart }) => (

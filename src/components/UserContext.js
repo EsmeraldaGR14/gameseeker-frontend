@@ -21,21 +21,22 @@ export const UserProvider = ({ children }) => {
   const login = async (userData) => {
     try {
       const response = await loginUser(userData);
+      console.log("Login successful. Response:", response);
+      const { id } = response;
 
-      const { id, email } = response;
-
-      setUser({ isLoggedIn: true, id, email });
+      setUser({ isLoggedIn: true, id });
     } catch (error) {
       console.error("Error logging user in", error);
+      throw error;
     }
   };
 
   const logout = () => {
-    setUser({ isLoggedIn: false, id: null, email: null });
+    setUser({ isLoggedIn: false, id: null });
   };
 
   return (
-    <UserContext.Provider value={{ user, login, logout }}>
+    <UserContext.Provider value={{ user, login, logout, setUser }}>
       {children}
     </UserContext.Provider>
   );
