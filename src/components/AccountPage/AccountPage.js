@@ -15,6 +15,7 @@ import {
   getGameWishlist,
   deleteGameFromWishlist,
 } from "../../utilities/Api/Wishlist";
+import UpdateProfileForm from "../UpdateProfileForm/UpdateProfileForm";
 
 function AccountPage() {
   const { user } = useUser();
@@ -24,6 +25,15 @@ function AccountPage() {
   const [wishlist, setWishlist] = useState([]);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [gameToDelete, setGameToDelete] = useState(null);
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  const handleEditProfile = () => {
+    setIsEditMode(true);
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditMode(false);
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -92,6 +102,7 @@ function AccountPage() {
       console.error("Error deleting game from wishlist", error);
     }
   };
+  
   const renderGameList = (games, handleDelete) => {
     return (
       <ul>
@@ -112,35 +123,48 @@ function AccountPage() {
   return (
     <div className="account-page-container">
       <h1>Welcome, {userData?.[0]?.email || "User"}!</h1>
-      <div className="account-details">
-        <div>
-          <h2>Collection ({collection.length})</h2>
-          {renderGameList(collection, handleDeleteFromCollection)}
+      {isEditMode ? (
+        <div className="account-edit-container">
+          <UpdateProfileForm
+            userData={userData}
+            onCancelEdit={handleCancelEdit}
+            email={""}
+            password={""}
+          />
         </div>
-        <div>
-          <h2>Backlog ({backlog.length})</h2>
-          {renderGameList(backlog, handleDeleteFromBacklog)}
-        </div>
-        <div>
-          <h2>Wishlist ({wishlist.length})</h2>
-          {renderGameList(wishlist, handleDeleteFromWishlist)}
-        </div>
-        {showConfirmation && (
-          <div className="confirmation-modal">
-            <p>Are you sure you want to delete "{gameToDelete.title}"?</p>
-            <button
-              onClick={() =>
-                handleDelete(gameToDelete?.id, handleDeleteFromCollection)
-              }
-            >
-              Yes
-            </button>
-            <button onClick={handleCloseConfirmation}>No</button>
+      ) : (
+        <div className="account-details">
+          <div>
+            <h2>Collection ({collection.length})</h2>
+            {renderGameList(collection, handleDeleteFromCollection)}
           </div>
-        )}
-      </div>
+          <div>
+            <h2>Backlog ({backlog.length})</h2>
+            {renderGameList(backlog, handleDeleteFromBacklog)}
+          </div>
+          <div>
+            <h2>Wishlist ({wishlist.length})</h2>
+            {renderGameList(wishlist, handleDeleteFromWishlist)}
+          </div>
+          {showConfirmation && (
+            <div className="confirmation-modal">
+              <p>Are you sure you want to delete "{gameToDelete.title}"?</p>
+              <button
+                onClick={() =>
+                  handleDelete(gameToDelete?.id, handleDeleteFromCollection)
+                }
+              >
+                Yes
+              </button>
+              <button onClick={handleCloseConfirmation}>No</button>
+            </div>
+          )}
+        </div>
+      )}
       <div className="account-actions">
-        <button>Edit Profile</button>
+        <button onClick={handleEditProfile}>
+          {isEditMode ? "Cancel Edit" : "Edit Profile"}
+        </button>
         <button>Change Password</button>
       </div>
     </div>
