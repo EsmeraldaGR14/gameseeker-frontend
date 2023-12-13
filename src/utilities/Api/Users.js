@@ -2,10 +2,20 @@ import Axios from "./Axios";
 
 async function getAllUsers() {
   try {
-    const response = await Axios.get("users/get-all-users");
+    const response = await Axios.get("/users/get-all-users");
     return response.data;
   } catch (error) {
     console.error("Error fetching users", error);
+    throw error;
+  }
+}
+
+async function getUserById(id) {
+  try {
+    const response = await Axios.get(`/users/get-user-by-id/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user", error);
     throw error;
   }
 }
@@ -42,7 +52,7 @@ async function updateUser(id, userData) {
 
 async function deleteUser(id) {
   try {
-    const response = await Axios.delete(`users/delete-user/${id}`);
+    const response = await Axios.delete(`/users/delete-user/${id}`);
     return response.data;
   } catch (error) {
     console.error("Error deleting user", error);
@@ -50,4 +60,4 @@ async function deleteUser(id) {
   }
 }
 
-export { getAllUsers, loginUser, updateUser, addUser, deleteUser };
+export { getAllUsers, loginUser, updateUser, addUser, deleteUser, getUserById };
