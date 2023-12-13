@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import SearchBar from "../Searchbar/Searchbar";
 import logoImage from "../Font-assets/GameSeekerLogo.png";
 import hamburgerMenu from "../Font-assets/icons8-hamburger-menu.svg";
 import closeHamburgerMenu from "../Font-assets/icons8-x-96.png";
+import { useUser } from "../UserContext";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
