@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 //import { useParams } from "react-router-dom";
 import { useUser } from "../UserContext";
 import { getGameBacklog } from "../../utilities/Api/Backlog";
@@ -9,6 +10,7 @@ function Backlog() {
   const { user } = useUser();
   const [game, setGame] = useState([]);
   // const { id } = useParams();
+  let navigate = useNavigate();
 
   useEffect(() => {
     getBacklogById();
@@ -29,9 +31,14 @@ function Backlog() {
       <h1>Backlog</h1>
       <div className="container">
         <div className="backlog-container">
-          {game.map(({ boxart }) => {
+          {game.map(({ boxart, id }) => {
             return (
-              <div>
+              <div
+                key={id}
+                onClick={() => {
+                  navigate(`/games/${id}`);
+                }}
+              >
                 <img src={boxart} alt="boxart" className="boxart-image" />
               </div>
             );

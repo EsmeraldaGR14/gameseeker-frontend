@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useUser } from "../UserContext";
 import { getGameCollection } from "../../utilities/Api/Collection";
 import "./collection.css";
@@ -7,6 +8,8 @@ import "./collection.css";
 function Collection() {
   const { user } = useUser();
   const [game, setGame] = useState([]);
+
+  let navigate = useNavigate();
 
   useEffect(() => {
     getCollectionById();
@@ -25,9 +28,14 @@ function Collection() {
       <h1>Collection</h1>
       <div className="container">
         <div className="collection-container">
-          {game.map(({ boxart }) => {
+          {game.map(({ boxart,id }) => {
             return (
-              <div>
+              <div
+                key={id}
+                onClick={() => {
+                  navigate(`/games/${id}`);
+                }}
+              >
                 <img src={boxart} alt="boxart" className="boxart-image" />
               </div>
             );

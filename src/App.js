@@ -8,10 +8,10 @@ import Spinner from "./utilities/common/Spinner/Spinner";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
 import Catalog from "./components/Catalog/Catalog";
-
-import Backlog from "./components/Backlog/Backlog";
-import Collection from "./components/Collection/Collection";
+import Backlog from "./components/Backlog/BacklogPage";
+import Collection from "./components/Collection/CollectionPage";
 import Footer from "./components/Footer/Footer";
+
 
 // import CustomCursor from "./components/CustomCursor/CustomCursor";
 

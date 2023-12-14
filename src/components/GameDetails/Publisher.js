@@ -6,7 +6,11 @@ function Publisher({ publisher }) {
          index === publisher.length - 1 ? element : element + ", "
        )
        .join("");
-  return <p>Publisher: {string}</p>;
+  return (
+    <p>
+      <strong>Publisher:</strong> {string}
+    </p>
+  );
 }
 
 export default Publisher;

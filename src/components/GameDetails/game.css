@@ -1,10 +1,13 @@
 .game-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  margin: 15px 75px;
 }
 
 .boxart-img {
-    width: 250px;
+  padding: 25px;
+  width: 250px;
+  height: auto;
 }
 
 .game-details-boxart {
@@ -13,9 +16,13 @@
 .game-details-title {
   padding: 16px;
 }
+/* h1 {
+    font-family: HK Modular;
+} */
 .game-details-subscription {
   padding: 16px;
 }
+
 button {
   background-color: #5e17eb;
   color: white;
@@ -23,6 +30,7 @@ button {
   cursor: pointer;
   border: none;
   border-radius: 52px;
+  gap: 50px;
 }
 .rating-circle {
   width: 30px;
@@ -34,22 +42,34 @@ button {
   justify-content: center;
   border-radius: 50%;
 }
+
+/* .filter {
+  display: inline-block
+} */
+
 .filter span {
-    margin: 0;
-    padding: 16px 4px;
-    min-height: 90px;
-    height: 95px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 100%;
-    letter-spacing: .24px;
-    text-transform: uppercase;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: rotate(180deg);
-    writing-mode: vertical-lr;
-   
-    -ms-writing-mode: tb-lr; 
+  margin: 0;
+  padding: 16px 4px;
+  min-height: 90px;
+  height: 95px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0.24px;
+  text-transform: uppercase;
+  flex-shrink: 0;
 }
+
+/* .filter p{
+  display: inline-block;
+} */
+
+.filter img {
+  width: 50px;
+  margin: 5px;
+}
+/* transform: rotate(180deg); */
+
+/* writing-mode: vertical-lr; -ms-writing-mode: tb-lr;  display: flex;
+    align-items: center;
+    justify-content: center;*/
