@@ -16,6 +16,7 @@ import {
   deleteGameFromWishlist,
 } from "../../utilities/Api/Wishlist";
 import UpdateProfileForm from "../UpdateProfileForm/UpdateProfileForm";
+import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
 
 function AccountPage() {
   const { user } = useUser();
@@ -103,16 +104,20 @@ function AccountPage() {
     }
   };
   
-  const renderGameList = (games, handleDelete) => {
+  const renderGameList = (games) => {
     return (
       <ul>
         {games.map((game) => (
           <li key={game.id}>
             <Link to={`/games/${game.id}`}>{game.title}</Link>
-            <button onClick={() => {
-              setShowConfirmation(true);
-              setGameToDelete(game)}}>
-              Delete
+            <button
+              className="trash-can"
+              onClick={() => {
+                setShowConfirmation(true);
+                setGameToDelete(game);
+              }}
+            >
+              &#x274C;
             </button>
           </li>
         ))}
@@ -122,50 +127,56 @@ function AccountPage() {
 
   return (
     <div className="account-page-container">
-      <h1>Welcome, {userData?.[0]?.email || "User"}!</h1>
-      {isEditMode ? (
-        <div className="account-edit-container">
-          <UpdateProfileForm
-            userData={userData}
-            onCancelEdit={handleCancelEdit}
-            email={""}
-            password={""}
-          />
-        </div>
-      ) : (
-        <div className="account-details">
-          <div>
-            <h2>Collection ({collection.length})</h2>
-            {renderGameList(collection, handleDeleteFromCollection)}
-          </div>
-          <div>
-            <h2>Backlog ({backlog.length})</h2>
-            {renderGameList(backlog, handleDeleteFromBacklog)}
-          </div>
-          <div>
-            <h2>Wishlist ({wishlist.length})</h2>
-            {renderGameList(wishlist, handleDeleteFromWishlist)}
-          </div>
-          {showConfirmation && (
-            <div className="confirmation-modal">
-              <p>Are you sure you want to delete "{gameToDelete.title}"?</p>
-              <button
-                onClick={() =>
-                  handleDelete(gameToDelete?.id, handleDeleteFromCollection)
-                }
-              >
-                Yes
-              </button>
-              <button onClick={handleCloseConfirmation}>No</button>
-            </div>
-          )}
-        </div>
-      )}
-      <div className="account-actions">
-        <button onClick={handleEditProfile}>
+      <div className="sidebar">
+        <button
+          className="edit-profile-button"
+          onClick={isEditMode ? handleCancelEdit : handleEditProfile}
+        >
           {isEditMode ? "Cancel Edit" : "Edit Profile"}
         </button>
-        <button>Change Password</button>
+        <button className="delete-profile-button">Delete Profile</button>
+      </div>
+      <div className="main-content">
+        <h1>Welcome, {userData?.[0]?.email || "User"}!</h1>
+        {isEditMode ? (
+          <div className="account-edit-container">
+            <UpdateProfileForm
+              userData={userData}
+              onCancelEdit={handleCancelEdit}
+              email={""}
+              password={""}
+            />
+          </div>
+        ) : (
+          <div className="account-details">
+            <div className="account-collection-container">
+              <h2>&#x1F3AE; Collection ({collection.length})</h2>
+              {renderGameList(collection, handleDeleteFromCollection)}
+            </div>
+            <div className="account-backlog-container">
+              <h2>&#x1F4CB; Backlog ({backlog.length})</h2>
+              {renderGameList(backlog, handleDeleteFromBacklog)}
+            </div>
+            <div className="account-wishlist-container">
+              <h2>&#x2661; Wishlist ({wishlist.length})</h2>
+              {renderGameList(wishlist, handleDeleteFromWishlist)}
+            </div>
+            {showConfirmation && (
+              <div className="confirmation-modal">
+                <p>Are you sure you want to delete "{gameToDelete.title}"?</p>
+                <button
+                  onClick={() =>
+                    handleDelete(gameToDelete?.id, handleDeleteFromCollection)
+                  }
+                >
+                  Yes
+                </button>
+                <button onClick={handleCloseConfirmation}>No</button>
+              </div>
+            )}
+          </div>
+        )}
+        <ScrollButton />
       </div>
     </div>
   );

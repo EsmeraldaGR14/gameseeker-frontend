@@ -26,7 +26,7 @@ function Navbar() {
     <nav className={`navbar ${isMenuOpen ? "open" : ""}`}>
       <div className="navbar-links">
         <NavLink to="/" className="navbar-logo">
-          <img src={logoImage} alt="Logo" />
+          <img className="brand-logo" src={logoImage} alt="Logo" />
         </NavLink>
         <SearchBar />
         <NavLink className="navbar-link" activeclassname="active-link" to="/">
@@ -53,13 +53,13 @@ function Navbar() {
         >
           BACKLOG
         </NavLink>
-        <NavLink
+        {/* <NavLink
           className="navbar-link"
           activeclassname="active-link"
           to="/help"
         >
           HELP
-        </NavLink>
+        </NavLink> */}
         {user.isLoggedIn ? (
           <>
             <NavLink
@@ -69,9 +69,14 @@ function Navbar() {
             >
               ACCOUNT
             </NavLink>
-            <button className="navbar-link" onClick={handleLogout}>
+            <NavLink
+              className="navbar-link"
+              activeclassname="active-link"
+              onClick={handleLogout}
+              to="/"
+            >
               LOG OUT
-            </button>
+            </NavLink>
           </>
         ) : (
           <>
@@ -93,7 +98,11 @@ function Navbar() {
         )}
       </div>
       <div className="navbar-icon" onClick={toggleMenu}>
-        <img className="burger-menu" src={isMenuOpen ? closeHamburgerMenu : hamburgerMenu } alt="" />
+        <img
+          className="burger-menu"
+          src={isMenuOpen ? closeHamburgerMenu : hamburgerMenu}
+          alt=""
+        />
       </div>
     </nav>
   );
