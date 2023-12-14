@@ -6,6 +6,7 @@ function Home() {
     <div className="homepage">
       <h2>Latest Games</h2>
       <LatestGamesCarousel />
+      <h2>Backlog</h2>
       <BacklogCarousel />
     </div>
   );
