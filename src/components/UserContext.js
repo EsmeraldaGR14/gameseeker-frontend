@@ -8,7 +8,6 @@ export const UserProvider = ({ children }) => {
   const storedUser = JSON.parse(localStorage.getItem("user")) || {
     isLoggedIn: false,
     userId: null,
-    email: null,
   };
 
   const [user, setUser] = useState(storedUser);

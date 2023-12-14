@@ -11,7 +11,7 @@ function SearchResultsPage() {
   const [searchResults, setSearchResults] = useState([]);
   const [sortCriteria, setSortCriteria] = useState("relevance");
   const [selectedSortCriteria, setSelectedSortCriteria] = useState("relevance");
-  const [viewType, setViewType] = useState("list");
+  const [viewType, setViewType] = useState("grid");
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const searchQuery = searchParams.get("query");
@@ -30,8 +30,8 @@ function SearchResultsPage() {
         filteredGames.sort((a, b) =>
           extractYear(a.release_date).toString().localeCompare(extractYear(b.release_date).toString())
         );
-      } else if (sortCriteria === "rating") {
-        filteredGames.sort((a, b) => a.rating.localeCompare(b.rating));
+      // } else if (sortCriteria === "rating") {
+      //   filteredGames.sort((a, b) => a.rating.localeCompare(b.rating));
       }
       setSearchResults(filteredGames || []);
       console.log(searchResults)
@@ -89,13 +89,13 @@ function SearchResultsPage() {
         >
           Release Date
         </button>
-        <button
+        {/* <button
           type="button"
           onClick={() => handleSort("rating")}
           className={selectedSortCriteria === "rating" ? "selected" : ""}
         >
           Rating
-        </button>
+        </button> */}
       </div>
       <div
         className={`search-results ${
