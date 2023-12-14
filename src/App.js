@@ -9,9 +9,9 @@ import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
 import Catalog from "./components/Catalog/Catalog";
 
-
 import Backlog from "./components/Backlog/Backlog";
 import Collection from "./components/Collection/Collection";
+import Footer from "./components/Footer/Footer";
 
 // import CustomCursor from "./components/CustomCursor/CustomCursor";
 
@@ -41,12 +41,13 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/account" element={<AccountPage />} />
-              <Route path="/backlog" element={<Backlog/>}/>
+              <Route path="/backlog" element={<Backlog />} />
               <Route path="/games/:id" element={<GameDetails />} />
-              <Route path="/collection" element={<Collection/>}/>
+              <Route path="/collection" element={<Collection />} />
               <Route path="/404" element={<h1>404 Not Found!</h1>} />
               <Route path="*" element={<h1>404 Not Found!</h1>} />
             </Routes>
+            <Footer />
           </Router>
         </UserProvider>
       </React.Suspense>
@@ -55,4 +56,3 @@ function App() {
 }
 
 export default App;
- 
