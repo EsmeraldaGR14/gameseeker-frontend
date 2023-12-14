@@ -25,7 +25,7 @@ function GenericCarousel({ items }) {
   return (
     <Carousel
       responsive={responsive}
-      autoPlay={false}
+      autoPlay={true}
       autoPlaySpeed={3000}
       infinite={true}
     >
