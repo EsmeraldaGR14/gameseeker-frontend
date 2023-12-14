@@ -10,8 +10,8 @@ import Home from "./components/Home/Home";
 import Catalog from "./components/Catalog/Catalog";
 
 
-import Backlog from "./components/Backlog/Backlog";
-import Collection from "./components/Collection/Collection";
+import Backlog from "./components/Backlog/BacklogPage";
+import Collection from "./components/Collection/CollectionPage";
 
 // import CustomCursor from "./components/CustomCursor/CustomCursor";
 
