@@ -31,6 +31,7 @@ const SearchBar = () => {
     e.preventDefault();
     navigate(`/searchresults?query=${searchInput}`);
     setOverlayVisible(false);
+    setSearchInput("")
   };
 
   const handleInputChange = (e) => {

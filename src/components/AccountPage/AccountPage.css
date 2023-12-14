@@ -1,0 +1,105 @@
+.account-page-container {
+  display: flex;
+  /* align-items: center;
+  justify-content: center;
+  min-height: 100vh; */
+}
+
+.sidebar {
+  width: 150px; 
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.edit-profile-button {
+  margin-bottom: 10px; 
+}
+
+.main-content {
+  display: flex;
+  justify-content: center;
+  gap: 20px; 
+  flex-direction: column;
+}
+
+.account-edit-container {
+  flex: 1;
+  background-color: #5E17EB;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.account-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.collection-container,
+.backlog-container {
+  flex: 1;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;
+  color: white;
+  width: 250px
+}
+
+.wishlist-container {
+  flex: 1;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;
+  color: black;
+  width: 250px
+}
+
+.collection-container {
+  background-color: #5E17EB;
+}
+
+.backlog-container {
+  background-color: #FF0BFF;
+}
+
+.wishlist-container {
+  background-color: #00ffff;
+}
+
+.collection-container ul,
+.backlog-container ul,
+.wishlist-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: white;
+}
+
+.collection-container a,
+.backlog-container a,
+.wishlist-container a {
+  text-decoration: none;
+  color: white;
+}
+
+.collection-container li,
+.backlog-container li,
+.wishlist-container li {
+  margin-bottom: 10px;
+  color: white;
+}
+
+.trash-can {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 10px;
+}
+
+.confirmation-modal button {
+    margin-right: 10px;
+}

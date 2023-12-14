@@ -1,7 +1,7 @@
 .search-results-overlay {
   position: absolute;
-  top: 5%;
-  left: 23%;
+  top: 75%;
+  left: 10%;
   background-color: #fff;
   border: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -28,6 +28,8 @@
 
 .search-results-item .item-details {
   text-decoration: none;
+  color: black;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .card-boxart {
