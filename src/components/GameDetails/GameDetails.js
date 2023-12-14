@@ -7,7 +7,7 @@ import Genre from "./Genre";
 import Publisher from "./Publisher";
 import PlaystationLogo from "../Font-assets/icons8-playstation-logo-48.png";
 import XboxLogo from "../Font-assets/icons8-xbox-48.png";
-import SteamLogo from "../Font-assets/icons8-steam-48.png";
+//import SteamLogo from "../Font-assets/icons8-steam-48.png";
 import "./game.css";
 import { addGameToCollection } from "../../utilities/Api/Collection";
 import { addGameToBacklog } from "../../utilities/Api/Backlog";
@@ -78,10 +78,14 @@ function GameDetails() {
         <div className="game-details-title">
           <h1>{game.title}</h1>
           {game.publishers && <Publisher publisher={game.publishers} />}
-          <p>{game.esrb}</p>
+          <p>
+            <strong>{game.esrb}</strong>
+          </p>
           {game.platforms && <Platform platform={game.platforms} />}
           {game.genres && <Genre genre={game.genres} />}
-          <p>About: {game.description}</p>
+          <p>
+            <strong>About:</strong> {game.description}
+          </p>
         </div>
         <div className="game-details-subscription">
           <article>
@@ -94,7 +98,8 @@ function GameDetails() {
               <img src={XboxLogo} alt="logo" />
             </section>
             <div className="single-page-button">
-              <button onClick={handleAddToBacklog}>Add to backlog</button>{"   "}
+              <button onClick={handleAddToBacklog}>Add to backlog</button>
+              {"   "}
               <button onClick={handleAddToCollection}>Add to collection</button>
               {success && <p className="success-message">{success}</p>}
 

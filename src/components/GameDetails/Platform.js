@@ -5,7 +5,11 @@ function Platform({ platform }) {
       index === platform.length - 1 ? element : element + ", "
     ).join("")
     
-  return <p>Platforms: {string}</p>;
+  return (
+    <p>
+      <strong>Platforms:</strong> {string}
+    </p>
+  );
 }
 
 export default Platform;

@@ -8,7 +8,11 @@ function Genre({ genre }) {
       )
       .join("");
     
-  return <p>Genre: {string}</p>;
+  return (
+    <p>
+      <strong>Genre:</strong> {string}
+    </p>
+  );
 }
 
 export default Genre;
