@@ -8,9 +8,15 @@ body {
   margin: auto;
   max-width: 1400px; 
   color: white;
+  padding-bottom: 60px;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
 }

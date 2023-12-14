@@ -149,15 +149,15 @@ function AccountPage() {
           </div>
         ) : (
           <div className="account-details">
-            <div className="collection-container">
+            <div className="account-collection-container">
               <h2>&#x1F3AE; Collection ({collection.length})</h2>
               {renderGameList(collection, handleDeleteFromCollection)}
             </div>
-            <div className="backlog-container">
+            <div className="account-backlog-container">
               <h2>&#x1F4CB; Backlog ({backlog.length})</h2>
               {renderGameList(backlog, handleDeleteFromBacklog)}
             </div>
-            <div className="wishlist-container">
+            <div className="account-wishlist-container">
               <h2>&#x2661; Wishlist ({wishlist.length})</h2>
               {renderGameList(wishlist, handleDeleteFromWishlist)}
             </div>

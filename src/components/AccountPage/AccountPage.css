@@ -38,8 +38,8 @@
   gap: 20px;
 }
 
-.collection-container,
-.backlog-container {
+.account-collection-container,
+.account-backlog-container {
   flex: 1;
   padding: 20px;
   margin: 10px;
@@ -48,7 +48,7 @@
   width: 250px
 }
 
-.wishlist-container {
+.account-wishlist-container {
   flex: 1;
   padding: 20px;
   margin: 10px;
@@ -57,37 +57,37 @@
   width: 250px
 }
 
-.collection-container {
+.account-collection-container {
   background-color: #5E17EB;
 }
 
-.backlog-container {
+.account-backlog-container {
   background-color: #FF0BFF;
 }
 
-.wishlist-container {
+.account-wishlist-container {
   background-color: #00ffff;
 }
 
-.collection-container ul,
-.backlog-container ul,
-.wishlist-container ul {
+.account-collection-container ul,
+.account-backlog-container ul,
+.account-wishlist-container ul {
   list-style: none;
   padding: 0;
   margin: 0;
   color: white;
 }
 
-.collection-container a,
-.backlog-container a,
-.wishlist-container a {
+.account-collection-container a,
+.account-backlog-container a,
+.account-wishlist-container a {
   text-decoration: none;
   color: white;
 }
 
-.collection-container li,
-.backlog-container li,
-.wishlist-container li {
+.account-collection-container li,
+.account-backlog-container li,
+.account-wishlist-container li {
   margin-bottom: 10px;
   color: white;
 }
