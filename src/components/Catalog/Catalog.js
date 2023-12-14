@@ -4,6 +4,7 @@ import { getXGamesAtATime, getAllGames } from "../../utilities/Api/Games";
 import BoxArt from "../BoxArt/BoxArt";
 import Spinner from "../../utilities/common/Spinner/Spinner";
 import "./Catalog.css";
+import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
 
 /*
  ** filters
@@ -32,37 +33,16 @@ function Catalog() {
     })();
   }, []);
 
-  // useEffect(() => {
-  //   (async function getAllGamesForTheCatalog() {
-  //     try {
-  //       let response = await getXGamesAtATime(limitAndOffset);
-
-  //       // console.log(
-  //       //   "limitAndOffset:",
-  //       //   limitAndOffset.offset
-  //       // );
-  //       console.log(response.length);
-  //       setGames(response);
-  //       setLoading(true);
-  //     } catch (error) {
-  //       console.log(error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   })();
-  // }, [limitAndOffset]);
-
   useEffect(() => {
     const getAllGamesForTheCatalog = async () => {
       try {
-        // Simulate a loading state with a delay of 3 seconds
         setLoading(true);
         setTimeout(async () => {
           let response = await getXGamesAtATime(limitAndOffset);
           console.log(response.length);
           setGames(response);
           setLoading(false);
-        }, 2000); // 3000 milliseconds (3 seconds)
+        }, 1500);
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -76,6 +56,15 @@ function Catalog() {
     <Spinner />
   ) : (
     <div className="container">
+      <h1>Catalog</h1>
+      <p>
+        Explore our Game Catalog for a world of gaming delights! Whether you're
+        a seasoned gamer or new to the scene, find thrilling adventures and
+        captivating narratives tailored to your preferences. From action-packed
+        blockbusters to indie gems, our curated selection has something for
+        everyone. Start your gaming journey now!
+      </p>
+
       <div className="grid-container">
         {games.map(({ id, title, boxart }) => (
           <div
@@ -89,42 +78,47 @@ function Catalog() {
           </div>
         ))}
       </div>
-      {limitAndOffset.offset > 0 && (
-        <button
-          onClick={() => {
-            let newOffset = limitAndOffset.offset - 25;
-            setLimitAndOffset((prevState) => ({
-              ...prevState,
-              offset: newOffset,
-            }));
-            window.scrollTo({
-              top: 100,
-              behavior: "smooth",
-            });
-          }}
-        >
-          BACK
-        </button>
-      )}
 
-      {games.length > 0 &&
-        allGamesLength - limitAndOffset.offset > limitAndOffset.limit && (
+      <div className="button-container">
+        {limitAndOffset.offset > 0 && (
           <button
             onClick={() => {
-              let newOffset = limitAndOffset.offset + 25;
+              let newOffset = limitAndOffset.offset - 25;
               setLimitAndOffset((prevState) => ({
                 ...prevState,
                 offset: newOffset,
               }));
               window.scrollTo({
-                top: 0,
+                top: 100,
                 behavior: "smooth",
               });
             }}
           >
-            NEXT
+            BACK
           </button>
         )}
+
+        {games.length > 0 &&
+          allGamesLength - limitAndOffset.offset > limitAndOffset.limit && (
+            <button
+              onClick={() => {
+                let newOffset = limitAndOffset.offset + 25;
+                setLimitAndOffset((prevState) => ({
+                  ...prevState,
+                  offset: newOffset,
+                }));
+                window.scrollTo({
+                  top: 0,
+                  behavior: "smooth",
+                });
+              }}
+            >
+              NEXT
+            </button>
+          )}
+      </div>
+
+      <ScrollButton />
     </div>
   );
 }

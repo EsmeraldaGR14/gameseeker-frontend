@@ -1,9 +1,6 @@
 import React from "react";
 import "./BoxArt.css";
 
-
-
-
 function BoxArt({ image, name, year, className }) {
   const handleMouseMove = (e) => {
     const card = e.currentTarget;
@@ -25,7 +22,7 @@ function BoxArt({ image, name, year, className }) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      <img src={image} alt={name}></img>
+      <img className="card-image" src={image} alt={name}></img>
     </div>
   );
 }
