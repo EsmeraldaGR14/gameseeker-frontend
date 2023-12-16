@@ -16,7 +16,7 @@ function BoxArt({ image, name, year, className }) {
   const handleMouseLeave = (e) => {
     e.currentTarget.style.transform = "rotateX(0) rotateY(0)";
   };
-  
+
   return (
     <div
       className={`card-${className}`}

@@ -7,17 +7,21 @@ import "./Catalog.css";
 import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
 
 /*
- ** filters
+ FILTERS
+
+
  */
 
 function Catalog() {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [allGamesLength, setAllGamesLength] = useState(0);
+  const [allGamesLength, setAllGamesLength] = useState([]);
   const [limitAndOffset, setLimitAndOffset] = useState({
     limit: 25,
     offset: 0,
   });
+
+  const [currentPage, setCurrentPage] = useState(1);
 
   let navigate = useNavigate();
 
@@ -25,10 +29,11 @@ function Catalog() {
     (async function fetchAllGames() {
       try {
         let response = await getAllGames();
-        setAllGamesLength(response.length);
+        setAllGamesLength(response);
         // console.log("allGamesLength:", response.length);
       } catch (error) {
         console.log(error);
+        return error;
       }
     })();
   }, []);
@@ -39,7 +44,6 @@ function Catalog() {
         setLoading(true);
         setTimeout(async () => {
           let response = await getXGamesAtATime(limitAndOffset);
-          console.log(response.length);
           setGames(response);
           setLoading(false);
         }, 1500);
@@ -51,6 +55,12 @@ function Catalog() {
 
     getAllGamesForTheCatalog();
   }, [limitAndOffset]);
+
+  const indexOfLastGame = currentPage * limitAndOffset.limit;
+  const indexOfFirstGame = indexOfLastGame - limitAndOffset.limit;
+  const currentGames = allGamesLength.slice(indexOfFirstGame, indexOfLastGame);
+
+  console.log("this is current games", currentGames, allGamesLength.length);
 
   return loading ? (
     <Spinner />
