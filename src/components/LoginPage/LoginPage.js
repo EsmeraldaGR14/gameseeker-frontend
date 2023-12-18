@@ -50,9 +50,10 @@ function LoginPage() {
   };
 
   return (
+    <div className="login-page-body">
     <div className="sign-in-container">
       <form className="sign-in-form" onSubmit={handleLogIn}>
-        <h1>Log In</h1>
+        <p>Log In</p>
         <input
           type="email"
           placeholder="Email"
@@ -60,28 +61,37 @@ function LoginPage() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <input
-          type={showPassword ? "text" : "password"}
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button
-          type="button"
-          className="password-toggle"
-          onClick={togglePasswordVisibility}
-        >
-          {showPassword ? "Hide Password" : "Show Password"}
-        </button>
-
+        <br></br>
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            style={{ position: "relative" }}
+          />
+          <span
+            aria-label="Show/Hide Password"
+            className="password-toggle"
+            onClick={togglePasswordVisibility}
+          >
+            <i class="fa-solid fa-eye"></i>
+          </span>
         <button type="submit" disabled={loading}>
           Log In
         </button>
       </form>
+      <div class="drops">
+        <div className="drop drop-1"></div>
+        <div className="drop drop-2"></div>
+        <div className="drop drop-3"></div>
+        <div className="drop drop-4"></div>
+        <div className="drop drop-5"></div>
+      </div>
       {loading && <p>Logging in</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
       {success && <p style={{ color: "green" }}>{success}</p>}
+    </div>
     </div>
   );
 }

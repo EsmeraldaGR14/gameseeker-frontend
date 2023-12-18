@@ -17,6 +17,11 @@ import {
 } from "../../utilities/Api/Wishlist";
 import UpdateProfileForm from "../UpdateProfileForm/UpdateProfileForm";
 import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
+import { FaRegClipboard, FaRegHeart, FaRegTrashAlt } from "react-icons/fa";
+import {
+  IoGameControllerOutline,
+  IoArrowForwardCircleOutline,
+} from "react-icons/io5";
 
 function AccountPage() {
   const { user } = useUser();
@@ -117,8 +122,7 @@ function AccountPage() {
                 setGameToDelete(game);
               }}
             >
-              &#x274C;
-            </button>
+              <FaRegTrashAlt />            </button>
           </li>
         ))}
       </ul>
@@ -150,16 +154,37 @@ function AccountPage() {
         ) : (
           <div className="account-details">
             <div className="account-collection-container">
-              <h2>&#x1F3AE; Collection ({collection.length})</h2>
+              <h2>
+                <IoGameControllerOutline /> My Collection ({collection.length})
+              </h2>
               {renderGameList(collection, handleDeleteFromCollection)}
+              <div className="full-collection-container">
+                <Link
+                  to={`/collection`}
+                >
+                  View Full Collection
+                </Link>
+                <IoArrowForwardCircleOutline />
+              </div>
             </div>
             <div className="account-backlog-container">
-              <h2>&#x1F4CB; Backlog ({backlog.length})</h2>
+              <h2>
+                <FaRegClipboard /> My Backlog ({backlog.length})
+              </h2>
               {renderGameList(backlog, handleDeleteFromBacklog)}
+              <div className="full-backlog-container">
+                <Link to={`/backlog`}>View Full Backlog</Link>
+                <IoArrowForwardCircleOutline />
+              </div>
             </div>
             <div className="account-wishlist-container">
-              <h2>&#x2661; Wishlist ({wishlist.length})</h2>
-              {renderGameList(wishlist, handleDeleteFromWishlist)}
+              <h2>
+                <FaRegHeart /> My Wishlist ({wishlist.length})
+              </h2>
+              <div className="full-wishlist-container">
+                <Link to={`/wishlist`}>View Full Wishlist</Link>
+                <IoArrowForwardCircleOutline />
+              </div>
             </div>
             {showConfirmation && (
               <div className="confirmation-modal">

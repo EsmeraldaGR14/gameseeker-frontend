@@ -45,7 +45,10 @@
   margin: 10px;
   border-radius: 10px;
   color: white;
-  width: 250px
+  width: 250px;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
 }
 
 .account-wishlist-container {
@@ -54,7 +57,9 @@
   margin: 10px;
   border-radius: 10px;
   color: black;
-  width: 250px
+  width: 250px;
+  position: relative;
+  background-color: #00ffff;
 }
 
 .account-collection-container {
@@ -65,10 +70,6 @@
   background-color: #FF0BFF;
 }
 
-.account-wishlist-container {
-  background-color: #00ffff;
-}
-
 .account-collection-container ul,
 .account-backlog-container ul,
 .account-wishlist-container ul {
@@ -76,6 +77,7 @@
   padding: 0;
   margin: 0;
   color: white;
+  font-size: larger;
 }
 
 .account-collection-container a,
@@ -90,6 +92,43 @@
 .account-wishlist-container li {
   margin-bottom: 10px;
   color: white;
+}
+
+.full-collection-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  padding: 10px;
+  cursor: pointer;
+  font-size: medium;
+}
+
+.full-wishlist-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: black;
+  margin: 0;
+  padding: 10px;
+  cursor: pointer;
+  font-size: medium;
+}
+
+.full-backlog-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  padding: 10px;
+  cursor: pointer;
+  font-size: medium;
 }
 
 .trash-can {
