@@ -19,27 +19,8 @@ function Catalog() {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   // allow users to be able to change how many games they can see in a page
-  const [gamesPerPage] = useState(5);
+  const [gamesPerPage] = useState(25);
   const [totalAmountOfPageNumbers, setTotalAmountOfPageNumbers] = useState(0);
-
-  // const [allGamesLength, setAllGamesLength] = useState([]);
-  // const [limitAndOffset, setLimitAndOffset] = useState({
-  //   limit: 25,
-  //   offset: 0,
-  // });
-
-  // useEffect(() => {
-  //   (async function fetchAllGames() {
-  //     try {
-  //       let response = await getAllGames();
-  //       setAllGamesLength(response);
-  //       // console.log("allGamesLength:", response.length);
-  //     } catch (error) {
-  //       console.log(error);
-  //       return error;
-  //     }
-  //   })();
-  // }, []);
 
   useEffect(() => {
     const getAllGamesForTheCatalog = async () => {
@@ -64,10 +45,9 @@ function Catalog() {
   const indexOfFirstGame = indexOfLastGame - gamesPerPage;
   const currentGames = games.slice(indexOfFirstGame, indexOfLastGame);
 
-  console.log("currentGames:", currentGames);
+  // console.log("currentGames:", currentGames);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  console.log(paginate);
 
   return (
     <>
@@ -88,19 +68,19 @@ function Catalog() {
         gamesPerPage={gamesPerPage}
         games={games.length}
         paginate={paginate}
-        totalAmountOfPageNumbers={setTotalAmountOfPageNumbers}
+        // setTotalAmountOfPageNumbers={setTotalAmountOfPageNumbers}
       />
 
       {/* buttons */}
 
-      <div>
+      {/* <div>
         <button>Previous</button>
         <p> page </p>
         <input></input>
         <label>GO</label>
         <p> of {totalAmountOfPageNumbers}</p>
         <button>Next</button>
-      </div>
+      </div> */}
     </>
   );
   // (
