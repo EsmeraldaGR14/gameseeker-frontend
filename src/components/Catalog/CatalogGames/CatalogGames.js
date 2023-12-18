@@ -27,45 +27,6 @@ const CatalogGames = ({ loading, currentGames }) => {
         ))}
       </div>
 
-      {/* <div className="button-container">
-        {limitAndOffset.offset > 0 && (
-          <button
-            onClick={() => {
-              let newOffset = limitAndOffset.offset - 25;
-              setLimitAndOffset((prevState) => ({
-                ...prevState,
-                offset: newOffset,
-              }));
-              window.scrollTo({
-                top: 100,
-                behavior: "smooth",
-              });
-            }}
-          >
-            BACK
-          </button>
-        )}
-
-        {games.length > 0 &&
-          allGamesLength - limitAndOffset.offset > limitAndOffset.limit && (
-            <button
-              onClick={() => {
-                let newOffset = limitAndOffset.offset + 25;
-                setLimitAndOffset((prevState) => ({
-                  ...prevState,
-                  offset: newOffset,
-                }));
-                window.scrollTo({
-                  top: 0,
-                  behavior: "smooth",
-                });
-              }}
-            >
-              NEXT
-            </button>
-          )}
-      </div> */}
-
       <ScrollButton />
     </div>
   );
