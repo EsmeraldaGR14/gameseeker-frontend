@@ -1,33 +1,35 @@
 import React, { useState } from "react";
-import { updateUser, getUserById } from "../../utilities/Api/Users";
+import { updateUserEmail, updateUserPassword } from "../../utilities/Api/Users";
 import { useUser } from "../UserContext";
+import { useNavigate } from "react-router-dom";
 
-const UpdateProfileForm = ({ userData, onCancelEdit, email, password }) => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const { user, setUser } = useUser();
+const UpdateProfileForm = () => {
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const { user, logout } = useUser();
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
-    setFormData({ ...formData, email: e.target.value });
+    setEmail(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
-    setFormData({ ...formData, password: e.target.value });
+    setPassword(e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (formData.email && formData.email !== email) {
-        await updateUser(user.id, { email: formData.email });
+      if (email) {
+        await updateUserEmail(user.id, {email: email});
       }
-      if (formData.password && formData.password !== password) {
-        await updateUser(user.id, { password: formData.password });
+      if (password) {
+        await updateUserPassword(user.id, {password: password});
       }
-      const updatedUser = await getUserById(user.id);
-      setUser(updatedUser);
-      setFormData({ email: "", password: "" });
+      logout();
+      navigate("/login")
     } catch (error) {
-      console.error("Error updating user profile", error);
+      console.log("Error updating user profile", error);
     }
   };
 
@@ -35,7 +37,10 @@ const UpdateProfileForm = ({ userData, onCancelEdit, email, password }) => {
     <form onSubmit={handleSubmit}>
       <div>
         <label>Email:</label>
-        <input type="email" value={email} onChange={handleEmailChange} required/>
+        <input 
+          type="email" 
+          value={email} 
+          onChange={handleEmailChange}/>
       </div>
       <div>
         <label>Password:</label>
@@ -43,7 +48,6 @@ const UpdateProfileForm = ({ userData, onCancelEdit, email, password }) => {
           type="password"
           value={password}
           onChange={handlePasswordChange}
-          required
         />
       </div>
       <button type="submit">Update Profile</button>
