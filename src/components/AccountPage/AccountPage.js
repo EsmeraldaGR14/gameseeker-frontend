@@ -15,6 +15,7 @@ import {
   getGameWishlist,
   deleteGameFromWishlist,
 } from "../../utilities/Api/Wishlist";
+import { deleteUser } from "../../utilities/Api/Users"
 import UpdateProfileForm from "../UpdateProfileForm/UpdateProfileForm";
 import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
 import { FaRegClipboard, FaRegHeart, FaRegTrashAlt } from "react-icons/fa";
@@ -22,16 +23,21 @@ import {
   IoGameControllerOutline,
   IoArrowForwardCircleOutline,
 } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 function AccountPage() {
-  const { user } = useUser();
+  const { user, logout } = useUser();
   const [userData, setUserData] = useState(null);
   const [collection, setCollection] = useState([]);
   const [backlog, setBacklog] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showUserDeletionConfirmation, setUserDeletionConfirmation] = useState(false);
   const [gameToDelete, setGameToDelete] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [listName, setListName] = useState("");
+  const [showOverlay, setShowOverlay] = useState(false);
+  const navigate = useNavigate();
 
   const handleEditProfile = () => {
     setIsEditMode(true);
@@ -65,72 +71,73 @@ function AccountPage() {
     }
   }, [user]);
 
-  const handleDelete = async (gameId, deleteCallback) => {
+  const handleDelete = async (gameId, listName) => {
     try {
-      await deleteCallback(gameId);
-      setShowConfirmation(false);
+      if (listName === "collection") {
+        await deleteGameFromCollection(user.id, gameId);
+        const updatedCollection = collection.filter(
+          (game) => game.id !== gameId
+        );
+        setCollection(updatedCollection);
+        setShowConfirmation(false);
+        setShowOverlay("false");
+      } else if (listName === "backlog") {
+        await deleteGameFromBacklog(user.id, gameId);
+        const updatedBacklog = backlog.filter((game) => game.id !== gameId);
+        setBacklog(updatedBacklog);
+        setShowConfirmation(false);
+        setShowOverlay("false");
+      } else if (listName === "wishlist") {
+        await deleteGameFromWishlist(user.id, gameId);
+        const updatedWishlist = wishlist.filter((game) => game.id !== gameId);
+        setShowConfirmation(false);
+        setShowOverlay(false);
+      }
+      setShowOverlay(false);
     } catch (error) {
       console.error("Error deleting game", error);
     }
   };
 
+  const handleUserDelete = async () => {
+    try {
+      await deleteUser(user.id);
+      setUserDeletionConfirmation(false);
+      setShowOverlay(false);
+      logout();
+      navigate("/");
+    } catch (error) {
+      console.error("Error deleting user", error);
+    }
+  }
+
+  const handleDeleteGameConfirmation = (game, listName) => {
+    setShowConfirmation(true);
+    setGameToDelete(game);
+    setListName(listName);
+    setShowOverlay(true);
+  };
+  
   const handleCloseConfirmation = () => {
     setShowConfirmation(false);
     setGameToDelete(null);
+    setListName("");
+    setShowOverlay(false);
   };
 
-  const handleDeleteFromCollection = async (gameId) => {
-    try {
-      await deleteGameFromCollection(user.id, gameId);
-      const updatedCollection = collection.filter((game) => game.id !== gameId);
-      setCollection(updatedCollection);
-    } catch (error) {
-      console.error("Error deleting game from collection", error);
-    }
+  const handleDeleteUserConfirmation = () => {
+    setUserDeletionConfirmation(true);
+    setShowOverlay(true);
   };
 
-  const handleDeleteFromBacklog = async (gameId) => {
-    try {
-      await deleteGameFromBacklog(user.id, gameId);
-      const updatedBacklog = backlog.filter((game) => game.id !== gameId);
-      setBacklog(updatedBacklog);
-    } catch (error) {
-      console.error("Error deleting game from backlog", error);
-    }
-  };
-
-  const handleDeleteFromWishlist = async (gameId) => {
-    try {
-      await deleteGameFromWishlist(user.id, gameId);
-      const updatedWishlist = wishlist.filter((game) => game.id !== gameId);
-      setWishlist(updatedWishlist);
-    } catch (error) {
-      console.error("Error deleting game from wishlist", error);
-    }
-  };
-  
-  const renderGameList = (games) => {
-    return (
-      <ul>
-        {games.map((game) => (
-          <li key={game.id}>
-            <Link to={`/games/${game.id}`}>{game.title}</Link>
-            <button
-              className="trash-can"
-              onClick={() => {
-                setShowConfirmation(true);
-                setGameToDelete(game);
-              }}
-            >
-              <FaRegTrashAlt />            </button>
-          </li>
-        ))}
-      </ul>
-    );
+  const handleUserCloseConfirmation = () => {
+    setUserDeletionConfirmation(false);
+    setShowOverlay(false);
   };
 
   return (
     <div className="account-page-container">
+      {showOverlay && <div className="deletion-overlay" />}
       <div className="sidebar">
         <button
           className="edit-profile-button"
@@ -138,10 +145,23 @@ function AccountPage() {
         >
           {isEditMode ? "Cancel Edit" : "Edit Profile"}
         </button>
-        <button className="delete-profile-button">Delete Profile</button>
+        <button
+          className="delete-profile-button"
+          onClick={() => {
+            handleDeleteUserConfirmation();
+          }}
+        >
+          Delete Profile
+        </button>
       </div>
       <div className="main-content">
         <h1>Welcome, {userData?.[0]?.email || "User"}!</h1>
+        <p>
+          Ready to dive into your gaming haven? This is your backstage pass to
+          check out your gaming conquests. From here, you can gaze upon your
+          collection kingdom, check your progress, or bid farewell to those that
+          served their quest. Let the gaming odyssey begin!
+        </p>
         {isEditMode ? (
           <div className="account-edit-container">
             <UpdateProfileForm
@@ -157,46 +177,142 @@ function AccountPage() {
               <h2>
                 <IoGameControllerOutline /> My Collection ({collection.length})
               </h2>
-              {renderGameList(collection, handleDeleteFromCollection)}
+              <ul>
+                {collection.length === 0 ? (
+                  <p className="empty-list-text">Add games from the catalog!</p>
+                ) : (
+                  collection.slice(0, 10).map((game) => (
+                    <li key={game.id}>
+                      <Link to={`/games/${game.id}`}>{game.title}</Link>
+                      <button
+                        className="trash-can"
+                        onClick={() => {
+                          handleDeleteGameConfirmation(game, "collection");
+                        }}
+                      >
+                        <FaRegTrashAlt />
+                      </button>
+                    </li>
+                  ))
+                )}
+              </ul>
               <div className="full-collection-container">
-                <Link
-                  to={`/collection`}
-                >
-                  View Full Collection
-                </Link>
-                <IoArrowForwardCircleOutline />
+                {collection.length > 0 && (
+                  <>
+                    <Link to={`/collection`}>View Full Collection</Link>
+                    <IoArrowForwardCircleOutline />
+                  </>
+                )}
               </div>
             </div>
             <div className="account-backlog-container">
               <h2>
                 <FaRegClipboard /> My Backlog ({backlog.length})
               </h2>
-              {renderGameList(backlog, handleDeleteFromBacklog)}
+              <ul>
+                {backlog.length === 0 ? (
+                  <p className="empty-list-text">Add games from the catalog!</p>
+                ) : (
+                  backlog.slice(0, 10).map((game) => (
+                    <li key={game.id}>
+                      <div className="list-item-content">
+                        <Link to={`/games/${game.id}`}>{game.title}</Link>
+                        <button
+                          className="trash-can"
+                          onClick={() => {
+                            handleDeleteGameConfirmation(game, "backlog");
+                          }}
+                        >
+                          <FaRegTrashAlt />
+                        </button>
+                      </div>
+                    </li>
+                  ))
+                )}
+              </ul>
               <div className="full-backlog-container">
-                <Link to={`/backlog`}>View Full Backlog</Link>
-                <IoArrowForwardCircleOutline />
+                {backlog.length > 0 && (
+                  <>
+                    <Link to={`/backlog`}>View Full Backlog</Link>
+                    <IoArrowForwardCircleOutline />
+                  </>
+                )}
               </div>
             </div>
             <div className="account-wishlist-container">
               <h2>
                 <FaRegHeart /> My Wishlist ({wishlist.length})
               </h2>
+              <ul>
+                {wishlist.length === 0 ? (
+                  <p className="empty-list-text">Add games from the catalog!</p>
+                ) : (
+                  wishlist.slice(0, 10).map((game) => (
+                    <li key={game.id}>
+                      <Link to={`/games/${game.id}`}>{game.title}</Link>
+                      <button
+                        className="trash-can"
+                        onClick={() => {
+                          handleDeleteGameConfirmation(game, "wishlist");
+                        }}
+                      >
+                        <FaRegTrashAlt />
+                      </button>
+                    </li>
+                  ))
+                )}
+              </ul>
               <div className="full-wishlist-container">
-                <Link to={`/wishlist`}>View Full Wishlist</Link>
-                <IoArrowForwardCircleOutline />
+                {wishlist.length > 0 && (
+                  <>
+                    <Link to={`/wishlist`}>View Full Wishlist</Link>
+                    <IoArrowForwardCircleOutline />
+                  </>
+                )}
               </div>
             </div>
             {showConfirmation && (
-              <div className="confirmation-modal">
-                <p>Are you sure you want to delete "{gameToDelete.title}"?</p>
-                <button
-                  onClick={() =>
-                    handleDelete(gameToDelete?.id, handleDeleteFromCollection)
-                  }
-                >
-                  Yes
-                </button>
-                <button onClick={handleCloseConfirmation}>No</button>
+              <div className="modal">
+                <p className="message">
+                  Are you sure you want to delete {gameToDelete?.title} from
+                  your {listName}?
+                </p>
+                <div className="options">
+                  <button
+                    className="yes-button"
+                    onClick={() => handleDelete(gameToDelete?.id, listName)}
+                  >
+                    Yes
+                  </button>
+                  <button
+                    className="no-button"
+                    onClick={handleCloseConfirmation}
+                  >
+                    No
+                  </button>
+                </div>
+              </div>
+            )}
+            {showUserDeletionConfirmation && (
+              <div className="modal">
+                <p className="message">
+                  Are you sure you want to delete {userData?.[0]?.email}? Your
+                  lists will also be deleted. This action cannot be undone.
+                </p>
+                <div className="options">
+                  <button
+                    className="yes-button"
+                    onClick={() => handleUserDelete()}
+                  >
+                    Yes
+                  </button>
+                  <button
+                    className="no-button"
+                    onClick={handleUserCloseConfirmation}
+                  >
+                    No
+                  </button>
+                </div>
               </div>
             )}
           </div>

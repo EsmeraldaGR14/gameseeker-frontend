@@ -23,6 +23,7 @@ async function addGameToBacklog(userId, gameId) {
 async function deleteGameFromBacklog(userId, gameId) {
   try {
     const response = await Axios.delete(`/backlog/${userId}/${gameId}`);
+    console.log("Delete response:", response);
     return response.data;
   } catch (error) {
     console.error("Error deleting game from backlog", error);
