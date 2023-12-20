@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllGames } from "../../utilities/Api/Games";
+import { getAllGames, filterGame } from "../../utilities/Api/Games";
 import CatalogGames from "./CatalogGames/CatalogGames";
 import CatalogPagination from "./CatalogPagination/CatalogPagination";
 import "./Catalog.css";
@@ -7,6 +7,12 @@ import "./Catalog.css";
 /*
  FILTERS
 
+ * genre
+ * rating input by user 
+ * rating asc/desc
+ * platforms
+ * realsed
+ * asc/desc title
 
  */
 
@@ -16,6 +22,8 @@ function Catalog() {
   const [currentPage, setCurrentPage] = useState(1);
   // allow users to be able to change how many games they can see in a page
   const [gamesPerPage] = useState(25);
+
+  const filters = ["Genre", "Realeased Date", "Platform", "Title"];
 
   useEffect(() => {
     const getAllGamesForTheCatalog = async () => {
@@ -35,6 +43,20 @@ function Catalog() {
     getAllGamesForTheCatalog();
   }, []);
 
+  // useEffect(() => {
+  //   const filterGameBy = async () => {
+  //     try {
+  //       let res = await filterGame("genres");
+  //       setGames(res)
+  //       console.log(res);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+
+  //   filterGameBy();
+  // }, []);
+
   // get currentGames
   const indexOfLastGame = currentPage * gamesPerPage;
   const indexOfFirstGame = indexOfLastGame - gamesPerPage;
@@ -43,26 +65,43 @@ function Catalog() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <>
-      <h1>Catalog</h1>
-      <p>
-        Explore our Game Catalog for a world of gaming delights! Whether you're
-        a seasoned gamer or new to the scene, find thrilling adventures and
-        captivating narratives tailored to your preferences. From action-packed
-        blockbusters to indie gems, our curated selection has something for
-        everyone. Start your gaming journey now!
-      </p>
-      {/* filters */}
-      <div>
-        <button>FILTERS</button>
+    <div className="catalog">
+      <div className="container">
+        <h1>Catalog</h1>
+        <p>
+          Explore our Game Catalog for a world of gaming delights! Whether
+          you're a seasoned gamer or new to the scene, find thrilling adventures
+          and captivating narratives tailored to your preferences. From
+          action-packed blockbusters to indie gems, our curated selection has
+          something for everyone. Start your gaming journey now!
+        </p>
+        {/* filters */}
+        <div>
+          <button
+          // onClick={}
+          >
+            FILTERS
+          </button>
+          {filters.map((filter) => (
+            <button
+              key={filter}
+              value={filter}
+              onClick={(e) => {
+                console.log(e.target.value);
+              }}
+            >
+              {filter}
+            </button>
+          ))}
+        </div>
+        <CatalogGames loading={loading} currentGames={currentGames} />
+        <CatalogPagination
+          gamesPerPage={gamesPerPage}
+          games={games.length}
+          paginate={paginate}
+        />
       </div>
-      <CatalogGames loading={loading} currentGames={currentGames} />
-      <CatalogPagination
-        gamesPerPage={gamesPerPage}
-        games={games.length}
-        paginate={paginate}
-      />
-    </>
+    </div>
   );
 }
 

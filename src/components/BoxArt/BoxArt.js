@@ -19,7 +19,7 @@ function BoxArt({ image, name, year, className }) {
 
   return (
     <div
-      className={`card-${className}`}
+      className={`card ${className ? className : ""}`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >

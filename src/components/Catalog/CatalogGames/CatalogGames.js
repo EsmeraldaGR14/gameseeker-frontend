@@ -12,7 +12,7 @@ const CatalogGames = ({ loading, currentGames }) => {
   }
 
   return (
-    <div className="container">
+    <>
       <div className="grid-container">
         {currentGames.map(({ id, title, boxart }) => (
           <div
@@ -28,7 +28,7 @@ const CatalogGames = ({ loading, currentGames }) => {
       </div>
 
       <ScrollButton />
-    </div>
+    </>
   );
 };
 

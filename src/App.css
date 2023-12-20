@@ -2,6 +2,10 @@
   --z-mobile-menu: 9999;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .App {
   /* cursor: url(icons8-map-pin-50.png), auto; */
   cursor: default;
