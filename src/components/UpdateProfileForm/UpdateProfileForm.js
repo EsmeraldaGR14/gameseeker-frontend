@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { updateUserEmail, updateUserPassword, getUserById } from "../../utilities/Api/Users";
 import { useUser } from "../UserContext";
 import { useNavigate } from "react-router-dom";
 import "./UpdateProfileForm.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Modal from "../../utilities/common/Modal/Modal";
+import DeletionModal from "../../utilities/common/Modal/DeletionModal";
 
-const UpdateProfileForm = ({ onCancelEdit }) => {
+const UpdateProfileForm = ({
+  onCancelEdit,
+  handleUserDelete,
+  showUserDeletionConfirmation,
+  handleUserCloseConfirmation,
+  userData
+}) => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const { user, logout } = useUser();
@@ -29,11 +36,10 @@ const UpdateProfileForm = ({ onCancelEdit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-
       const userDetails = await getUserById(user.id);
 
       if (email && email === userDetails[0]?.email) {
-        console.log("Entered email is the same as the current one");
+        alert("New email cannot be the same as the current one");
         return;
       }
 
@@ -45,7 +51,6 @@ const UpdateProfileForm = ({ onCancelEdit }) => {
       if (email) {
         await updateUserEmail(user.id, { email: email });
         setSuccessModalVisible(true);
-        console.log(isSuccessModalVisible);
       }
       if (password) {
         await updateUserPassword(user.id, { password: password });
@@ -63,8 +68,9 @@ const UpdateProfileForm = ({ onCancelEdit }) => {
   };
 
   const handleModalClose = () => {
+    logout();
     setSuccessModalVisible(false);
-    // navigate("/login");
+    navigate("/login");
   };
 
   return (
@@ -103,9 +109,20 @@ const UpdateProfileForm = ({ onCancelEdit }) => {
         </button>
       </form>
       {isSuccessModalVisible && (
-        <Modal isVisible={isSuccessModalVisible} onClose={handleModalClose}>
-          <p>Profile updated successfully!</p>
-        </Modal>
+        <Modal
+          isOpen={isSuccessModalVisible}
+          onClose={() => handleModalClose()}
+          title={`Profile Successfully Updated`}
+          message={`Please log in again with your new credentials.`}
+        />
+      )}
+      {showUserDeletionConfirmation && (
+        <DeletionModal
+          isOpen={showUserDeletionConfirmation}
+          onClose={handleUserCloseConfirmation}
+          message={`Are you sure you want to delete ${userData?.[0]?.email}? All of your lists will also be deleted. This action cannot be undone.`}
+          onConfirm={handleUserDelete}
+        />
       )}
     </div>
   );

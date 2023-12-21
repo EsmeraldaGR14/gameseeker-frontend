@@ -25,9 +25,9 @@ const SignUpPage = React.lazy(() =>
 const AccountPage = React.lazy(() =>
   import("./components/AccountPage/AccountPage")
 );
-const Wishlist = React.lazy(() =>
-  import("./components/Wishlist/Wishlist")
-);
+// const Wishlist = React.lazy(() =>
+//   import("./components/Wishlist/Wishlist")
+// );
 const Collection = React.lazy(() =>
   import("./components/Collection/CollectionPage")
 );
@@ -57,7 +57,7 @@ function App() {
               <Route path="/backlog" element={<Backlog />} />
               <Route path="/games/:id" element={<GameDetails />} />
               <Route path="/collection" element={<Collection />} />
-              <Route path="/wishlist" element={<Wishlist />} />
+              {/* <Route path="/wishlist" element={<Wishlist />} /> */}
               <Route path="/404" element={<h1>404 Not Found!</h1>} />
               <Route path="*" element={<h1>404 Not Found!</h1>} />
             </Routes>

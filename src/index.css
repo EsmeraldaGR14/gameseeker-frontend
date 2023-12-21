@@ -4,7 +4,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #212121;
+  background-color: #333333;
   margin: auto;
   color: white;
   padding-bottom: 60px;
@@ -28,4 +28,11 @@ button {
   border: none;
   border-radius: 52px;
   gap: 50px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  width: 100%;
 }

@@ -24,6 +24,7 @@ import {
   IoArrowForwardCircleOutline,
 } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import DeletionModal from "../../utilities/common/Modal/DeletionModal";
 
 function AccountPage() {
   const { user, logout } = useUser();
@@ -136,9 +137,9 @@ function AccountPage() {
   };
 
   return (
-    <div className="account-page-container">
+    <div className="container">
       {showOverlay && <div className="deletion-overlay" />}
-      <div className="sidebar">
+      <div className="sort-buttons">
         <button
           className="edit-profile-button"
           onClick={isEditMode ? handleCancelEdit : handleEditProfile}
@@ -175,14 +176,19 @@ function AccountPage() {
           <UpdateProfileForm
             onCancelEdit={handleCancelEdit}
             isEditMode={isEditMode}
+            showUserDeletionConfirmation={showUserDeletionConfirmation}
+            handleUserCloseConfirmation={handleUserCloseConfirmation}
+            handleUserDelete={handleUserDelete}
+            userData={userData}
           />
         ) : (
           <div className="account-details">
             <div className="account-collection-container">
               <div className="my-collection-container">
-              <h2>
-                <IoGameControllerOutline /> My Collection ({collection.length})
-              </h2>
+                <h2>
+                  <IoGameControllerOutline /> My Collection ({collection.length}
+                  )
+                </h2>
               </div>
               <ul>
                 {collection.length === 0 ? (
@@ -214,9 +220,9 @@ function AccountPage() {
             </div>
             <div className="account-backlog-container">
               <div className="my-backlog-container">
-              <h2>
-                <FaRegClipboard /> My Backlog ({backlog.length})
-              </h2>
+                <h2>
+                  <FaRegClipboard /> My Backlog ({backlog.length})
+                </h2>
               </div>
               <ul>
                 {backlog.length === 0 ? (
@@ -250,9 +256,9 @@ function AccountPage() {
             </div>
             <div className="account-wishlist-container">
               <div className="my-wishlist-container">
-              <h2>
-                <FaRegHeart /> My Wishlist ({wishlist.length})
-              </h2>
+                <h2>
+                  <FaRegHeart /> My Wishlist ({wishlist.length})
+                </h2>
               </div>
               <ul>
                 {wishlist.length === 0 ? (
@@ -283,48 +289,20 @@ function AccountPage() {
               </div>
             </div>
             {showConfirmation && (
-              <div className="deletion-modal">
-                <p className="message">
-                  Are you sure you want to delete {gameToDelete?.title} from
-                  your {listName}?
-                </p>
-                <div className="options">
-                  <button
-                    className="yes-button"
-                    onClick={() => handleDelete(gameToDelete?.id, listName)}
-                  >
-                    Yes
-                  </button>
-                  <button
-                    className="no-button"
-                    onClick={handleCloseConfirmation}
-                  >
-                    No
-                  </button>
-                </div>
-              </div>
+              <DeletionModal
+                isOpen={showConfirmation}
+                onClose={handleCloseConfirmation}
+                message={`Are you sure you want to delete ${gameToDelete?.title} from your ${listName}?`}
+                onConfirm={() => handleDelete(gameToDelete?.id, listName)}
+              />
             )}
             {showUserDeletionConfirmation && (
-              <div className="modal">
-                <p className="message">
-                  Are you sure you want to delete {userData?.[0]?.email}? Your
-                  lists will also be deleted. This action cannot be undone.
-                </p>
-                <div className="options">
-                  <button
-                    className="yes-button"
-                    onClick={() => handleUserDelete()}
-                  >
-                    Yes
-                  </button>
-                  <button
-                    className="no-button"
-                    onClick={handleUserCloseConfirmation}
-                  >
-                    No
-                  </button>
-                </div>
-              </div>
+              <DeletionModal
+                isOpen={showUserDeletionConfirmation}
+                onClose={handleUserCloseConfirmation}
+                message={`Are you sure you want to delete ${userData?.[0]?.email}? All of your lists will also be deleted. This action cannot be undone.`}
+                onConfirm={handleUserDelete}
+              />
             )}
           </div>
         )}

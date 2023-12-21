@@ -57,13 +57,6 @@ function Navbar() {
         <NavLink
           className="navbar-link"
           activeclassname="active-link"
-          to="/wishlist"
-        >
-          WISHLIST
-        </NavLink>
-        <NavLink
-          className="navbar-link"
-          activeclassname="active-link"
           to="/help"
         >
           HELP

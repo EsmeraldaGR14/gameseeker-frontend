@@ -67,13 +67,13 @@ function LoginPage() {
             className="password-toggle"
             onClick={togglePasswordVisibility}
           >
-            <i class="fa-solid fa-eye"></i>
+            <i className="fa-solid fa-eye"></i>
           </span>
         <button type="submit" disabled={loading}>
           Log In
         </button>
       </form>
-      <div class="drops">
+      <div className="drops">
         <div className="drop drop-1"></div>
         <div className="drop drop-2"></div>
         <div className="drop drop-3"></div>
