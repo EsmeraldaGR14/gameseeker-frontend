@@ -155,28 +155,35 @@ function AccountPage() {
         </button>
       </div>
       <div className="main-content">
-        <h1>Welcome, {userData?.[0]?.email || "User"}!</h1>
-        <p>
-          Ready to dive into your gaming haven? This is your backstage pass to
-          check out your gaming conquests. From here, you can gaze upon your
-          collection kingdom, check your progress, or bid farewell to those that
-          served their quest. Let the gaming odyssey begin!
-        </p>
+        <header>
+          <h1>Welcome, {userData?.[0]?.email || "User"}!</h1>
+        </header>
         {isEditMode ? (
-          <div className="account-edit-container">
-            <UpdateProfileForm
-              userData={userData}
-              onCancelEdit={handleCancelEdit}
-              email={""}
-              password={""}
-            />
-          </div>
+          <p>
+            Change your email or password below. After either one is updated you
+            will need to login again with your new credentials.
+          </p>
+        ) : (
+          <p>
+            Ready to dive into your gaming haven? This is your backstage pass to
+            check out your gaming conquests. From here, you can gaze upon your
+            collection kingdom, check your progress, or bid farewell to those
+            that served their quest. Let the gaming odyssey begin!
+          </p>
+        )}
+        {isEditMode ? (
+          <UpdateProfileForm
+            onCancelEdit={handleCancelEdit}
+            isEditMode={isEditMode}
+          />
         ) : (
           <div className="account-details">
             <div className="account-collection-container">
+              <div className="my-collection-container">
               <h2>
                 <IoGameControllerOutline /> My Collection ({collection.length})
               </h2>
+              </div>
               <ul>
                 {collection.length === 0 ? (
                   <p className="empty-list-text">Add games from the catalog!</p>
@@ -206,9 +213,11 @@ function AccountPage() {
               </div>
             </div>
             <div className="account-backlog-container">
+              <div className="my-backlog-container">
               <h2>
                 <FaRegClipboard /> My Backlog ({backlog.length})
               </h2>
+              </div>
               <ul>
                 {backlog.length === 0 ? (
                   <p className="empty-list-text">Add games from the catalog!</p>
@@ -240,9 +249,11 @@ function AccountPage() {
               </div>
             </div>
             <div className="account-wishlist-container">
+              <div className="my-wishlist-container">
               <h2>
                 <FaRegHeart /> My Wishlist ({wishlist.length})
               </h2>
+              </div>
               <ul>
                 {wishlist.length === 0 ? (
                   <p className="empty-list-text">Add games from the catalog!</p>
@@ -272,7 +283,7 @@ function AccountPage() {
               </div>
             </div>
             {showConfirmation && (
-              <div className="modal">
+              <div className="deletion-modal">
                 <p className="message">
                   Are you sure you want to delete {gameToDelete?.title} from
                   your {listName}?

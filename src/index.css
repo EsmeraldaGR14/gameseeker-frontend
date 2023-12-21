@@ -20,3 +20,13 @@ html {
   position: relative;
   min-height: 100%;
 }
+
+button {
+  background-color: #5e17eb;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 52px;
+  gap: 50px;
+}

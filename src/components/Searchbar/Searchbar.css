@@ -1,13 +1,16 @@
 .search-container {
   flex: 1;
 }
+
 .search {
   display: flex;
 }
+
 .search-input {
   border-radius: 16px;
   flex: 1;
 }
+
 .search-submit {
   width: 50px;
 }

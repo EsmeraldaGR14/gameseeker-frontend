@@ -53,13 +53,20 @@ function Navbar() {
         >
           BACKLOG
         </NavLink>
-        {/* <NavLink
+        <NavLink
+          className="navbar-link"
+          activeclassname="active-link"
+          to="/wishlist"
+        >
+          WISHLIST
+        </NavLink>
+        <NavLink
           className="navbar-link"
           activeclassname="active-link"
           to="/help"
         >
           HELP
-        </NavLink> */}
+        </NavLink>
         {user.isLoggedIn ? (
           <>
             <NavLink

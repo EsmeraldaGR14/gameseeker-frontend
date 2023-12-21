@@ -11,26 +11,20 @@ function LoginPage() {
   const [success, setSuccess] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const navigate = useNavigate();
 
   const handleLogIn = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-
     try {
-      
       await login({
         email,
         password,
       });
-
-      
       setSuccess("Log-in successful!");
       navigate("/account")
     } catch (error) {
-      
       setError(
         error.response?.data.error ||
           "Log-in failed. Please check your email and password."
@@ -39,11 +33,9 @@ function LoginPage() {
     } finally {
       setLoading(false);
     }
-
     setEmail("");
     setPassword("");
   };
-
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);

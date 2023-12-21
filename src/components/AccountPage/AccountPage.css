@@ -19,8 +19,8 @@
 
 .main-content {
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   gap: 20px; 
   flex-direction: column;
 }
@@ -30,12 +30,8 @@
   margin-top: 20px;
 }
 
-.account-edit-container {
-  flex: 1;
-  background-color: #5E17EB;
-  padding: 20px;
-  margin: 10px;
-  border-radius: 10px;
+.main-content p {
+  margin: 0;
 }
 
 .account-details {
@@ -147,7 +143,7 @@
   width: 100%;
 }
 
-.full-collection-container {
+.full-collection-container, .full-backlog-container {
   display: flex;
   align-items: center;
   position: absolute;
@@ -158,6 +154,7 @@
   cursor: pointer;
   font-size: large;
   justify-content: flex-end;
+  gap: 5px;
 }
 
 .full-wishlist-container {
@@ -171,18 +168,7 @@
   padding: 10px;
   cursor: pointer;
   font-size: large;
-}
-
-.full-backlog-container {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin: 0px;
-  padding: 10px;
-  cursor: pointer;
-  font-size: large;
+  gap: 5px;
 }
 
 .trash-can {
@@ -192,7 +178,7 @@
   margin-left: auto;
 }
 
-.modal {
+.deletion-modal {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -229,23 +215,24 @@
 }
 
 .yes-button {
-  background-color: green;
+  background-color: #5E17EB;
 }
 
 .no-button {
-  background-color: red;
+  background-color: white;
+  color: black;
 }
 
-.btn:last-child {
+.yes-button:last-child, .no-button:last-child {
   margin: 0;
 }
 
-.btn:hover {
+.yes-button:hover, .no-button:hover {
   box-shadow: 0.4rem 0.4rem 0 black;
   transform: translate(-0.4rem, -0.4rem);
 }
 
-.btn:active {
+.yes-button:active, .no-button:active {
   box-shadow: 0 0 0 black;
   transform: translate(0, 0);
 }
@@ -254,6 +241,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 5px;
 }
 
 .deletion-overlay {
@@ -264,6 +252,12 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1;
+}
+
+.my-backlog-container h2, .my-collection-container h2, .my-wishlist-container h2 {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 @media (max-width: 770px) {
