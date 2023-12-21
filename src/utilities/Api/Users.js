@@ -40,12 +40,30 @@ async function addUser(userData) {
   }
 }
 
-async function updateUser(id, userData) {
+async function updateUserEmail(id, email) {
   try {
-    const response = await Axios.put(`/users/update-user/${id}`, userData);
+    const response = await Axios.put(
+      `/users/update-user-email/${id}`,
+      email
+    );
+    console.log(response.data)
     return response.data;
   } catch (error) {
-    console.error("Error updating user", error);
+    console.error("Error updating user's email", error);
+    throw error;
+  }
+}
+
+async function updateUserPassword(id, password) {
+  try {
+    const response = await Axios.put(
+      `/users/update-user-password/${id}`,
+      password
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating user's password", error);
     throw error;
   }
 }
@@ -60,4 +78,4 @@ async function deleteUser(id) {
   }
 }
 
-export { getAllUsers, loginUser, updateUser, addUser, deleteUser, getUserById };
+export { getAllUsers, loginUser, updateUserEmail, updateUserPassword, addUser, deleteUser, getUserById };

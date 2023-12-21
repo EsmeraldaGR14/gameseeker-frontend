@@ -60,7 +60,7 @@ function SearchResultsPage() {
   }, [searchQuery, sortCriteria]);
 
   return (
-    <div className="search-results-container">
+    <div className="container">
       <div className="sort-buttons">
         <button type="button" onClick={() => handleView("list")}>
           List View

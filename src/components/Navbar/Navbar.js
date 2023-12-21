@@ -23,6 +23,7 @@ function Navbar() {
 
 
   return (
+    <div className="navbar-container">
     <nav className={`navbar ${isMenuOpen ? "open" : ""}`}>
       <div className="navbar-links">
         <NavLink to="/" className="navbar-logo">
@@ -53,13 +54,13 @@ function Navbar() {
         >
           BACKLOG
         </NavLink>
-        {/* <NavLink
+        <NavLink
           className="navbar-link"
           activeclassname="active-link"
           to="/help"
         >
           HELP
-        </NavLink> */}
+        </NavLink>
         {user.isLoggedIn ? (
           <>
             <NavLink
@@ -105,6 +106,7 @@ function Navbar() {
         />
       </div>
     </nav>
+    </div>
   );
 }
 

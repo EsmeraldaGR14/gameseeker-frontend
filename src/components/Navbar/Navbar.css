@@ -3,6 +3,11 @@
   src: url("../Font-assets/Modulario.ttf");
 }
 
+/* .navbar-container {
+  display: flex;
+  flex: 1;
+} */
+
 .navbar {
   display: flex;
   position: relative;
