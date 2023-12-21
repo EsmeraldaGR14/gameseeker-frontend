@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { updateUserEmail, updateUserPassword, getUserById } from "../../utilities/Api/Users";
 import { useUser } from "../UserContext";
 import { useNavigate } from "react-router-dom";

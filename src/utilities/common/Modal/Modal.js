@@ -78,10 +78,6 @@ function Modal({isOpen, onClose, message, title}) {
     //   }, 500);
     // }
 
-    function showBtn() {
-      // Implement this function if you want to show a button after closing the modal
-    }
-
     if (isOpen) {
       showModal();
       showModalChildren();

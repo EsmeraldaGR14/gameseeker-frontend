@@ -13,7 +13,7 @@ import {
 } from "../../utilities/Api/Backlog";
 import {
   getGameWishlist,
-  deleteGameFromWishlist,
+  // deleteGameFromWishlist,
 } from "../../utilities/Api/Wishlist";
 import { deleteUser } from "../../utilities/Api/Users"
 import UpdateProfileForm from "../UpdateProfileForm/UpdateProfileForm";
@@ -89,10 +89,10 @@ function AccountPage() {
         setShowConfirmation(false);
         setShowOverlay("false");
       } else if (listName === "wishlist") {
-        await deleteGameFromWishlist(user.id, gameId);
-        const updatedWishlist = wishlist.filter((game) => game.id !== gameId);
-        setShowConfirmation(false);
-        setShowOverlay(false);
+        // await deleteGameFromWishlist(user.id, gameId);
+        // const updatedWishlist = wishlist.filter((game) => game.id !== gameId);
+        // setShowConfirmation(false);
+        // setShowOverlay(false);
       }
       setShowOverlay(false);
     } catch (error) {
