@@ -1,48 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { getXGamesAtATime, getAllGames } from "../../utilities/Api/Games";
-import BoxArt from "../BoxArt/BoxArt";
-import Spinner from "../../utilities/common/Spinner/Spinner";
+import { getAllGames } from "../../utilities/Api/Games";
+import CatalogGames from "./CatalogGames/CatalogGames";
+import CatalogPagination from "./CatalogPagination/CatalogPagination";
 import "./Catalog.css";
-import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
 
 /*
- ** filters
+ FILTERS
+
+ * genre
+ * rating input by user 
+ * rating asc/desc
+ * platforms
+ * realsed
+ * asc/desc title
+
  */
 
 function Catalog() {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [allGamesLength, setAllGamesLength] = useState(0);
-  const [limitAndOffset, setLimitAndOffset] = useState({
-    limit: 25,
-    offset: 0,
-  });
+  const [currentPage, setCurrentPage] = useState(1);
+  // allow users to be able to change how many games they can see in a page
+  const [gamesPerPage] = useState(25);
 
-  let navigate = useNavigate();
-
-  useEffect(() => {
-    (async function fetchAllGames() {
-      try {
-        let response = await getAllGames();
-        setAllGamesLength(response.length);
-        // console.log("allGamesLength:", response.length);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
+  const filters = ["Genre", "Realeased Date", "Platform", "Title"];
 
   useEffect(() => {
     const getAllGamesForTheCatalog = async () => {
       try {
         setLoading(true);
         setTimeout(async () => {
-          let response = await getXGamesAtATime(limitAndOffset);
-          console.log(response.length);
+          let response = await getAllGames();
           setGames(response);
           setLoading(false);
-        }, 1500);
+        }, 2000);
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -50,75 +41,65 @@ function Catalog() {
     };
 
     getAllGamesForTheCatalog();
-  }, [limitAndOffset]);
+  }, []);
 
-  return loading ? (
-    <Spinner />
-  ) : (
-    <div className="container">
-      <h1>Catalog</h1>
-      <p>
-        Explore our Game Catalog for a world of gaming delights! Whether you're
-        a seasoned gamer or new to the scene, find thrilling adventures and
-        captivating narratives tailored to your preferences. From action-packed
-        blockbusters to indie gems, our curated selection has something for
-        everyone. Start your gaming journey now!
-      </p>
+  const filterTheGames = (e) => {
+    console.log(e.target.value);
+    // setFilter()
+  };
 
-      <div className="grid-container">
-        {games.map(({ id, title, boxart }) => (
-          <div
-            key={id}
-            className="boxart-container"
-            onClick={() => {
-              navigate(`/games/${id}`);
-            }}
-          >
-            <BoxArt image={boxart} name={title} />
-          </div>
-        ))}
-      </div>
+  // useEffect(() => {
+  //   const filterGameBy = async () => {
+  //     try {
+  //       let res = await filterGame("genres");
+  //       setGames(res)
+  //       console.log(res);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
-      <div className="button-container">
-        {limitAndOffset.offset > 0 && (
-          <button
-            onClick={() => {
-              let newOffset = limitAndOffset.offset - 25;
-              setLimitAndOffset((prevState) => ({
-                ...prevState,
-                offset: newOffset,
-              }));
-              window.scrollTo({
-                top: 100,
-                behavior: "smooth",
-              });
-            }}
-          >
-            BACK
-          </button>
-        )}
+  //   filterGameBy();
+  // }, []);
 
-        {games.length > 0 &&
-          allGamesLength - limitAndOffset.offset > limitAndOffset.limit && (
+  // get currentGames
+  const indexOfLastGame = currentPage * gamesPerPage;
+  const indexOfFirstGame = indexOfLastGame - gamesPerPage;
+  const currentGames = games.slice(indexOfFirstGame, indexOfLastGame);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  return (
+    <div className="catalog">
+      <div className="container">
+        <h1>Catalog</h1>
+        <p>
+          Explore our Game Catalog for a world of gaming delights! Whether
+          you're a seasoned gamer or new to the scene, find thrilling adventures
+          and captivating narratives tailored to your preferences. From
+          action-packed blockbusters to indie gems, our curated selection has
+          something for everyone. Start your gaming journey now!
+        </p>
+        {/* filters */}
+        <div>
+          <button>Filters</button>
+          {filters.map((filter) => (
             <button
-              onClick={() => {
-                let newOffset = limitAndOffset.offset + 25;
-                setLimitAndOffset((prevState) => ({
-                  ...prevState,
-                  offset: newOffset,
-                }));
-                window.scrollTo({
-                  top: 0,
-                  behavior: "smooth",
-                });
-              }}
+              key={filter}
+              value={filter}
+              onClick={(e) => filterTheGames(e)}
             >
-              NEXT
+              {filter}
             </button>
-          )}
+          ))}
+        </div>
+        <CatalogGames loading={loading} currentGames={currentGames} />
+        <CatalogPagination
+          gamesPerPage={gamesPerPage}
+          games={games.length}
+          paginate={paginate}
+        />
       </div>
-
-      <ScrollButton />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import AxiosInstance from "./Axios";
 async function getAllGames() {
   try {
     const response = await AxiosInstance.get("/games");
-    console.log("getAllGames");
+    // console.log("getAllGames", response.data);
     return response.data;
   } catch (error) {
     console.log("Error fetching all games:", error);
@@ -19,6 +19,18 @@ async function getXGamesAtATime({ limit, offset }) {
     return response.data;
   } catch (error) {
     console.log("Error fetching x games at a time:", error);
+    return error;
+  }
+}
+
+async function filterGame(filter) {
+  try {
+    const response = await AxiosInstance.get(
+      `/games/filter-game?order=${filter}`
+    );
+    return response.data;
+  } catch (error) {
+    console.log("Error fetching filtered game:", error);
     return error;
   }
 }
@@ -44,4 +56,10 @@ async function getGameById(id) {
   }
 }
 
-export { getAllGames, getLatestGamesAPI, getGameById, getXGamesAtATime };
+export {
+  getAllGames,
+  getLatestGamesAPI,
+  getGameById,
+  getXGamesAtATime,
+  filterGame,
+};
