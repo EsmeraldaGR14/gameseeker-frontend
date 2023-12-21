@@ -12,7 +12,6 @@ import Navbar from "./components/Navbar/Navbar";
 // import Collection from "./components/Collection/CollectionPage";
 import Footer from "./components/Footer/Footer";
 
-
 // import CustomCursor from "./components/CustomCursor/CustomCursor";
 
 const SearchResultsPage = React.lazy(() =>

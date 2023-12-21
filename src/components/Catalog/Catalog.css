@@ -2,31 +2,36 @@
   font-family: "Modular";
   src: url("../Font-assets/Modulario.ttf");
 } */
-.container {
-  display: block;
+
+/* make this more of a global css so that we dont have to do it each component individually  */
+.catalog .container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 30px;
 }
-h1 {
+
+.catalog h1 {
   font-size: 2em;
-  margin: 30px 50px 30px;
+  /* margin: 30px 100px 30px; */
   font-family: "Open Sans", sans-serif;
   letter-spacing: 1px;
 }
 
-p {
+.catalog p {
   font-size: 1.2em;
   line-height: 1.5;
-  margin: 0px 50px 50px;
+  /* margin: 0px 100px 50px; */
   /* font-family: "Modular", monospace;
   letter-spacing: 1px; */
 }
-.grid-container {
+.catalog .grid-container {
   display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(5, 1fr);
-  margin: 10px 100px;
+  gap: 15px;
+  grid-template-columns: repeat(4, 1fr);
+  /* margin: 10px 100px; */
 }
 
-.button-container {
+.catalog .button-container {
   display: flex;
   justify-content: center;
   margin-top: 30px;
@@ -35,7 +40,7 @@ p {
   gap: 20px;
 }
 
-.button-container button {
+.catalog .button-container button {
   font-family: "Modular", monospace;
   letter-spacing: 1px;
   width: 125px;
@@ -44,22 +49,20 @@ p {
   font-size: 20px;
 }
 
-@media only screen and (min-width: 768px) and (max-width: 1024px) {
-  .grid-container {
+@media only screen and (max-width: 1024px) {
+  .catalog .grid-container {
     display: grid;
     gap: 10px;
 
     grid-template-columns: repeat(3, 1fr);
-    margin: 10px;
   }
 }
 
 @media only screen and (max-width: 767px) {
-  .grid-container {
+  .catalog .grid-container {
     display: grid;
     gap: 5px;
 
     grid-template-columns: repeat(1, 1fr);
-    margin: 5px;
   }
 }
