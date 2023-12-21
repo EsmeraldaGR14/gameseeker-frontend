@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllGames, filterGame } from "../../utilities/Api/Games";
+import { getAllGames } from "../../utilities/Api/Games";
 import CatalogGames from "./CatalogGames/CatalogGames";
 import CatalogPagination from "./CatalogPagination/CatalogPagination";
 import "./Catalog.css";
