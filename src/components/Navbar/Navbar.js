@@ -23,6 +23,7 @@ function Navbar() {
 
 
   return (
+    <div className="navbar-container">
     <nav className={`navbar ${isMenuOpen ? "open" : ""}`}>
       <div className="navbar-links">
         <NavLink to="/" className="navbar-logo">
@@ -112,6 +113,7 @@ function Navbar() {
         />
       </div>
     </nav>
+    </div>
   );
 }
 
