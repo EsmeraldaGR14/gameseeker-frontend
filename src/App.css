@@ -1,11 +1,23 @@
-:root{
-    --z-mobile-menu: 9999;
+:root {
+  --z-mobile-menu: 9999;
 }
 
-.App{
-    cursor: url(icons8-map-pin-50.png), auto;
+* {
+  box-sizing: border-box;
 }
 
-a,a:visited,a:active,a:hover, button,button:hover {
-    cursor: url(icons8-map-pin-50.png), auto;
+.App {
+  /* cursor: url(icons8-map-pin-50.png), auto; */
+  cursor: default;
+}
+
+a,
+a:visited,
+a:active,
+a:hover,
+button,
+button:hover {
+  /* cursor: url(icons8-map-pin-50.png), auto;
+   */
+  cursor: default;
 }
