@@ -43,6 +43,11 @@ function Catalog() {
     getAllGamesForTheCatalog();
   }, []);
 
+  const filterTheGames = (e) => {
+    console.log(e.target.value);
+    // setFilter()
+  };
+
   // useEffect(() => {
   //   const filterGameBy = async () => {
   //     try {
@@ -77,18 +82,12 @@ function Catalog() {
         </p>
         {/* filters */}
         <div>
-          <button
-          // onClick={}
-          >
-            FILTERS
-          </button>
+          <button>Filters</button>
           {filters.map((filter) => (
             <button
               key={filter}
               value={filter}
-              onClick={(e) => {
-                console.log(e.target.value);
-              }}
+              onClick={(e) => filterTheGames(e)}
             >
               {filter}
             </button>
