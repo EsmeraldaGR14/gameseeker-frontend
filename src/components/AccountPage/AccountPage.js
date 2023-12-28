@@ -194,7 +194,7 @@ function AccountPage() {
                 {collection.length === 0 ? (
                   <p className="empty-list-text">Add games from the catalog!</p>
                 ) : (
-                  collection.slice(0, 10).map((game) => (
+                  collection.slice(0, 5).map((game) => (
                     <li key={game.id}>
                       <Link to={`/games/${game.id}`}>{game.title}</Link>
                       <button
@@ -228,7 +228,7 @@ function AccountPage() {
                 {backlog.length === 0 ? (
                   <p className="empty-list-text">Add games from the catalog!</p>
                 ) : (
-                  backlog.slice(0, 10).map((game) => (
+                  backlog.slice(0, 5).map((game) => (
                     <li key={game.id}>
                       <div className="list-item-content">
                         <Link to={`/games/${game.id}`}>{game.title}</Link>
@@ -264,7 +264,7 @@ function AccountPage() {
                 {wishlist.length === 0 ? (
                   <p className="empty-list-text">Add games from the catalog!</p>
                 ) : (
-                  wishlist.slice(0, 10).map((game) => (
+                  wishlist.slice(0, 5).map((game) => (
                     <li key={game.id}>
                       <Link to={`/games/${game.id}`}>{game.title}</Link>
                       <button

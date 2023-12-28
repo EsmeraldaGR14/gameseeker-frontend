@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import "./Modal.css";
 import dynamics from "dynamics.js";
+import { FaCheck, FaTimes } from "react-icons/fa";
 
-function Modal({isOpen, onClose, message, title}) {
+function Modal({ isOpen, onClose, message, title, type }) {
   useEffect(() => {
     const modal = document.querySelector(".js-modal");
     const modalChildren = modal.children;
@@ -91,11 +92,15 @@ function Modal({isOpen, onClose, message, title}) {
 
   return (
     <div className={`wrap ${isOpen ? "is-active" : ""}`}>
-      <div className="modal js-modal">
+      <div
+        className={`modal js-modal ${type === "success" ? "success" : "error"}`}
+      >
         <div className="modal-image">
-          <svg viewBox="0 0 32 32" style={{ fill: "#48DB71" }}>
-            <path d="M1 14 L5 10 L13 18 L27 4 L31 8 L13 26 z"></path>
-          </svg>
+          {type === "success" ? (
+            <FaCheck style={{ color: "#48DB71", fontSize: "2em" }} />
+          ) : (
+            <FaTimes style={{ color: "#FF0000", fontSize: "2em" }} />
+          )}
         </div>
         <h1>{title}</h1>
         <p>{message}</p>

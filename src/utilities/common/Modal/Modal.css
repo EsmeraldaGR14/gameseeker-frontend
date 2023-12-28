@@ -36,9 +36,17 @@
   height: 40px;
   margin: 0 auto;
   border-radius: 50%;
-  box-shadow: 0 0 0 2px #48DB71;
-  padding: 11px 10px 2px;
+  padding-top: 4px;
+  padding-left: 1px;
   /* margin-bottom: 2em; */
+}
+
+.modal.success .modal-image {
+  box-shadow: 0 0 0 2px #48DB71;
+}
+
+.modal.error .modal-image {
+  box-shadow: 0 0 0 2px #FF0000;
 }
 
 .modal h1 {
