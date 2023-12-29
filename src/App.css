@@ -19,5 +19,5 @@ button,
 button:hover {
   /* cursor: url(icons8-map-pin-50.png), auto;
    */
-  cursor: default;
+  cursor: pointer;
 }

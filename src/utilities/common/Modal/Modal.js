@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import "./Modal.css";
+// @ts-ignore
 import dynamics from "dynamics.js";
 import { FaCheck, FaTimes } from "react-icons/fa";
 

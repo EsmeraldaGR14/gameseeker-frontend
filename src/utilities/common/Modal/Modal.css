@@ -61,26 +61,23 @@
   color: #666;
 }
 
-/* .btn-open {
-  display: none;
-  &.is-active { display: block; }
-} */
+.js-close {
+  color:inherit;
+  font-family:inherit;
+  font-size: inherit;
+  border: 3px solid black;
+  box-shadow: 0 0 0 black;
+  transition: all 0.2s;
+  margin: 5px;
+}
 
-/* .js-close {
-  font-size: 1.25em;
-  font-weight: bold;
-  background-color: #000;
-  border: none;
-  padding: .5em 1em;
-  color: #fff;
-  box-shadow: 0 0 0 2px #000 inset;
-  border-radius: .25em;
+.js-close:hover {
+  box-shadow: 0.4rem 0.4rem 0 black;
+  transform: translate(-0.4rem, -0.4rem);
   cursor: pointer;
-  transition: background .4s ease, color .4s ease;
-  
-  &:hover {
-    box-shadow: 0 0 0 2px #000 inset;
-    color: #000;
-    background-color: transparent;
-  }
-} */
+}
+
+.js-close:active {
+  box-shadow: 0 0 0 black;
+  transform: translate(0, 0);
+}
