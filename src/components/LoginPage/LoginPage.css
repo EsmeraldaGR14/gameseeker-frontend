@@ -1,8 +1,8 @@
-.login-page-body {
+/* .login-page-body {
   background: linear-gradient(50deg, #FF0BFF, #5E17EB, #00ffff);
   height: 100vh;
   font-family:'Open Sans', sans-serif;
-}
+} */
 
 .sign-in-container {
   position: absolute;
@@ -12,9 +12,8 @@
 }
 
 .sign-in-form {
-  background: rgba(255,255,255,0.3);
+  background: linear-gradient(100deg, #00ffff, #FF0BFF);
   padding: 3em;
-  height: 320px;
   border-radius: 20px;
   border-left: 1px solid rgba(255,255,255,0.3);
   border-top: 1px solid rgba(255,255,255,0.3);
@@ -28,7 +27,7 @@
     font-weight: 500;
     color: #fff;
     opacity: 0.7;
-    font-size: 1.4rem;
+    font-size: 2rem;
     margin-top: 0;
     margin-bottom: 60px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
@@ -49,7 +48,7 @@
   }
   
   input {
-    background: transparent;
+    background: #333333;
     width: 200px;
     padding: 1em;
     margin-bottom: 2em;
@@ -66,7 +65,7 @@
     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
     
     &:hover {
-      background: rgba(255,255,255,0.1);
+      background: #333333;
       box-shadow: 4px 4px 60px 8px rgba(0,0,0,0.2);
     }
     
@@ -74,7 +73,7 @@
     &[type="password"] {
       
       &:focus {
-        background: rgba(255,255,255,0.1);
+        background: #333333;
         box-shadow: 4px 4px 60px 8px rgba(0,0,0,0.2);
       }
     }
@@ -106,54 +105,94 @@
   text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
 }
 
+.password-container {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.password-toggle {
+  margin-left: 5px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.login-button {
+  color:inherit;
+  font-family:inherit;
+  font-size: inherit;
+  border: 3px solid black;
+  box-shadow: 0 0 0 black;
+  transition: all 0.2s;
+  margin: 5px;
+}
+
+.login-button:hover {
+  box-shadow: 0.4rem 0.4rem 0 black;
+  transform: translate(-0.4rem, -0.4rem);
+  cursor: pointer;
+}
+
+.login-button:active {
+  box-shadow: 0 0 0 black;
+  transform: translate(0, 0);
+}
+
 .drop {
-  background: rgba(255,255,255,0.3);
+  background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
   border-radius: 10px;
-  border-left: 1px solid rgba(255,255,255,0.3);
-  border-top: 1px solid rgba(255,255,255,0.3);
-  box-shadow: 10px 10px 60px -8px rgba(0,0,0,0.2);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 10px 10px 60px -8px rgba(0, 0, 0, 0.2);
   position: absolute;
   transition: all 0.2s ease;
-  
-  &-1 {
-    height: 80px;
-    width: 80px;
-    top: -20px;
-    left: -40px;
-    z-index: -1;
-  }
-  
-  &-2 {
-    height: 80px;
-    width: 80px;
-    bottom: -30px;
-    right: -10px;
-  }
-  
-  &-3 {
-    height: 100px;
-    width: 100px;
-    bottom: 120px;
-    right: -50px;
-    z-index: -1;
-  }
-  
-  &-4 {
-    height: 120px;
-    width: 120px;
-    top: -60px;
-    right: -60px;
-  }
-  
-  &-5 {
-    height: 60px;
-    width: 60px;
-    bottom: 170px;
-    left: 90px;
-    z-index: -1;
-  }
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  background-position: center;
 }
+
+.drop-1 {
+  height: 80px;
+  width: 80px;
+  top: -20px;
+  left: -85px;
+  z-index: -1;
+  background-image: url("https://cdn.vox-cdn.com/thumbor/WGDh9azS27ODAJS6SGRnBrvS9n0=/0x0:1440x2594/1820x1213/filters:focal(616x1179:846x1409):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/55784511/nintendo_switch_online_art_1440.0.png")
+}
+
+.drop-2 {
+  height: 80px;
+  width: 80px;
+  bottom: -30px;
+  right: -10px;
+  background-image: url('https://pbs.twimg.com/profile_images/1577059981215485952/8z9zeDIT_400x400.jpg');
+}
+
+.drop-3 {
+  height: 100px;
+  width: 100px;
+  bottom: 120px;
+  right: -110px;
+  z-index: -1;
+  background-image: url('https://assetsio.reedpopcdn.com/game-pass-logo.jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp');
+}
+
+.drop-4 {
+  height: 120px;
+  width: 120px;
+  top: -20px;
+  right: -60px;
+  background-image: url('https://seeklogo.com/images/P/playstation-plus-logo-5DBDF15160-seeklogo.com.png');
+}
+
+/* .drop-5 {
+  height: 60px;
+  width: 60px;
+  bottom: 170px;
+  left: 90px;
+  z-index: -1;
+} */
 
 a,
 input:focus,
@@ -161,4 +200,11 @@ select:focus,
 textarea:focus,
 button:focus {
     outline: none;
+}
+
+.login-modal {
+  position: absolute;
+  top: 14%;
+  z-index: 100;
+  width: 350px;
 }

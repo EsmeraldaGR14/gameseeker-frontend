@@ -20,6 +20,7 @@ const UpdateProfileForm = ({
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isSuccessModalVisible, setSuccessModalVisible] = useState(false);
+  const [isFailureModalVisible, setFailureModalVisible] = useState(false);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -39,7 +40,7 @@ const UpdateProfileForm = ({
       const userDetails = await getUserById(user.id);
 
       if (email && email === userDetails[0]?.email) {
-        alert("New email cannot be the same as the current one");
+        setFailureModalVisible(true);
         return;
       }
 
@@ -56,8 +57,6 @@ const UpdateProfileForm = ({
         await updateUserPassword(user.id, { password: password });
         setSuccessModalVisible(true);
       }
-      // logout();
-      // navigate("/login");
     } catch (error) {
       console.log("Error updating user profile", error);
     }
@@ -72,6 +71,10 @@ const UpdateProfileForm = ({
     setSuccessModalVisible(false);
     navigate("/login");
   };
+
+   const handleFailureModalClose = () => {
+     setFailureModalVisible(false);
+   };
 
   return (
     <div className="update-container">
@@ -114,6 +117,15 @@ const UpdateProfileForm = ({
           onClose={() => handleModalClose()}
           title={`Profile Successfully Updated`}
           message={`Please log in again with your new credentials.`}
+          type={"success"}
+        />
+      )}
+      {isFailureModalVisible && (
+        <Modal
+          isOpen={isFailureModalVisible}
+          onClose={() => handleFailureModalClose()}
+          title={`Profile Not Updated`}
+          message={`New email cannot be the same as the current one.`}
         />
       )}
       {showUserDeletionConfirmation && (
