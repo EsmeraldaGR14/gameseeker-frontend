@@ -79,14 +79,14 @@ const SearchBar = () => {
           <img src={searchButtonIcon} alt=""/>
         </button>
       </form>
-      <div>
+      
         {overlayVisible && (
           <SearchResultsOverlay
             searchResults={searchResults}
             overlayVisible={overlayVisible}
           />
         )}
-      </div>
+      
     </div>
   );
 };

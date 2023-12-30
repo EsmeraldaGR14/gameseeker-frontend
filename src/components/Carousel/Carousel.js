@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import BoxArt from "../BoxArt/BoxArt";
+import { extractYear } from "../../utilities/helpers/extractYear";
 
 function GenericCarousel({ items }) {
   const responsive = {
@@ -20,7 +21,6 @@ function GenericCarousel({ items }) {
     },
   };
 
-  console.log(items);
   const itemsArray = Array.isArray(items) ? items : [items];
   return (
     <Carousel
@@ -33,10 +33,11 @@ function GenericCarousel({ items }) {
         const imageUrl = item?.boxart;
         const itemID = item?.id;
         const itemTitle = item?.title
+        const itemYear = extractYear(item?.release_date);
         return (
           <React.Fragment key={itemID}>
             <Link to={`/games/${itemID}`}>
-              <BoxArt image={imageUrl} name={itemTitle} />
+              <BoxArt image={imageUrl} name={itemTitle} year={itemYear} gameId={itemID}/>
             </Link>
           </React.Fragment>
         );

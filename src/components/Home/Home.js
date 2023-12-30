@@ -9,7 +9,7 @@ function Home() {
   return (
     <div className="homepage">
       <div className="welcome-message">
-        <h1>Welcome to GameSeeker</h1>
+        <h1>Discover. Play. Repeat.</h1>
         <p>
           Explore the latest games, manage your collection, and track your
           gaming backlog.

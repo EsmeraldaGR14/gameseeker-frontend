@@ -23,7 +23,7 @@ function Catalog() {
   // allow users to be able to change how many games they can see in a page
   const [gamesPerPage] = useState(25);
 
-  const filters = ["Genre", "Realeased Date", "Platform", "Title"];
+  const filters = ["Genre", "Release Date", "Platform", "Title"];
 
   useEffect(() => {
     const getAllGamesForTheCatalog = async () => {

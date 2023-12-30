@@ -3,6 +3,7 @@ import BoxArt from "../../BoxArt/BoxArt";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../../utilities/common/Spinner/Spinner";
 import ScrollButton from "../../../utilities/common/ScrollButton/ScrollButton";
+import { extractYear } from "../../../utilities/helpers/extractYear";
 
 const CatalogGames = ({ loading, currentGames }) => {
   let navigate = useNavigate();
@@ -14,7 +15,7 @@ const CatalogGames = ({ loading, currentGames }) => {
   return (
     <>
       <div className="grid-container">
-        {currentGames.map(({ id, title, boxart }) => (
+        {currentGames.map(({ id, title, boxart, release_date }) => (
           <div
             key={id}
             className="boxart-container"
@@ -22,7 +23,12 @@ const CatalogGames = ({ loading, currentGames }) => {
               navigate(`/games/${id}`);
             }}
           >
-            <BoxArt image={boxart} name={title} />
+            <BoxArt
+              image={boxart}
+              name={title}
+              year={extractYear(release_date)}
+              gameId={id}
+            />
           </div>
         ))}
       </div>
