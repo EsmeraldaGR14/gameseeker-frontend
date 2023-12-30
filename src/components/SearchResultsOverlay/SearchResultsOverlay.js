@@ -16,14 +16,15 @@ const SearchResultsOverlay = ({ searchResults, overlayVisible }) => {
             {searchResults.map((result) => (
               <Link to={`/games/${result.id}`} key={result.id}>
                 <li className="search-results-item">
-
+                  <div className="card-boxart">
                   <BoxArt
-                    className="boxart"
+                    className="card-boxart"
                     image={result.boxart}
                     year={extractYear(result.release_date)}
                   />
-                <div className="item-details">
-                  {result.title} ({extractYear(result.release_date)})
+                  </div>
+                  <div className="item-details">
+                    {result.title} ({extractYear(result.release_date)})
                   </div>
                 </li>
               </Link>
