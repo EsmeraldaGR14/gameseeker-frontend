@@ -56,16 +56,51 @@ img {
 }
 
 .carousel-item__details .controls {
+  display: flex;
+  align-items: center;
   padding-top: 200px;
 }
 
+.controller,
+.clipboard,
+.heart {
+  font-size: 18px; 
+  display: flex;
+  align-items: center;
+  border: none; 
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.controller {
+  background-color: white;
+  color: black;
+}
+
 .clipboard {
-  background-color: #FF0BFF;
+  background-color: white;
+  margin-left: 5px;
+  color: black;
 }
 
 .heart {
-  background-color: #00ffff;
+  background-color: white;
   color: black;
+  margin-left: 5px;
+}
+
+.controller.minus {
+  background-color: #5E17EB;
+  color: white;
+}
+
+.clipboard.minus {
+  background-color: #FF0BFF;
+  color: white
+}
+
+.heart.minus {
+  background-color: #00ffff;
+  color: black
 }
 
 .carousel-item__details .carousel-item__details--title,

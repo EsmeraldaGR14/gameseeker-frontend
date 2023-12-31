@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import LatestGamesCarousel from "../LatestGames/LatestGames";
 import BacklogCarousel from "../BacklogCarousel/BacklogCarousel";
 import CollectionCarousel from "../CollectionCarousel/CollectionCarousel";
 import "./Home.css"
 import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
+import Modal from "../../utilities/common/Modal/Modal";
 
 function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+
+    // Scroll to the top of the modal when it opens
+    const modalElement = document.querySelector(".your-modal-container-id"); // Replace with the actual ID of your modal
+    if (modalElement) {
+      modalElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  };
+  const closeModal = () => setIsModalOpen(false);
   return (
     <div className="homepage">
       <div className="welcome-message">
@@ -18,19 +31,30 @@ function Home() {
 
       <section>
         <h2>Latest Games</h2>
-        <LatestGamesCarousel />
+        <LatestGamesCarousel openModal={openModal} />
       </section>
 
       <section>
         <h2>Collection</h2>
-        <CollectionCarousel />
+        <CollectionCarousel openModal={openModal} />
       </section>
 
       <section>
         <h2>Backlog</h2>
-        <BacklogCarousel />
+        <BacklogCarousel openModal={openModal} />
       </section>
       <ScrollButton />
+      <div className="your-modal-container-id">
+        {isModalOpen && (
+          <Modal
+            isOpen={isModalOpen}
+            title="Cannot add to list"
+            message="If you want to use this feature please sign up for an account."
+            type={"error"}
+            onClose={closeModal}
+          />
+        )}
+      </div>
     </div>
   );
 }
