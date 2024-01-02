@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -6,7 +6,7 @@ import BoxArt from "../BoxArt/BoxArt";
 import { extractYear } from "../../utilities/helpers/extractYear";
 
 function GenericCarousel({ items, openModal }) {
-  const [isBoxArtHovered, setIsBoxArtHovered] = useState(false);
+  // const [isBoxArtHovered, setIsBoxArtHovered] = useState(false);
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -26,7 +26,7 @@ function GenericCarousel({ items, openModal }) {
   return (
     <Carousel
       responsive={responsive}
-      autoPlay={!isBoxArtHovered}
+      // autoPlay={!isBoxArtHovered}
       autoPlaySpeed={3000}
       infinite={true}
     >
@@ -37,15 +37,15 @@ function GenericCarousel({ items, openModal }) {
         const itemYear = extractYear(item?.release_date);
         return (
           <React.Fragment key={itemID}>
-            <Link to={`/games/${itemID}`}>
+            <Link to={`/games/${itemID}`} key={itemID}>
               <BoxArt
                 image={imageUrl}
                 name={itemTitle}
                 year={itemYear}
                 gameId={itemID}
                 openModal={openModal}
-                handleHover={() => setIsBoxArtHovered(true)}
-                handleHoverLeave={() => setIsBoxArtHovered(false)}
+                // handleHover={() => setIsBoxArtHovered(true)}
+                // handleHoverLeave={() => setIsBoxArtHovered(false)}
               />
             </Link>
           </React.Fragment>

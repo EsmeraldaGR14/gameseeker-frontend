@@ -1,6 +1,6 @@
 .card {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   justify-content: flex-start;
   width: 100%;
@@ -21,7 +21,7 @@ img {
   transition: transform 0.5s;
 }
 
-.carousel-item__details {
+.card-item__details {
   background: -webkit-gradient(
     linear,
     left bottom,
@@ -47,15 +47,15 @@ img {
   border-radius: 10px;
 }
 
-.carousel-item__details:hover {
+.card-item__details:hover {
   opacity: 1;
 }
 
-.carousel-item__details button {
+.card-item__details button {
   padding: 5px;
 }
 
-.carousel-item__details .controls {
+.card-item__details .controls {
   display: flex;
   align-items: center;
   padding-top: 200px;
@@ -103,8 +103,7 @@ img {
   color: black
 }
 
-.carousel-item__details .carousel-item__details--title,
-.carousel-item__details--subtitle {
+.card-item__details .card-item__details--title {
   color: #fff;
   margin: 5px 0;
 }

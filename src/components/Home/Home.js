@@ -13,7 +13,7 @@ function Home() {
     setIsModalOpen(true);
 
     // Scroll to the top of the modal when it opens
-    const modalElement = document.querySelector(".your-modal-container-id"); // Replace with the actual ID of your modal
+    const modalElement = document.querySelector(".modal-container-id");
     if (modalElement) {
       modalElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
@@ -44,7 +44,7 @@ function Home() {
         <BacklogCarousel openModal={openModal} />
       </section>
       <ScrollButton />
-      <div className="your-modal-container-id">
+      <div className="modal-container-id">
         {isModalOpen && (
           <Modal
             isOpen={isModalOpen}

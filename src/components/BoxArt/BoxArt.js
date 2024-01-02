@@ -7,7 +7,6 @@ import {
   IoRemoveOutline,
 } from "react-icons/io5";
 import { useUser } from "../UserContext";
-import { getUserById } from "../../utilities/Api/Users";
 import {
   getGameCollection,
   deleteGameFromCollection,
@@ -31,8 +30,9 @@ function BoxArt({
   className,
   gameId,
   openModal,
-  handleHover,
-  handleHoverLeave,
+  // handleHover,
+  // handleHoverLeave,
+  // hoverEnabled,
 }) {
   const [isControllerHovered, setControllerHovered] = useState(false);
   const [isClipboardHovered, setClipboardHovered] = useState(false);
@@ -44,6 +44,7 @@ function BoxArt({
   const [inWishlist, setInWishlist] = useState(false);
 
   const handleMouseMove = (e) => {
+    // if (!hoverEnabled) return;
     const card = e.currentTarget;
     const boundingBox = card.getBoundingClientRect();
     const mouseX = e.clientX - boundingBox.left;
@@ -52,12 +53,13 @@ function BoxArt({
     const rotateY = (mouseX / boundingBox.width - 0.5) * 30;
 
     card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    handleHover();
+    // handleHover();
   };
 
   const handleMouseLeave = (e) => {
+    // if (!hoverEnabled) return;
     e.currentTarget.style.transform = "rotateX(0) rotateY(0)";
-    handleHoverLeave();
+    // handleHoverLeave();
   };
 
   const handleAddToCollection = async (e) => {
@@ -111,81 +113,6 @@ function BoxArt({
     }
   };
 
-  const checkIfGameInCollection = async () => {
-    if (user.isLoggedIn) {
-      try {
-        // Assuming getGameCollection returns an array of game IDs in the user's collection
-        const userCollection = await getGameCollection(user.id);
-
-        // Check if the current game ID is in the user's collection
-        const isGameInCollection = userCollection.data.some(
-          (game) => game.id === gameId
-        );
-
-        if (isGameInCollection) {
-          // Handle the case where the game is in the collection
-          setInCollection(true);
-        } else {
-          // Handle the case where the game is not in the collection
-          setInCollection(false);
-        }
-      } catch (error) {
-        console.error("Error fetching user's collection", error);
-      }
-    } else {
-      console.warn("User is not logged in.");
-    }
-  };
-
-  const checkIfGameInBacklog = async () => {
-    if (user.isLoggedIn) {
-      try {
-        // Assuming getGameBacklog returns an array of game IDs in the user's Backlog
-        const userBacklog = await getGameBacklog(user.id);
-
-        // Check if the current game ID is in the user's Backlog
-        const isGameInBacklog = userBacklog.data.some(
-          (game) => game.id === gameId
-        );
-
-        if (isGameInBacklog) {
-          // Handle the case where the game is in the Backlog
-          setInBacklog(true);
-        } else {
-          // Handle the case where the game is not in the Backlog
-          setInBacklog(false);
-        }
-      } catch (error) {
-        console.error("Error fetching user's Backlog", error);
-      }
-    } else {
-      console.warn("User is not logged in.");
-    }
-  };
-
-  const checkIfGameInWishlist = async () => {
-    if (user.isLoggedIn) {
-      try {
-        const userWishlist = await getGameWishlist(user.id);
-        console.log(userWishlist.data);
-
-        const isGameInWishlist = userWishlist.data.some(
-          (game) => game.id === gameId
-        );
-
-        if (isGameInWishlist) {
-          setInWishlist(true);
-        } else {
-          setInWishlist(false);
-        }
-      } catch (error) {
-        console.error("Error fetching user's Wishlist", error);
-      }
-    } else {
-      console.warn("User is not logged in.");
-    }
-  };
-
   const handleDeleteFromCollection = async (e) => {
     e.preventDefault();
     if (user.isLoggedIn) {
@@ -231,11 +158,79 @@ function BoxArt({
     }
   };
 
-  useEffect(() => {
-    checkIfGameInCollection();
-    checkIfGameInBacklog();
-    checkIfGameInWishlist();
-  }, []);
+ useEffect(() => {
+   const checkIfGameInCollection = async () => {
+     if (user.isLoggedIn) {
+       try {
+         const userCollection = await getGameCollection(user.id);
+
+         const isGameInCollection = userCollection.data.some(
+           (game) => game.id === gameId
+         );
+
+         if (isGameInCollection) {
+           setInCollection(true);
+         } else {
+           setInCollection(false);
+         }
+       } catch (error) {
+         console.error("Error fetching user's collection", error);
+       }
+     } else {
+       console.warn("User is not logged in.");
+     }
+   };
+
+   const checkIfGameInBacklog = async () => {
+     if (user.isLoggedIn) {
+       try {
+         const userBacklog = await getGameBacklog(user.id);
+
+         const isGameInBacklog = userBacklog.data.some(
+           (game) => game.id === gameId
+         );
+
+         if (isGameInBacklog) {
+           setInBacklog(true);
+         } else {
+           setInBacklog(false);
+         }
+       } catch (error) {
+         console.error("Error fetching user's Backlog", error);
+       }
+     } else {
+       console.warn("User is not logged in.");
+     }
+   };
+
+   const checkIfGameInWishlist = async () => {
+     if (user.isLoggedIn) {
+       try {
+         const userWishlist = await getGameWishlist(user.id);
+
+         const isGameInWishlist = userWishlist.data.some(
+           (game) => game.id === gameId
+         );
+
+         if (isGameInWishlist) {
+           setInWishlist(true);
+         } else {
+           setInWishlist(false);
+         }
+       } catch (error) {
+         console.error("Error fetching user's Wishlist", error);
+       }
+     } else {
+       console.warn("User is not logged in.");
+     }
+   };
+
+   if (user.isLoggedIn) {
+     checkIfGameInCollection();
+     checkIfGameInBacklog();
+     checkIfGameInWishlist();
+   }
+ }, [user.isLoggedIn, user.id, gameId]);
 
   const handleControllerHover = (e) => {
     setControllerHovered(true);
@@ -286,7 +281,7 @@ function BoxArt({
       onMouseLeave={handleMouseLeave}
     >
       <img className="card-image" src={image} alt={name}></img>
-      <div className="carousel-item__details">
+      <div className="card-item__details">
         <div className="controls">
           <button
             type="input"
@@ -350,7 +345,7 @@ function BoxArt({
             )}
           </button>
         </div>
-        <h5 className="carousel-item__details--title">{titleText}</h5>
+        <h5 className="card-item__details--title">{titleText}</h5>
       </div>
     </div>
   );
