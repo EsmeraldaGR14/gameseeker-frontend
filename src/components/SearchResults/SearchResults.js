@@ -12,7 +12,7 @@ function SearchResultsPage() {
   const [searchResults, setSearchResults] = useState([]);
   const [sortCriteria, setSortCriteria] = useState("relevance");
   const [selectedSortCriteria, setSelectedSortCriteria] = useState("relevance");
-  const [viewType, setViewType] = useState("grid");
+  // const [viewType, setViewType] = useState("grid");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -109,11 +109,7 @@ function SearchResultsPage() {
           Rating
         </button> */}
       </div>
-      <div
-        className={`search-results ${
-          viewType === "list" ? "list-view" : "grid-view"
-        }`}
-      >
+      <div className="search-results grid-view">
         <div className={`search-results-title`}>
           <h1>Search Results</h1>
           {searchResults.length > 0 ? (
@@ -124,11 +120,7 @@ function SearchResultsPage() {
             <p>Sorry, there are no results.</p>
           )}
         </div>
-        <div
-          className={`search-results ${
-            viewType === "list" ? "list-view" : "grid-view"
-          }`}
-        >
+        <div className="search-results grid-view">
           {searchResults.map((game) => (
             <Link to={`/games/${game.id}`} className="item-link" key={game.id}>
               <BoxArt
