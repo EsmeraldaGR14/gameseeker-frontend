@@ -3,7 +3,7 @@ import GenericCarousel from "../Carousel/Carousel";
 import { useUser } from "../UserContext";
 import { getGameCollection } from "../../utilities/Api/Collection";
 
-function CollectionCarousel() {
+function CollectionCarousel({ openModal }) {
   const { user } = useUser();
   const [collectionData, setCollectionData] = useState([]);
 
@@ -20,7 +20,13 @@ function CollectionCarousel() {
     getCollectionById();
   }, [getCollectionById]);
 
-  return <GenericCarousel label="Collection" items={collectionData} />;
+  return (
+    <GenericCarousel
+      label="Collection"
+      items={collectionData}
+      openModal={openModal}
+    />
+  );
 }
 
 export default CollectionCarousel;

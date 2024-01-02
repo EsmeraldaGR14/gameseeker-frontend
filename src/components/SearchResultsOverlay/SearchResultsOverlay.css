@@ -1,7 +1,7 @@
 .search-results-overlay {
   position: absolute;
-  top: 75%;
-  left: 10%;
+  /* top: 75%;
+  left: 10%; */
   background-color: #fff;
   border: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -9,6 +9,8 @@
   max-height: 200px;
   overflow-y: auto;
   border-radius: 5px;
+  max-width: 100dvw;
+  min-width: max-content;
 }
 
 .search-results-list {
@@ -20,8 +22,7 @@
 .search-results-item {
   display: flex;
   align-items: center;
-  padding: 8px 16px;
-  cursor: pointer;
+  /* padding: 8px 16px; */
   transition: background-color 0.2s;
   text-decoration: none;
 }
@@ -33,13 +34,23 @@
 }
 
 .card-boxart {
-  padding-right: 20px;
+  /* padding-right: 20px; */
   height: 100px;
   width: 75px;
 }
 
+.card-image {
+  height: 100px;
+  width: 75px;
+  margin-left: 5px;
+}
+
 .search-results-item:hover {
   background-color: #f0f0f0;
+}
+
+.item-details {
+  margin-left: 10px;
 }
 
 .overlay-visible .overlay-background {
@@ -48,6 +59,15 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.1); 
+  background-color: rgba(0, 0, 0, 0.2); 
   z-index: 1;
+}
+
+@media (max-width: 1024px) {
+  .search-results-overlay {
+  display: none;
+  }
+  .overlay-background {
+    display: none;
+  }
 }

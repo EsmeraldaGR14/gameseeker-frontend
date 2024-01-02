@@ -6,12 +6,14 @@ import { useLocation, Link } from "react-router-dom";
 import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
 import { extractYear } from "../../utilities/helpers/extractYear";
 import BoxArt from "../BoxArt/BoxArt";
+import Modal from "../../utilities/common/Modal/Modal";
 
 function SearchResultsPage() {
   const [searchResults, setSearchResults] = useState([]);
   const [sortCriteria, setSortCriteria] = useState("relevance");
   const [selectedSortCriteria, setSelectedSortCriteria] = useState("relevance");
-  const [viewType, setViewType] = useState("grid");
+  // const [viewType, setViewType] = useState("grid");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const searchQuery = searchParams.get("query");
@@ -47,9 +49,9 @@ function SearchResultsPage() {
     handleSearch(searchQuery);
   };
 
-  const handleView = (view) => {
-    setViewType(view);
-  };
+  // const handleView = (view) => {
+  //   setViewType(view);
+  // };
 
   useEffect(() => {
     if (searchQuery) {
@@ -59,15 +61,25 @@ function SearchResultsPage() {
     }
   }, [searchQuery, sortCriteria]);
 
+  const openModal = () => {
+    setIsModalOpen(true);
+
+    const modalElement = document.querySelector(".search-modal-id");
+    if (modalElement) {
+      modalElement.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+  };
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <div className="container">
       <div className="sort-buttons">
-        <button type="button" onClick={() => handleView("list")}>
+        {/* <button type="button" onClick={() => handleView("list")}>
           List View
         </button>
         <button type="button" onClick={() => handleView("grid")}>
           Grid View
-        </button>
+        </button> */}
         <button
           type="button"
           onClick={() => handleSort("relevance")}
@@ -97,11 +109,7 @@ function SearchResultsPage() {
           Rating
         </button> */}
       </div>
-      <div
-        className={`search-results ${
-          viewType === "list" ? "list-view" : "grid-view"
-        }`}
-      >
+      <div className="search-results grid-view">
         <div className={`search-results-title`}>
           <h1>Search Results</h1>
           {searchResults.length > 0 ? (
@@ -112,38 +120,30 @@ function SearchResultsPage() {
             <p>Sorry, there are no results.</p>
           )}
         </div>
-        <div
-          className={`search-results ${
-            viewType === "list" ? "list-view" : "grid-view"
-          }`}
-        >
+        <div className="search-results grid-view">
           {searchResults.map((game) => (
-            <div className="search-results-item" key={game.id}>
-              <Link to={`/games/${game.id}`} className="item-link">
-                <BoxArt
-                  className="boxart"
-                  image={game.boxart}
-                  name={game.title}
-                  year={extractYear(game.release_date)}
-                />
-                <div className="item-details">
-                  <h2>
-                    {game.title} ({extractYear(game.release_date)})
-                  </h2>
-                  <div className="platforms">
-                    {game.platforms.slice(0, 3).join(", ")}
-                    {game.platforms.length > 3 && (
-                      <span className="additional-platforms">
-                        {" "}
-                        + {game.platforms.length - 3} more
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </Link>
-            </div>
+            <Link to={`/games/${game.id}`} className="item-link" key={game.id}>
+              <BoxArt
+                className="boxart"
+                image={game.boxart}
+                name={game.title}
+                year={extractYear(game.release_date)}
+                openModal={openModal}
+              />
+            </Link>
           ))}
           <ScrollButton />
+          <div className="search-modal-id">
+            {isModalOpen && (
+              <Modal
+                isOpen={isModalOpen}
+                title="Cannot add to list"
+                message="If you want to use this feature please sign up for an account."
+                type={"error"}
+                onClose={closeModal}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

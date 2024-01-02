@@ -1,15 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useUser } from "../UserContext";
 import { getGameCollection } from "../../utilities/Api/Collection";
 import "./collection.css";
+import BoxArt from "../BoxArt/BoxArt";
+import { Link } from "react-router-dom";
+import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
+import { extractYear } from "../../utilities/helpers/extractYear";
 
 function Collection() {
   const { user } = useUser();
   const [game, setGame] = useState([]);
-
-  let navigate = useNavigate();
 
   useEffect(() => {
     getCollectionById();
@@ -28,20 +29,19 @@ function Collection() {
       <h1>Collection</h1>
       <div className="container">
         <div className="collection-container">
-          {game.map(({ boxart,id }) => {
-            return (
-              <div
-                key={id}
-                onClick={() => {
-                  navigate(`/games/${id}`);
-                }}
-              >
-                <img src={boxart} alt="boxart" className="boxart-image" />
-              </div>
-            );
-          })}
+          {game.map(({ id, title, boxart, release_date }) => (
+            <Link key={id} to={`/games/${id}`} className="boxart-container">
+              <BoxArt
+                image={boxart}
+                name={title}
+                year={extractYear(release_date)}
+                gameId={id}
+              />
+            </Link>
+          ))}
         </div>
       </div>
+      <ScrollButton />
     </>
   );
 }

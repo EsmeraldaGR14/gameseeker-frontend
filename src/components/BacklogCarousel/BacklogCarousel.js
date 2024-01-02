@@ -3,7 +3,7 @@ import GenericCarousel from "../Carousel/Carousel";
 import { useUser } from "../UserContext";
 import { getGameBacklog } from "../../utilities/Api/Backlog";
 
-function BacklogCarousel() {
+function BacklogCarousel({ openModal }) {
   const { user } = useUser();
   const [backlogData, setBacklogData] = useState([]);
 
@@ -21,7 +21,13 @@ function BacklogCarousel() {
     getBacklogById();
   }, [getBacklogById]);
 
-  return <GenericCarousel label="Backlog" items={backlogData} />;
+  return (
+    <GenericCarousel
+      label="Backlog"
+      items={backlogData}
+      openModal={openModal}
+    />
+  );
 }
 
 export default BacklogCarousel;

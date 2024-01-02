@@ -119,6 +119,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 2px solid #ccc; 
+  padding-bottom: 5px; 
 }
 
 .account-wishlist-container li {
@@ -127,6 +129,9 @@
   display: flex;
   justify-content: space-between; 
   align-items: center;
+  border-bottom: 2px solid black;
+  padding-bottom: 5px;
+  border-bottom: 2px solid black; 
 }
 
 .list-item-content {
@@ -163,11 +168,15 @@
   gap: 5px;
 }
 
-.trash-can {
+.trash-can, .wishlist-trash-can {
   background-color: transparent;
   cursor: pointer;
   padding: 0;
   margin-left: auto;
+}
+
+.wishlist-trash-can {
+  color: black;
 }
 
 /* .deletion-modal {

@@ -3,6 +3,7 @@ import { getAllGames } from "../../utilities/Api/Games";
 import CatalogGames from "./CatalogGames/CatalogGames";
 import CatalogPagination from "./CatalogPagination/CatalogPagination";
 import "./Catalog.css";
+import Modal from "../../utilities/common/Modal/Modal";
 
 /*
  FILTERS
@@ -22,8 +23,9 @@ function Catalog() {
   const [currentPage, setCurrentPage] = useState(1);
   // allow users to be able to change how many games they can see in a page
   const [gamesPerPage] = useState(25);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const filters = ["Genre", "Realeased Date", "Platform", "Title"];
+  const filters = ["Genre", "Release Date", "Platform", "Title"];
 
   useEffect(() => {
     const getAllGamesForTheCatalog = async () => {
@@ -69,6 +71,16 @@ function Catalog() {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const openModal = () => {
+    setIsModalOpen(true);
+
+    const modalElement = document.querySelector(".catalog-modal");
+    if (modalElement) {
+      modalElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  };
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <div className="catalog">
       <div className="container">
@@ -93,12 +105,27 @@ function Catalog() {
             </button>
           ))}
         </div>
-        <CatalogGames loading={loading} currentGames={currentGames} />
+        <CatalogGames
+          loading={loading}
+          currentGames={currentGames}
+          openModal={openModal}
+        />
         <CatalogPagination
           gamesPerPage={gamesPerPage}
           games={games.length}
           paginate={paginate}
         />
+      </div>
+      <div className="catalog-modal">
+        {isModalOpen && (
+          <Modal
+            title="Cannot add to list"
+            message="If you want to use this feature please sign up for an account."
+            type={"error"}
+            onClose={closeModal}
+            openModal={openModal}
+          />
+        )}
       </div>
     </div>
   );

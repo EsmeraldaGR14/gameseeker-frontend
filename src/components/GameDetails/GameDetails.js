@@ -22,7 +22,7 @@ function GameDetails() {
 
   useEffect(() => {
     fetchGameById();
-  }, []);
+  }, [id]);
 
   async function fetchGameById() {
     try {
