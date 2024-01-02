@@ -19,6 +19,7 @@ function Home() {
     }
   };
   const closeModal = () => setIsModalOpen(false);
+  
   return (
     <div className="homepage">
       <div className="welcome-message">

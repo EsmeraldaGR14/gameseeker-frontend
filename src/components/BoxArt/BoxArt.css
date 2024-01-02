@@ -45,6 +45,7 @@ img {
   right: 0;
   bottom: 0;
   border-radius: 10px;
+  overflow: hidden;
 }
 
 .card-item__details:hover {
@@ -58,7 +59,7 @@ img {
 .card-item__details .controls {
   display: flex;
   align-items: center;
-  padding-top: 200px;
+  /* padding-top: 200px; */
 }
 
 .controller,
@@ -74,6 +75,7 @@ img {
 .controller {
   background-color: white;
   color: black;
+  margin-left: 5px;
 }
 
 .clipboard {
@@ -106,4 +108,15 @@ img {
 .card-item__details .card-item__details--title {
   color: #fff;
   margin: 5px 0;
+}
+
+.card-item__details--title {
+  position: absolute;
+  bottom: 10px;
+  max-height: 50%; 
+  overflow: hidden; 
+}
+
+.controls {
+  justify-content: flex-end;
 }

@@ -74,7 +74,6 @@ function Catalog() {
   const openModal = () => {
     setIsModalOpen(true);
 
-    // Scroll to the top of the modal when it opens
     const modalElement = document.querySelector(".catalog-modal");
     if (modalElement) {
       modalElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
@@ -120,11 +119,11 @@ function Catalog() {
       <div className="catalog-modal">
         {isModalOpen && (
           <Modal
-            isOpen={isModalOpen}
             title="Cannot add to list"
             message="If you want to use this feature please sign up for an account."
             type={"error"}
             onClose={closeModal}
+            openModal={openModal}
           />
         )}
       </div>

@@ -26,7 +26,7 @@ function GenericCarousel({ items, openModal }) {
   return (
     <Carousel
       responsive={responsive}
-      // autoPlay={!isBoxArtHovered}
+      autoPlay={3000}
       autoPlaySpeed={3000}
       infinite={true}
     >

@@ -39,8 +39,18 @@
   width: 75px;
 }
 
+.card-image {
+  height: 100px;
+  width: 75px;
+  margin-left: 5px;
+}
+
 .search-results-item:hover {
   background-color: #f0f0f0;
+}
+
+.item-details {
+  margin-left: 10px;
 }
 
 .overlay-visible .overlay-background {
