@@ -7,7 +7,20 @@ import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
 import { extractYear } from "../../utilities/helpers/extractYear";
 import BoxArt from "../BoxArt/BoxArt";
 import Modal from "../../utilities/common/Modal/Modal";
-import SortingandFilteringButtons from "../../utilities/common/SortingandFilteringButtons/SortingandFilteringButtons";
+// import SortingandFilteringButtons from "../../utilities/common/SortingandFilteringButtons/SortingandFilteringButtons";
+
+const subscriptionServices = [
+  "PlayStation Plus Essential",
+  "PlayStation Plus Extra",
+  "PlayStation Plus Premium",
+  "Xbox Game Pass Core",
+  "Xbox Game Pass",
+  "PC Game Pass",
+  "GeForce Now",
+  "Nintendo Switch Online",
+  "Ubisoft+",
+  "Apple Arcade",
+];
 
 function SearchResultsPage() {
   const [searchResults, setSearchResults] = useState([]);
@@ -16,6 +29,9 @@ function SearchResultsPage() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const searchQuery = searchParams.get("query");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [filteredResults, setFilteredResults] = useState([]);
 
   const handleSearch = async (query) => {
     try {
@@ -24,13 +40,52 @@ function SearchResultsPage() {
         game.title.toLowerCase().includes(query.toLowerCase())
       );
       setSearchResults(filteredGames || []);
-      console.log(searchResults)
     } catch (error) {
       console.error("Error fetching search results:", error);
       setSearchResults([]);
     }
   };
 
+  const handleFilter = () => {
+    try {
+      let filteredGames = [...searchResults];
+      if (selectedServices.length > 0) {
+        filteredGames = filteredGames.filter(
+          (game) =>
+            Array.isArray(game.subscription) &&
+            game.subscription.some((sub) => selectedServices.includes(sub))
+        );
+      }
+
+      setFilteredResults(filteredGames);
+      console.log(filteredGames);
+    } catch (error) {
+      console.error("Error filtering games:", error);
+    }
+  };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+
+  const handleServiceToggle = (service) => {
+    const updatedServices = selectedServices.includes(service)
+      ? selectedServices.filter((s) => s !== service)
+      : [...selectedServices, service];
+
+    setSelectedServices(updatedServices);
+    console.log(
+      `Checkbox for service "${service}" clicked. Updated services:`,
+      updatedServices
+    );
+    //  console.log(`originalGames ${[originalGames]}`);
+    console.log(`Games ${searchResults}`);
+  };
+
+  useEffect(() => {
+    handleFilter();
+  }, [selectedServices]);
+  
   // const handleSort = (criteria) => {
   //   setSortCriteria(criteria);
   //   setSelectedSortCriteria(criteria);
@@ -61,33 +116,87 @@ function SearchResultsPage() {
 
   return (
     <div className="container">
-      <SortingandFilteringButtons
-        games={searchResults}
+      {/* <SortingandFilteringButtons
+        sortedGames={searchResults}
         setSortedGames={setSearchResults}
-      />
+        filteredGames={searchResults}
+        setFilteredGames={setFilteredResults}
+      /> */}
+      <div className="subscription-filter">
+        <div className="dropdown">
+          <div className="dropdown-title" onClick={toggleDropdown}>
+            <span>
+              {selectedServices.length === 0
+                ? "Select Services"
+                : selectedServices.join(", ")}
+            </span>
+            <span className={`arrow ${isDropdownOpen ? "up" : "down"}`}>
+              {isDropdownOpen ? "\u25B2" : "\u25BC"}
+            </span>
+          </div>
+          {isDropdownOpen && (
+            <div className="dropdown-options">
+              {subscriptionServices.map((service) => (
+                <div
+                  key={service}
+                  className="option"
+                  onClick={() => handleServiceToggle(service)}
+                >
+                  <input
+                    type="checkbox"
+                    checked={selectedServices.includes(service)}
+                    onChange={() => {}}
+                  />
+                  {service}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
       <div className="search-results grid-view">
         <div className={`search-results-title`}>
           <h1>Search Results</h1>
-          {searchResults.length > 0 ? (
+          {filteredResults.length > 0 ? (
             <p>
-              {searchResults.length} result(s) found for "{searchQuery}":
+              {filteredResults.length} result(s) found for "{searchQuery}":
             </p>
           ) : (
             <p>Sorry, there are no results.</p>
           )}
         </div>
         <div className="search-results grid-view">
-          {searchResults.map((game) => (
-            <Link to={`/games/${game.id}`} className="item-link" key={game.id}>
-              <BoxArt
-                className="boxart"
-                image={game.boxart}
-                name={game.title}
-                year={extractYear(game.release_date)}
-                openModal={openModal}
-              />
-            </Link>
-          ))}
+          {filteredResults.length > 0
+            ? filteredResults.map((game) => (
+                <Link
+                  to={`/games/${game.id}`}
+                  className="item-link"
+                  key={game.id}
+                >
+                  <BoxArt
+                    className="boxart"
+                    image={game.boxart}
+                    name={game.title}
+                    year={extractYear(game.release_date)}
+                    openModal={openModal}
+                  />
+                </Link>
+              ))
+            : searchResults.map((game) => (
+                <Link
+                  to={`/games/${game.id}`}
+                  className="item-link"
+                  key={game.id}
+                >
+                  <BoxArt
+                    className="boxart"
+                    image={game.boxart}
+                    name={game.title}
+                    year={extractYear(game.release_date)}
+                    openModal={openModal}
+                  />
+                </Link>
+              ))}
           <ScrollButton />
           <div className="search-modal-id">
             {isModalOpen && (
