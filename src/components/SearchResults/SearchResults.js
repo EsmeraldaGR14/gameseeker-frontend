@@ -7,6 +7,7 @@ import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
 import { extractYear } from "../../utilities/helpers/extractYear";
 import BoxArt from "../BoxArt/BoxArt";
 import Modal from "../../utilities/common/Modal/Modal";
+import SortingandFilteringButtons from "../../utilities/common/SortingandFilteringButtons/SortingandFilteringButtons";
 
 function SearchResultsPage() {
   const [searchResults, setSearchResults] = useState([]);
@@ -64,51 +65,19 @@ function SearchResultsPage() {
   const openModal = () => {
     setIsModalOpen(true);
 
-    const modalElement = document.querySelector(".search-modal-id");
-    if (modalElement) {
-      modalElement.scrollIntoView({ behavior: "smooth", block: "end" });
-    }
+    // const modalElement = document.querySelector(".search-modal-id");
+    // if (modalElement) {
+    //   modalElement.scrollIntoView({ behavior: "smooth", block: "end" });
+    // }
   };
   const closeModal = () => setIsModalOpen(false);
 
   return (
     <div className="container">
-      <div className="sort-buttons">
-        {/* <button type="button" onClick={() => handleView("list")}>
-          List View
-        </button>
-        <button type="button" onClick={() => handleView("grid")}>
-          Grid View
-        </button> */}
-        <button
-          type="button"
-          onClick={() => handleSort("relevance")}
-          className={selectedSortCriteria === "relevance" ? "selected" : ""}
-        >
-          Relevance
-        </button>
-        <button
-          type="button"
-          onClick={() => handleSort("title")}
-          className={selectedSortCriteria === "title" ? "selected" : ""}
-        >
-          Title
-        </button>
-        <button
-          type="button"
-          onClick={() => handleSort("releaseDate")}
-          className={selectedSortCriteria === "releaseDate" ? "selected" : ""}
-        >
-          Release Date
-        </button>
-        {/* <button
-          type="button"
-          onClick={() => handleSort("rating")}
-          className={selectedSortCriteria === "rating" ? "selected" : ""}
-        >
-          Rating
-        </button> */}
-      </div>
+      <SortingandFilteringButtons
+        ids={ids}
+        searchResults={searchResults}
+      />
       <div className="search-results grid-view">
         <div className={`search-results-title`}>
           <h1>Search Results</h1>

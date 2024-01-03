@@ -13,10 +13,10 @@ function Home() {
     setIsModalOpen(true);
 
     // Scroll to the top of the modal when it opens
-    const modalElement = document.querySelector(".modal-container-id");
-    if (modalElement) {
-      modalElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }
+    // const modalElement = document.querySelector(".modal-container-id");
+    // if (modalElement) {
+    //   modalElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    // }
   };
   const closeModal = () => setIsModalOpen(false);
   
@@ -45,7 +45,7 @@ function Home() {
         <BacklogCarousel openModal={openModal} />
       </section>
       <ScrollButton />
-      <div className="modal-container-id">
+      {/* <div className="modal-container-id"> */}
         {isModalOpen && (
           <Modal
             isOpen={isModalOpen}
@@ -55,7 +55,7 @@ function Home() {
             onClose={closeModal}
           />
         )}
-      </div>
+      {/* </div> */}
     </div>
   );
 }
