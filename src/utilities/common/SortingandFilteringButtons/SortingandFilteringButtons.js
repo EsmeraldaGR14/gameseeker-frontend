@@ -1,79 +1,80 @@
-// import React, {useState, useEffect} from 'react';
-// import { getAllGames } from '../../Api/Games';
-// import { extractYear } from '../../helpers/extractYear';
+import React, { useState, useCallback, useEffect } from "react";
+import { extractYear } from "../../helpers/extractYear";
+import "./SortingandFilteringButtons.css"
 
-// function SortingandFilteringButtons({ ids }) {
-//     const [sortCriteria, setSortCriteria] = useState("relevance");
-//     const [selectedSortCriteria, setSelectedSortCriteria] = useState("relevance");
+function SortingandFilteringButtons({ games, setSortedGames }) {
+  const [sortCriteria, setSortCriteria] = useState("relevance");
+  const [selectedSortCriteria, setSelectedSortCriteria] = useState("relevance");
 
-//     const handleSort = async (query) => {
-//       try {
-//         const allGames = await getAllGames();
-//         const filteredGames = allGames.filter((game) =>
-//           game.title.toLowerCase().includes(query.toLowerCase())
-//         );
-//         if (sortCriteria === "title") {
-//           filteredGames.sort((a, b) =>
-//             a.title.toLowerCase().localeCompare(b.title.toLowerCase())
-//           );
-//         } else if (sortCriteria === "releaseDate") {
-//           filteredGames.sort((a, b) =>
-//             extractYear(a.release_date)
-//               .toString()
-//               .localeCompare(extractYear(b.release_date).toString())
-//           );
-//         }
-//         setSearchResults(filteredGames || []);
-//       } catch (error) {
-//         console.error("Error fetching search results:", error);
-//         setSearchResults([]);
-//       }
-//     };
-    
-//     useEffect(() => {
-//     handleSort();
-//   }, [sortCriteria]);
-  
-//     return (
-//       <div className="container">
-//         <div className="sort-buttons">
-//           {/* <button type="button" onClick={() => handleView("list")}>
-//           List View
-//         </button>
-//         <button type="button" onClick={() => handleView("grid")}>
-//           Grid View
-//         </button> */}
-//           <button
-//             type="button"
-//             onClick={() => handleSort("relevance")}
-//             className={selectedSortCriteria === "relevance" ? "selected" : ""}
-//           >
-//             Relevance
-//           </button>
-//           <button
-//             type="button"
-//             onClick={() => handleSort("title")}
-//             className={selectedSortCriteria === "title" ? "selected" : ""}
-//           >
-//             Title
-//           </button>
-//           <button
-//             type="button"
-//             onClick={() => handleSort("releaseDate")}
-//             className={selectedSortCriteria === "releaseDate" ? "selected" : ""}
-//           >
-//             Release Date
-//           </button>
-//           <button
-//             type="button"
-//             onClick={handleRandomGame}
-//             className={"randomGame"}
-//           >
-//             Random Game
-//           </button>
-//         </div>
-//       </div>
-//     );
-// }
+  const removeTheFromTitle = (title) => {
+    const normalizedTitle = title.toLowerCase();
+    return normalizedTitle.startsWith("the ")
+      ? normalizedTitle.slice(4)
+      : normalizedTitle;
+  };
 
-// export default SortingandFilteringButtons
+   const handleSortAndFilter = (criteria) => {
+     setSortCriteria(criteria);
+     setSelectedSortCriteria(criteria);
+   };
+
+   const handleSort = useCallback(() => {
+     try {
+       let sortedGames = [...games];
+
+       if (sortCriteria === "title") {
+         console.log("Sorting by title");
+         sortedGames.sort((a, b) =>
+           removeTheFromTitle(a.title).localeCompare(
+             removeTheFromTitle(b.title)
+           )
+         );
+       } else if (sortCriteria === "releaseDate") {
+         console.log("Sorting by date");
+         sortedGames.sort((a, b) =>
+           extractYear(a.release_date)
+             .toString()
+             .localeCompare(extractYear(b.release_date).toString())
+         );
+       }
+       setSortedGames(sortedGames);
+       console.log(sortedGames);
+     } catch (error) {
+       console.error("Error sorting games:", error);
+     }
+   }, [games, sortCriteria, setSortedGames]);
+
+   useEffect(() => {
+     handleSort();
+   }, [sortCriteria]);
+
+  return (
+    <div className="container">
+      <div className="sort-buttons">
+        <button
+          type="button"
+          onClick={() => handleSortAndFilter("relevance")}
+          className={selectedSortCriteria === "relevance" ? "selected" : ""}
+        >
+          Relevance
+        </button>
+        <button
+          type="button"
+          onClick={() => handleSortAndFilter("title")}
+          className={selectedSortCriteria === "title" ? "selected" : ""}
+        >
+          Title
+        </button>
+        <button
+          type="button"
+          onClick={() => handleSortAndFilter("releaseDate")}
+          className={selectedSortCriteria === "releaseDate" ? "selected" : ""}
+        >
+          Release Date
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default SortingandFilteringButtons;

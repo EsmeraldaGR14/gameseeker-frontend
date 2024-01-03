@@ -1,0 +1,14 @@
+.sort-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sort-buttons button {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.sort-buttons button.selected {
+  background-color: #FF0BFF;
+  color: #ffffff;
+}

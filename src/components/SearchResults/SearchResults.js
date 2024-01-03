@@ -11,8 +11,6 @@ import SortingandFilteringButtons from "../../utilities/common/SortingandFilteri
 
 function SearchResultsPage() {
   const [searchResults, setSearchResults] = useState([]);
-  const [sortCriteria, setSortCriteria] = useState("relevance");
-  const [selectedSortCriteria, setSelectedSortCriteria] = useState("relevance");
   // const [viewType, setViewType] = useState("grid");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
@@ -25,17 +23,6 @@ function SearchResultsPage() {
       const filteredGames = allGames.filter((game) =>
         game.title.toLowerCase().includes(query.toLowerCase())
       );
-      if (sortCriteria === "title") {
-        filteredGames.sort((a, b) =>
-          a.title.toLowerCase().localeCompare(b.title.toLowerCase())
-        );
-      } else if (sortCriteria === "releaseDate") {
-        filteredGames.sort((a, b) =>
-          extractYear(a.release_date).toString().localeCompare(extractYear(b.release_date).toString())
-        );
-      // } else if (sortCriteria === "rating") {
-      //   filteredGames.sort((a, b) => a.rating.localeCompare(b.rating));
-      }
       setSearchResults(filteredGames || []);
       console.log(searchResults)
     } catch (error) {
@@ -44,11 +31,11 @@ function SearchResultsPage() {
     }
   };
 
-  const handleSort = (criteria) => {
-    setSortCriteria(criteria);
-    setSelectedSortCriteria(criteria);
-    handleSearch(searchQuery);
-  };
+  // const handleSort = (criteria) => {
+  //   setSortCriteria(criteria);
+  //   setSelectedSortCriteria(criteria);
+  //   handleSearch(searchQuery);
+  // };
 
   // const handleView = (view) => {
   //   setViewType(view);
@@ -60,7 +47,7 @@ function SearchResultsPage() {
     } else {
       setSearchResults([]);
     }
-  }, [searchQuery, sortCriteria]);
+  }, [searchQuery]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -75,8 +62,8 @@ function SearchResultsPage() {
   return (
     <div className="container">
       <SortingandFilteringButtons
-        ids={ids}
-        searchResults={searchResults}
+        games={searchResults}
+        setSortedGames={setSearchResults}
       />
       <div className="search-results grid-view">
         <div className={`search-results-title`}>

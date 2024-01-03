@@ -1,13 +1,3 @@
-.sort-buttons {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.sort-buttons button {
-  margin-top: 10px;
-  margin-right: 10px;
-}
-
 .list-view .search-results {
   display: flex;
   flex-direction: column;
@@ -79,11 +69,6 @@
 
 .search-results-title {
   margin-left: 20px;
-}
-
-.sort-buttons button.selected {
-  background-color: #3498db;
-  color: #ffffff;
 }
 
 @media (max-width: 857px) {

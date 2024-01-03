@@ -1,5 +1,6 @@
 .card {
   display: flex;
+  transform:rotateX(0) rotateY(0);
   /* justify-content: center; */
   align-items: center;
   justify-content: flex-start;
@@ -7,6 +8,7 @@
   height: 300px;
   padding: 5px 5px;
   border-radius: 10px;
+  position: relative;
 }
 
 img {
