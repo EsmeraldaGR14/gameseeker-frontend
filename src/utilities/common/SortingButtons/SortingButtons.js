@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { extractYear } from "../../helpers/extractYear";
-import "./SortingandFilteringButtons.css"
+import "./SortingButtons.css"
 
-function SortingandFilteringButtons({ games, setSortedGames }) {
+function SortingButtons({ games, setSortedGames }) {
   const [sortCriteria, setSortCriteria] = useState("relevance");
   const [selectedSortCriteria, setSelectedSortCriteria] = useState("relevance");
 
@@ -13,9 +13,10 @@ function SortingandFilteringButtons({ games, setSortedGames }) {
       : normalizedTitle;
   };
 
-   const handleSortAndFilter = (criteria) => {
+   const handleCriteria = (criteria) => {
      setSortCriteria(criteria);
      setSelectedSortCriteria(criteria);
+     console.log(games)
    };
 
    const handleSort = useCallback(() => {
@@ -38,7 +39,7 @@ function SortingandFilteringButtons({ games, setSortedGames }) {
          );
        }
        setSortedGames(sortedGames);
-       console.log(sortedGames);
+       console.log(sortedGames)
      } catch (error) {
        console.error("Error sorting games:", error);
      }
@@ -77,4 +78,4 @@ function SortingandFilteringButtons({ games, setSortedGames }) {
   );
 }
 
-export default SortingandFilteringButtons;
+export default SortingButtons;
