@@ -44,7 +44,7 @@ function SortingButtons({ games, setSortedGames }) {
        console.error("Error sorting games:", error);
      }
    }, [games, sortCriteria, setSortedGames]);
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
    useEffect(() => {
      handleSort();
    }, [sortCriteria]);
