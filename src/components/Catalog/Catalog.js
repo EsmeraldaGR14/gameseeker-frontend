@@ -74,10 +74,10 @@ function Catalog() {
   const openModal = () => {
     setIsModalOpen(true);
 
-    const modalElement = document.querySelector(".catalog-modal");
-    if (modalElement) {
-      modalElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }
+    // const modalElement = document.querySelector(".catalog-modal");
+    // if (modalElement) {
+    //   modalElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    // }
   };
   const closeModal = () => setIsModalOpen(false);
 
@@ -116,7 +116,7 @@ function Catalog() {
           paginate={paginate}
         />
       </div>
-      <div className="catalog-modal">
+      
         {isModalOpen && (
           <Modal
             title="Cannot add to list"
@@ -126,7 +126,7 @@ function Catalog() {
             openModal={openModal}
           />
         )}
-      </div>
+     
     </div>
   );
 }

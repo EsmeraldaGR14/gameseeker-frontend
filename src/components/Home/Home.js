@@ -5,23 +5,24 @@ import CollectionCarousel from "../CollectionCarousel/CollectionCarousel";
 import "./Home.css"
 import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
 import Modal from "../../utilities/common/Modal/Modal";
+import Hero from "../Font-assets/pexels-photo-3945683.jpeg";
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
-
-    // Scroll to the top of the modal when it opens
-    const modalElement = document.querySelector(".modal-container-id");
-    if (modalElement) {
-      modalElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }
   };
   const closeModal = () => setIsModalOpen(false);
   
   return (
     <div className="homepage">
+      <div className="hero-image">
+        <img
+          src={Hero}
+          alt="Hero"
+        />
+      </div>
       <div className="welcome-message">
         <h1>Discover. Play. Repeat.</h1>
         <p>
@@ -45,17 +46,17 @@ function Home() {
         <BacklogCarousel openModal={openModal} />
       </section>
       <ScrollButton />
-      <div className="modal-container-id">
-        {isModalOpen && (
-          <Modal
-            isOpen={isModalOpen}
-            title="Cannot add to list"
-            message="If you want to use this feature please sign up for an account."
-            type={"error"}
-            onClose={closeModal}
-          />
-        )}
-      </div>
+      {/* <div className="modal-container-id"> */}
+      {isModalOpen && (
+        <Modal
+          isOpen={isModalOpen}
+          title="Cannot add to list"
+          message="If you want to use this feature please sign up for an account."
+          type={"error"}
+          onClose={closeModal}
+        />
+      )}
+      {/* </div> */}
     </div>
   );
 }
