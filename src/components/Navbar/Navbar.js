@@ -52,39 +52,37 @@ function Navbar() {
           >
             CATALOG
           </NavLink>
-          <NavLink
-            className="navbar-link"
-            activeclassname="active-link"
-            to="/collection"
-          >
-            COLLECTION
-          </NavLink>
-          <NavLink
-            className="navbar-link"
-            activeclassname="active-link"
-            to="/backlog"
-          >
-            BACKLOG
-          </NavLink>
-          <NavLink
-            className="navbar-link"
-            activeclassname="active-link"
-            to="/help"
-          >
-            HELP
-          </NavLink>
+          {user.isLoggedIn && (
+            <>
+              <NavLink
+                className="navbar-link"
+                activeClassName="active-link"
+                to="/collection"
+              >
+                COLLECTION
+              </NavLink>
+              <NavLink
+                className="navbar-link"
+                activeClassName="active-link"
+                to="/backlog"
+              >
+                BACKLOG
+              </NavLink>
+            </>
+          )}
+          {/* Other links... */}
           {user.isLoggedIn ? (
             <>
               <NavLink
                 className="navbar-link"
-                activeclassname="active-link"
+                activeClassName="active-link"
                 to="/account"
               >
                 ACCOUNT
               </NavLink>
               <NavLink
                 className="navbar-link"
-                activeclassname="active-link"
+                activeClassName="active-link"
                 onClick={handleLogout}
                 to="/"
               >
@@ -95,14 +93,14 @@ function Navbar() {
             <>
               <NavLink
                 className="navbar-link"
-                activeclassname="active-link"
+                activeClassName="active-link"
                 to="/login"
               >
                 LOG IN
               </NavLink>
               <NavLink
                 className="navbar-link"
-                activeclassname="active-link"
+                activeClassName="active-link"
                 to="/signup"
               >
                 SIGN UP
@@ -113,7 +111,7 @@ function Navbar() {
             className="navbar-link random-game-button"
             onClick={handleRandomGame}
           >
-            RANDOM GAME
+            PICK FOR ME
           </NavLink>
         </div>
         <div className="navbar-icon" onClick={toggleMenu}>

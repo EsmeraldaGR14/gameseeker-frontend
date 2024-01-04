@@ -8,6 +8,7 @@ import { extractYear } from "../../utilities/helpers/extractYear";
 import BoxArt from "../BoxArt/BoxArt";
 import Modal from "../../utilities/common/Modal/Modal";
 import SortingButtons from "../../utilities/common/SortingButtons/SortingButtons";
+// import FilterDropdown from "../../utilities/common/FilterDropdown/FilterDropdown";
 
 const subscriptionServices = [
   "PlayStation Plus Essential",
@@ -40,15 +41,20 @@ function SearchResultsPage() {
         game.title.toLowerCase().includes(query.toLowerCase())
       );
       setSearchResults(filteredGames || []);
+      // setFilteredResults(filteredGames || []);
     } catch (error) {
       console.error("Error fetching search results:", error);
       setSearchResults([]);
+      setFilteredResults([]);
     }
   };
 
-  const handleFilter = () => {
+  const handleFilter = async (query) => {
     try {
-      let filteredGames = [...searchResults];
+      const allGames = await getAllGames();
+      let filteredGames = allGames.filter((game) =>
+        game.title.toLowerCase().includes(query.toLowerCase())
+      );
       if (selectedServices.length > 0) {
         filteredGames = filteredGames.filter(
           (game) =>
@@ -58,7 +64,7 @@ function SearchResultsPage() {
       }
 
       setFilteredResults(filteredGames);
-      console.log(filteredGames);
+      console.log(`filteredGames ${filteredGames}`);
     } catch (error) {
       console.error("Error filtering games:", error);
     }
@@ -79,17 +85,16 @@ function SearchResultsPage() {
       updatedServices
     );
     //  console.log(`originalGames ${[originalGames]}`);
-    console.log(`Games ${searchResults}`);
+    // console.log(`Games ${searchResults}`);
   };
 
   useEffect(() => {
-    // Clear filtered results when no services are selected
     if (selectedServices.length === 0) {
       setFilteredResults([]);
     } else {
-      handleFilter();
+      handleFilter(searchQuery);
     }
-  }, [selectedServices, searchResults]);;
+  }, [selectedServices]);
 
   // const handleSort = (criteria) => {
   //   setSortCriteria(criteria);
@@ -106,6 +111,7 @@ function SearchResultsPage() {
       handleSearch(searchQuery);
     } else {
       setSearchResults([]);
+      setFilteredResults([]);
     }
   }, [searchQuery]);
 
@@ -121,17 +127,18 @@ function SearchResultsPage() {
 
   return (
     <div className="container">
-      <SortingButtons
-        games={searchResults}
-        setSortedGames={setSearchResults}
-      />
+      <div className="sorting-and-filtering">
+      <SortingButtons games={searchResults} setSortedGames={setSearchResults} />
+      {/* <FilterDropdown
+        games={filteredResults}
+        setFilteredResults={setFilteredResults}
+      /> */}
       <div className="subscription-filter">
         <div className="dropdown">
           <div className="dropdown-title" onClick={toggleDropdown}>
             <span>
-              {selectedServices.length === 0
-                ? "Select Services"
-                : selectedServices.join(", ")}
+               Filter by Services
+    
             </span>
             <span className={`arrow ${isDropdownOpen ? "up" : "down"}`}>
               {isDropdownOpen ? "\u25B2" : "\u25BC"}
@@ -157,12 +164,13 @@ function SearchResultsPage() {
           )}
         </div>
       </div>
+      </div>
       <div className="search-results grid-view">
         <div className={`search-results-title`}>
           <h1>Search Results</h1>
           {filteredResults.length > 0 ? (
             <p>
-              {filteredResults.length} result(s) found for "{selectedServices}":
+              {filteredResults.length} result(s) found for {selectedServices}:
             </p>
           ) : (
             searchResults.length > 0 && (
@@ -174,7 +182,7 @@ function SearchResultsPage() {
         </div>
         <div className="search-results grid-view">
           {filteredResults.length > 0
-            ? filteredResults.map((game) => (
+            ? (filteredResults.map((game) => (
                 <Link
                   to={`/games/${game.id}`}
                   className="item-link"
@@ -189,7 +197,8 @@ function SearchResultsPage() {
                   />
                 </Link>
               ))
-            : searchResults.map((game) => (
+           ) : searchResults.length > 0 ? (
+            searchResults.map((game) => (
                 <Link
                   to={`/games/${game.id}`}
                   className="item-link"
@@ -203,7 +212,10 @@ function SearchResultsPage() {
                     openModal={openModal}
                   />
                 </Link>
-              ))}
+              ))
+               ) : (
+    <p>No results found</p>
+  )}
           <ScrollButton />
           <div className="search-modal-id">
             {isModalOpen && (
