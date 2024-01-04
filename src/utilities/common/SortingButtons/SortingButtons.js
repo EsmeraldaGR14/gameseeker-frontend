@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useCallback, useEffect } from "react";
 import { extractYear } from "../../helpers/extractYear";
-import "./SortingButtons.css"
+import "./SortingButtons.css";
 
 function SortingButtons({ games, setSortedGames }) {
   const [sortCriteria, setSortCriteria] = useState("relevance");
@@ -13,41 +14,39 @@ function SortingButtons({ games, setSortedGames }) {
       : normalizedTitle;
   };
 
-   const handleCriteria = (criteria) => {
-     setSortCriteria(criteria);
-     setSelectedSortCriteria(criteria);
-     console.log(games)
-   };
+  const handleCriteria = (criteria) => {
+    setSortCriteria(criteria);
+    setSelectedSortCriteria(criteria);
+    console.log(games);
+  };
 
-   const handleSort = useCallback(() => {
-     try {
-       let sortedGames = [...games];
+  const handleSort = useCallback(() => {
+    try {
+      let sortedGames = [...games];
 
-       if (sortCriteria === "title") {
-         console.log("Sorting by title");
-         sortedGames.sort((a, b) =>
-           removeTheFromTitle(a.title).localeCompare(
-             removeTheFromTitle(b.title)
-           )
-         );
-       } else if (sortCriteria === "releaseDate") {
-         console.log("Sorting by date");
-         sortedGames.sort((a, b) =>
-           extractYear(a.release_date)
-             .toString()
-             .localeCompare(extractYear(b.release_date).toString())
-         );
-       }
-       setSortedGames(sortedGames);
-       console.log(sortedGames)
-     } catch (error) {
-       console.error("Error sorting games:", error);
-     }
-   }, [games, sortCriteria, setSortedGames]);
-// eslint-disable-next-line react-hooks/exhaustive-deps
-   useEffect(() => {
-     handleSort();
-   }, [sortCriteria]);
+      if (sortCriteria === "title") {
+        console.log("Sorting by title");
+        sortedGames.sort((a, b) =>
+          removeTheFromTitle(a.title).localeCompare(removeTheFromTitle(b.title))
+        );
+      } else if (sortCriteria === "releaseDate") {
+        console.log("Sorting by date");
+        sortedGames.sort((a, b) =>
+          extractYear(a.release_date)
+            .toString()
+            .localeCompare(extractYear(b.release_date).toString())
+        );
+      }
+      setSortedGames(sortedGames);
+      console.log(sortedGames);
+    } catch (error) {
+      console.error("Error sorting games:", error);
+    }
+  }, [games, sortCriteria, setSortedGames]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    handleSort();
+  }, [sortCriteria]);
 
   return (
     <div className="container">
