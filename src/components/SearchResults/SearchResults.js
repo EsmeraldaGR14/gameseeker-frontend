@@ -8,6 +8,7 @@ import { extractYear } from "../../utilities/helpers/extractYear";
 import BoxArt from "../BoxArt/BoxArt";
 import Modal from "../../utilities/common/Modal/Modal";
 import SortingandFilteringButtons from "../../utilities/common/SortingandFilteringButtons/SortingandFilteringButtons";
+import SortingandFilteringButtons from "../../utilities/common/SortingandFilteringButtons/SortingandFilteringButtons";
 
 function SearchResultsPage() {
   const [searchResults, setSearchResults] = useState([]);
@@ -16,8 +17,6 @@ function SearchResultsPage() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const searchQuery = searchParams.get("query");
-  const [filteredResults, setFilteredResults] = useState([]);
-  const [originalSearchResults, setOriginalSearchResults] = useState([]);
 
   const handleSearch = async (query) => {
     try {
@@ -26,7 +25,7 @@ function SearchResultsPage() {
         game.title.toLowerCase().includes(query.toLowerCase())
       );
       setSearchResults(filteredGames || []);
-      setOriginalSearchResults(filteredGames || []);
+      console.log(searchResults)
     } catch (error) {
       console.error("Error fetching search results:", error);
       setSearchResults([]);
@@ -110,7 +109,7 @@ function SearchResultsPage() {
   return (
     <div className="container">
       <SortingandFilteringButtons
-        allGames={originalSearchResults}
+        games={searchResults}
         setSortedGames={setSearchResults}
         setFilteredGames={setFilteredResults}
       />
@@ -149,9 +148,9 @@ function SearchResultsPage() {
       <div className="search-results grid-view">
         <div className={`search-results-title`}>
           <h1>Search Results</h1>
-          {filteredResults.length > 0 ? (
+          {searchResults.length > 0 ? (
             <p>
-              {filteredResults.length} result(s) found for "{searchQuery}":
+              {searchResults.length} result(s) found for "{searchQuery}":
             </p>
           ) : (
             searchResults.length > 0 && (
@@ -162,37 +161,17 @@ function SearchResultsPage() {
           )}
         </div>
         <div className="search-results grid-view">
-          {filteredResults.length > 0
-            ? filteredResults.map((game) => (
-                <Link
-                  to={`/games/${game.id}`}
-                  className="item-link"
-                  key={game.id}
-                >
-                  <BoxArt
-                    className="boxart"
-                    image={game.boxart}
-                    name={game.title}
-                    year={extractYear(game.release_date)}
-                    openModal={openModal}
-                  />
-                </Link>
-              ))
-            : searchResults.map((game) => (
-                <Link
-                  to={`/games/${game.id}`}
-                  className="item-link"
-                  key={game.id}
-                >
-                  <BoxArt
-                    className="boxart"
-                    image={game.boxart}
-                    name={game.title}
-                    year={extractYear(game.release_date)}
-                    openModal={openModal}
-                  />
-                </Link>
-              ))}
+          {searchResults.map((game) => (
+            <Link to={`/games/${game.id}`} className="item-link" key={game.id}>
+              <BoxArt
+                className="boxart"
+                image={game.boxart}
+                name={game.title}
+                year={extractYear(game.release_date)}
+                openModal={openModal}
+              />
+            </Link>
+          ))}
           <ScrollButton />
           <div className="search-modal-id">
             {isModalOpen && (
