@@ -15,64 +15,67 @@ const subscriptionServices = [
   "Apple Arcade",
 ];
 
-function SortingandFilteringButtons({ sortedGames, setSortedGames }) {
-  // const [sortCriteria, setSortCriteria] = useState("relevance");
-  // const [selectedSortCriteria, setSelectedSortCriteria] = useState("relevance");
+function SortingandFilteringButtons({
+  allGames,
+  setSortedGames,
+  setFilteredGames,
+}) {
+  const [sortCriteria, setSortCriteria] = useState("relevance");
+  const [selectedSortCriteria, setSelectedSortCriteria] = useState("relevance");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedServices, setSelectedServices] = useState([]);
 
-  // const removeTheFromTitle = (title) => {
-  //   const normalizedTitle = title.toLowerCase();
-  //   return normalizedTitle.startsWith("the ")
-  //     ? normalizedTitle.slice(4)
-  //     : normalizedTitle;
-  // };
+  const removeTheFromTitle = (title) => {
+    const normalizedTitle = title.toLowerCase();
+    return normalizedTitle.startsWith("the ")
+      ? normalizedTitle.slice(4)
+      : normalizedTitle;
+  };
 
-  //  const handleCriteria = (criteria) => {
-  //    setSortCriteria(criteria);
-  //    setSelectedSortCriteria(criteria);
-  //  };
-
-   const toggleDropdown = () => {
-     setIsDropdownOpen((prev) => !prev);
+   const handleCriteria = (criteria) => {
+     setSortCriteria(criteria);
+     setSelectedSortCriteria(criteria);
    };
 
-   const handleServiceToggle = (service) => {
-     const updatedServices = selectedServices.includes(service)
-       ? selectedServices.filter((s) => s !== service)
-       : [...selectedServices, service];
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
 
-     setSelectedServices(updatedServices);
-     console.log(
-       `Checkbox for service "${service}" clicked. Updated services:`,
-       updatedServices
-     );
+  const handleServiceToggle = (service) => {
+    const updatedServices = selectedServices.includes(service)
+      ? selectedServices.filter((s) => s !== service)
+      : [...selectedServices, service];
+
+    setSelectedServices(updatedServices);
+    console.log(
+      `Checkbox for service "${service}" clicked. Updated services:`,
+      updatedServices
+    );
     //  console.log(`originalGames ${[originalGames]}`);
-     console.log(`Games ${sortedGames}`);
-   };
-
+    console.log(`Games ${allGames}`);
+  };
 
   //  const handleSort = useCallback(() => {
   //    try {
-  //      let sortedGames = [...games];
+  //      let sortedGames = [...allGames];
 
-  //     //  if (selectedServices.length > 0) {
-  //     //    sortedGames = sortedGames.filter(
-  //     //      (game) =>
-  //     //        Array.isArray(game.subscription) &&
-  //     //        game.subscription.some((sub) => selectedServices.includes(sub))
-  //     //    );
-  //     //  }
+      //  if (selectedServices.length > 0) {
+      //    sortedGames = sortedGames.filter(
+      //      (game) =>
+      //        Array.isArray(game.subscription) &&
+      //        game.subscription.some((sub) => selectedServices.includes(sub))
+      //    );
+      //  }
 
   //      if (sortCriteria === "title") {
-  //        console.log("Sorting by title");
+  //        console.log(`Sorting by title ${sortCriteria}`);
   //        sortedGames.sort((a, b) =>
   //          removeTheFromTitle(a.title).localeCompare(
   //            removeTheFromTitle(b.title)
   //          )
   //        );
   //      } else if (sortCriteria === "releaseDate") {
-  //        console.log("Sorting by date");
+  //        console.log(`Sorting by releaseDate ${sortCriteria}`);
   //        sortedGames.sort((a, b) =>
   //          extractYear(a.release_date)
   //            .toString()
@@ -80,64 +83,134 @@ function SortingandFilteringButtons({ sortedGames, setSortedGames }) {
   //        );
   //      }
   //      setSortedGames(sortedGames);
+  //      console.log(sortedGames)
   //    } catch (error) {
   //      console.error("Error sorting games:", error);
   //    }
-  //  }, [games, sortCriteria, setSortedGames]);
+  //  }, [allGames, sortCriteria, setSortedGames]);
 
-   const handleFilter = () => {
-     try {
-       let filteredGames = [...sortedGames];
+  // const handleFilter = () => {
+  //   try {
+  //     let filteredGames = [...sortedGames];
 
-       if (selectedServices.length > 0) {
-         filteredGames = filteredGames.filter(
-           (game) =>
-             Array.isArray(game.subscription) &&
-             game.subscription.some((sub) => selectedServices.includes(sub))
-         );
-       } else {
-         filteredGames = [...sortedGames];
-       }
-       setSortedGames(filteredGames);
-       console.log(filteredGames);
-     } catch (error) {
-       console.error("Error filtering games:", error);
-     }
-   };
+  //     if (selectedServices.length > 0) {
+  //       filteredGames = filteredGames.filter(
+  //         (game) =>
+  //           Array.isArray(game.subscription) &&
+  //           game.subscription.some((sub) => selectedServices.includes(sub))
+  //       );
+  //     } else {
+  //       filteredGames = [...sortedGames];
+  //     }
+  //     setSortedGames(filteredGames);
+  //     console.log(filteredGames);
+  //   } catch (error) {
+  //     console.error("Error filtering games:", error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   let filteredGames = [...allGames];
+
+  //   if (selectedServices.length > 0) {
+  //     filteredGames = filteredGames.filter(
+  //       (game) =>
+  //         Array.isArray(game.subscription) &&
+  //         game.subscription.some((sub) => selectedServices.includes(sub))
+  //     );
+  //   }
+
+  //   setFilteredGames(filteredGames);
+  // }, [selectedServices, setFilteredGames]);
 
   //  useEffect(() => {
   //    handleSort();
   //  }, [sortCriteria]);
 
-   useEffect(() => {
-     handleFilter();
-   }, [selectedServices]);
-
   //  useEffect(() => {
-  //    setOriginalGames(games);
-  //  }, [games]);
+  //    let sortedGames = [...allGames];
+
+  //    if (sortCriteria === "title") {
+  //      console.log(`Sorting by title ${sortCriteria}`);
+  //      sortedGames.sort((a, b) =>
+  //        removeTheFromTitle(a.title).localeCompare(removeTheFromTitle(b.title))
+  //      );
+  //    } else if (sortCriteria === "releaseDate") {
+  //      console.log(`Sorting by releaseDate ${sortCriteria}`);
+  //      sortedGames.sort((a, b) =>
+  //        extractYear(a.release_date)
+  //          .toString()
+  //          .localeCompare(extractYear(b.release_date).toString())
+  //      );
+  //    }
+
+  //    setSortedGames(sortedGames);
+  //    console.log(sortedGames);
+  //  }, [sortCriteria, setSortedGames]);
+
+  // useEffect(() => {
+  //   if (selectedServices.length === 0) {
+  //     setFilteredResults([]);
+  //   } else {
+  //     handleFilter();
+  //   }
+  // }, [selectedServices]);
+
+  useEffect(() => {
+    // Filter the games based on selected services
+    let filteredGames = [...allGames];
+
+    if (selectedServices.length > 0) {
+      filteredGames = filteredGames.filter(
+        (game) =>
+          Array.isArray(game.subscription) &&
+          game.subscription.some((sub) => selectedServices.includes(sub))
+      );
+    }
+
+    // Sort the filtered games
+    if (sortCriteria === "title") {
+      filteredGames.sort((a, b) =>
+        removeTheFromTitle(a.title).localeCompare(removeTheFromTitle(b.title))
+      );
+    } else if (sortCriteria === "releaseDate") {
+      filteredGames.sort((a, b) =>
+        extractYear(a.release_date)
+          .toString()
+          .localeCompare(extractYear(b.release_date).toString())
+      );
+    }
+
+    setSortedGames(filteredGames);
+    setFilteredGames(filteredGames);
+  }, [
+    selectedServices,
+    sortCriteria,
+    setSortedGames,
+    setFilteredGames,
+  ]);
 
   return (
     <div className="container">
       <div className="sort-buttons">
         <button
           type="button"
-          // onClick={() => handleCriteria("relevance")}
-          // className={selectedSortCriteria === "relevance" ? "selected" : ""}
+          onClick={() => handleCriteria("relevance")}
+          className={selectedSortCriteria === "relevance" ? "selected" : ""}
         >
           Relevance
         </button>
         <button
           type="button"
-          // onClick={() => handleCriteria("title")}
-          // className={selectedSortCriteria === "title" ? "selected" : ""}
+          onClick={() => handleCriteria("title")}
+          className={selectedSortCriteria === "title" ? "selected" : ""}
         >
           Title
         </button>
         <button
           type="button"
-          // onClick={() => handleCriteria("releaseDate")}
-          // className={selectedSortCriteria === "releaseDate" ? "selected" : ""}
+          onClick={() => handleCriteria("releaseDate")}
+          className={selectedSortCriteria === "releaseDate" ? "selected" : ""}
         >
           Release Date
         </button>
