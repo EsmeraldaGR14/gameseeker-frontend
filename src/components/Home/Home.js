@@ -6,9 +6,11 @@ import "./Home.css"
 import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
 import Modal from "../../utilities/common/Modal/Modal";
 import Hero from "../Font-assets/pexels-photo-3945683.jpeg";
+import { useUser } from "../UserContext";
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user, backlog, userCollection } = useUser();
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -18,10 +20,7 @@ function Home() {
   return (
     <div className="homepage">
       <div className="hero-image">
-        <img
-          src={Hero}
-          alt="Hero"
-        />
+        <img src={Hero} alt="Hero" />
       </div>
       <div className="welcome-message">
         <h1>Discover. Play. Repeat.</h1>
@@ -30,23 +29,27 @@ function Home() {
           gaming backlog.
         </p>
       </div>
-
       <section>
         <h2>Latest Games</h2>
         <LatestGamesCarousel openModal={openModal} />
       </section>
-
-      <section>
-        <h2>Collection</h2>
-        <CollectionCarousel openModal={openModal} />
-      </section>
-
-      <section>
-        <h2>Backlog</h2>
-        <BacklogCarousel openModal={openModal} />
-      </section>
-      <ScrollButton />
-      {/* <div className="modal-container-id"> */}
+      {user.isLoggedIn && (
+        <>
+        {userCollection.length > 0 && (
+          <section>
+            <h2>Collection</h2>
+            <CollectionCarousel openModal={openModal} />
+          </section>
+        )}
+          {backlog.length > 0 && (
+            <section>
+              <h2>Backlog</h2>
+              <BacklogCarousel openModal={openModal} />
+            </section>
+          )}
+          <ScrollButton />
+        </>
+      )}
       {isModalOpen && (
         <Modal
           isOpen={isModalOpen}
@@ -56,7 +59,6 @@ function Home() {
           onClose={closeModal}
         />
       )}
-      {/* </div> */}
     </div>
   );
 }
