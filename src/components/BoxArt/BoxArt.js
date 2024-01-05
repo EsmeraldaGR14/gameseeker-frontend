@@ -30,6 +30,7 @@ function BoxArt({
   className,
   gameId,
   openModal,
+  game
   // handleHover,
   // handleHoverLeave,
   // hoverEnabled,
@@ -37,7 +38,7 @@ function BoxArt({
   const [isControllerHovered, setControllerHovered] = useState(false);
   const [isClipboardHovered, setClipboardHovered] = useState(false);
   const [isHeartHovered, setHeartHovered] = useState(false);
-  const { user } = useUser();
+  const { user, setBacklog, backlog, setUserCollection, userCollection, userWishlist, setUserWishlist } = useUser();
   const [titleText, setTitleText] = useState(`${name} (${year})`);
   const [inCollection, setInCollection] = useState(false);
   const [inBacklog, setInBacklog] = useState(false);
@@ -73,6 +74,7 @@ function BoxArt({
       setTitleText("Added to Collection");
       setTimeout(() => {
         setInCollection(true);
+        setUserCollection([...userCollection, game]);
       }, 1000);
     } catch (error) {
       console.error("Error adding game to collection:", error);
@@ -90,6 +92,7 @@ function BoxArt({
       setTitleText("Added to Backlog");
       setTimeout(() => {
         setInBacklog(true);
+        setBacklog([...backlog, game]);
       }, 1000);
     } catch (error) {
       console.error("Error adding game to backlog:", error);
@@ -107,6 +110,7 @@ function BoxArt({
       setTitleText("Added to Wishlist");
       setTimeout(() => {
         setInWishlist(true);
+        setUserWishlist([...userWishlist, game]);
       }, 1000);
     } catch (error) {
       console.error("Error adding game to wishlist:", error);
@@ -121,6 +125,9 @@ function BoxArt({
         setTitleText("Deleted from Collection");
         setTimeout(() => {
           setInCollection(false);
+          setUserCollection((prevUserCollection) =>
+            prevUserCollection.filter((game) => game.id !== gameId)
+          );
         }, 1000);
       } catch (error) {
         console.error("Error deleting game", error);
@@ -136,6 +143,9 @@ function BoxArt({
         setTitleText("Deleted from Backlog");
         setTimeout(() => {
           setInBacklog(false);
+          setBacklog((prevBacklog) =>
+            prevBacklog.filter((game) => game.id !== gameId)
+          );
         }, 1000);
       } catch (error) {
         console.error("Error deleting game", error);
@@ -151,6 +161,9 @@ function BoxArt({
         setTitleText("Deleted from Wishlist");
         setTimeout(() => {
           setInWishlist(false);
+          setUserWishlist((prevUserWishlist) =>
+            prevUserWishlist.filter((game) => game.id !== gameId)
+          );
         }, 1000);
       } catch (error) {
         console.error("Error deleting game", error);

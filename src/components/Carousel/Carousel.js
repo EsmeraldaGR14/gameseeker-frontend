@@ -44,6 +44,7 @@ function GenericCarousel({ items, openModal }) {
                 year={itemYear}
                 gameId={itemID}
                 openModal={openModal}
+                game={item}
                 // handleHover={() => setIsBoxArtHovered(true)}
                 // handleHoverLeave={() => setIsBoxArtHovered(false)}
               />

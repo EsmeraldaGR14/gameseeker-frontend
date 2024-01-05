@@ -2,35 +2,33 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./AccountPage.css";
 import { useUser } from "../UserContext";
-import { getUserById } from "../../utilities/Api/Users";
 import {
-  getGameCollection,
   deleteGameFromCollection,
 } from "../../utilities/Api/Collection";
 import {
-  getGameBacklog,
   deleteGameFromBacklog,
 } from "../../utilities/Api/Backlog";
 import {
-  getGameWishlist,
   deleteGameFromWishlist,
 } from "../../utilities/Api/Wishlist";
-import { deleteUser } from "../../utilities/Api/Users"
+import { getUserById, deleteUser } from "../../utilities/Api/Users"
 import UpdateProfileForm from "../UpdateProfileForm/UpdateProfileForm";
 import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
 import { FaRegClipboard, FaRegHeart, FaRegTrashAlt } from "react-icons/fa";
-import {
-  IoGameControllerOutline,
-  IoArrowForwardCircleOutline,
-} from "react-icons/io5";
+import {IoGameControllerOutline, IoArrowForwardCircleOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import DeletionModal from "../../utilities/common/Modal/DeletionModal";
 
 function AccountPage() {
-  const { user, logout } = useUser();
+  const {
+    user,
+    logout,
+    setBacklog,
+    backlog,
+    setUserCollection,
+    userCollection,
+  } = useUser();
   const [userData, setUserData] = useState(null);
-  const [collection, setCollection] = useState([]);
-  const [backlog, setBacklog] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showUserDeletionConfirmation, setUserDeletionConfirmation] = useState(false);
@@ -54,14 +52,14 @@ function AccountPage() {
         const userDetails = await getUserById(user.id);
         setUserData(userDetails);
 
-        const userCollection = await getGameCollection(user.id);
-        setCollection(userCollection.data);
+        // const userCollection = await getGameCollection(user.id);
+        // setUserCollection(userCollection.data);
 
-        const userBacklog = await getGameBacklog(user.id);
-        setBacklog(userBacklog.data);
+        // const userBacklog = await getGameBacklog(user.id);
+        // setBacklog(userBacklog.data);
 
-        const userWishlist = await getGameWishlist(user.id);
-        setWishlist(userWishlist.data);
+        // const userWishlist = await getGameWishlist(user.id);
+        // setWishlist(userWishlist.data);
       } catch (error) {
         console.error("Error fetching user details", error);
       }
@@ -76,10 +74,10 @@ function AccountPage() {
     try {
       if (listName === "collection") {
         await deleteGameFromCollection(user.id, gameId);
-        const updatedCollection = collection.filter(
+        const updatedCollection = userCollection.filter(
           (game) => game.id !== gameId
         );
-        setCollection(updatedCollection);
+        setUserCollection(updatedCollection);
         setShowConfirmation(false);
         setShowOverlay("false");
       } else if (listName === "backlog") {
@@ -187,15 +185,15 @@ function AccountPage() {
             <div className="account-collection-container">
               <div className="my-collection-container">
                 <h2>
-                  <IoGameControllerOutline /> My Collection ({collection.length}
+                  <IoGameControllerOutline /> My Collection ({userCollection.length}
                   )
                 </h2>
               </div>
               <ul>
-                {collection.length === 0 ? (
+                {userCollection.length === 0 ? (
                   <p className="empty-list-text">Add games from the catalog!</p>
                 ) : (
-                  collection.slice(0, 5).map((game) => (
+                  userCollection.slice(0, 5).map((game) => (
                     <li key={game.id} >
                       <Link to={`/games/${game.id}`}>{game.title}</Link>
                       <button
@@ -211,7 +209,7 @@ function AccountPage() {
                 )}
               </ul>
               <div className="full-collection-container">
-                {collection.length > 0 && (
+                {userCollection.length > 0 && (
                   <>
                     <Link to={`/collection`}>View Full Collection</Link>
                     <IoArrowForwardCircleOutline />
