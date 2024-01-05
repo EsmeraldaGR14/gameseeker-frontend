@@ -20,8 +20,8 @@ function Catalog() {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  // allow users to be able to change how many games they can see in a page
   const [gamesPerPage] = useState(25);
+  const [showFilters, setShowFilters] = useState(false);
 
   const filters = ["Genre", "Realeased Date", "Platform", "Title"];
 
@@ -48,19 +48,12 @@ function Catalog() {
     // setFilter()
   };
 
-  // useEffect(() => {
-  //   const filterGameBy = async () => {
-  //     try {
-  //       let res = await filterGame("genres");
-  //       setGames(res)
-  //       console.log(res);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+  function showAllFilters() {
+    console.log("before", showFilters);
 
-  //   filterGameBy();
-  // }, []);
+    setShowFilters(!showFilters);
+    console.log("after", showFilters);
+  }
 
   // get currentGames
   const indexOfLastGame = currentPage * gamesPerPage;
@@ -82,16 +75,22 @@ function Catalog() {
         </p>
         {/* filters */}
         <div>
-          <button>Filters</button>
-          {filters.map((filter) => (
-            <button
-              key={filter}
-              value={filter}
-              onClick={(e) => filterTheGames(e)}
-            >
-              {filter}
-            </button>
-          ))}
+          <button className="show-all-filters" onClick={showAllFilters}>
+            {showFilters ? "Hide Filters" : "Show Filters"}
+          </button>
+
+          <div className="filters">
+            {showFilters &&
+              filters.map((filter) => (
+                <button
+                  key={filter}
+                  value={filter}
+                  onClick={(e) => filterTheGames(e)}
+                >
+                  {filter}
+                </button>
+              ))}
+          </div>
         </div>
         <CatalogGames loading={loading} currentGames={currentGames} />
         <CatalogPagination
