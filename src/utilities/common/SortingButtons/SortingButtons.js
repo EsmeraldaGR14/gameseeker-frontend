@@ -25,20 +25,28 @@ function SortingButtons({ games, setSortedGames }) {
       let sortedGames = [...games];
 
       if (sortCriteria === "title") {
-        console.log("Sorting by title");
         sortedGames.sort((a, b) =>
           removeTheFromTitle(a.title).localeCompare(removeTheFromTitle(b.title))
         );
       } else if (sortCriteria === "releaseDate") {
-        console.log("Sorting by date");
-        sortedGames.sort((a, b) =>
-          extractYear(a.release_date)
-            .toString()
-            .localeCompare(extractYear(b.release_date).toString())
-        );
+        sortedGames.sort((a, b) => {
+          const releaseDateA = extractYear(a.release_date);
+          const releaseDateB = extractYear(b.release_date);
+
+           if (releaseDateA === "N/A" && releaseDateB !== "N/A") {
+             return 1; // Move games with "N/A" release date to the bottom
+           } else if (releaseDateB === "N/A" && releaseDateA !== "N/A") {
+             return -1; // Move games with "N/A" release date to the bottom
+           } else {
+             // Handle valid date strings
+             const dateA = new Date(releaseDateA).getTime();
+             const dateB = new Date(releaseDateB).getTime();
+
+             return dateB - dateA;
+           }
+        });
       }
       setSortedGames(sortedGames);
-      console.log(sortedGames);
     } catch (error) {
       console.error("Error sorting games:", error);
     }
