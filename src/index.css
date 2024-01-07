@@ -7,7 +7,6 @@ body {
   background-color: #333333;
   margin: auto;
   color: white;
-  padding-bottom: 60px;
 }
 
 code {
@@ -35,4 +34,5 @@ button {
   margin: 0 auto;
   padding: 0 1rem;
   width: 100%;
+  flex-grow: 1;
 }

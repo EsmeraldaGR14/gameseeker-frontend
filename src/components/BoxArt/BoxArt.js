@@ -119,6 +119,7 @@ function BoxArt({
         setInWishlist(true);
         setUserWishlist([...userWishlist, game]);
       }, 1000);
+      console.log(userWishlist)
     } catch (error) {
       console.error("Error adding game to wishlist:", error);
     }

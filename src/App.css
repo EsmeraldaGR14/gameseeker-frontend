@@ -9,6 +9,9 @@
 .App {
   /* cursor: url(icons8-map-pin-50.png), auto; */
   cursor: default;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 a,
