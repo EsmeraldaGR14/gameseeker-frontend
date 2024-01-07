@@ -117,14 +117,14 @@ footer .social-media-links a:hover {
     0 83px 4px 0px fadeout(var(--tealMid), 5);
 }
 
-footer .social-media-links a:hover .glow {
+/* footer .social-media-links a:hover .glow {
   filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="10" /></filter></svg>#filter');
   filter: blur(2px);
   path,
   circle {
     fill: fadeout(var(--tealMid), 40);
   }
-}
+} */
 
 footer .social-media-links a:hover path,
 footer .social-media-links a:hover circle {
