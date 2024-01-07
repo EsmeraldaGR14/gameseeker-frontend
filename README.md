@@ -14,7 +14,6 @@ The GameSeeker project is driven by a passionate team of individuals who are ded
 - **Hillary**
 - **Fabio**
 - **Irfan**
-- **Harold**
 
 ## Key Features
 
