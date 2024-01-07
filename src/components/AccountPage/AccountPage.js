@@ -27,9 +27,10 @@ function AccountPage() {
     backlog,
     setUserCollection,
     userCollection,
+    setUserWishlist,
+    userWishlist,
   } = useUser();
   const [userData, setUserData] = useState(null);
-  const [wishlist, setWishlist] = useState([]);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showUserDeletionConfirmation, setUserDeletionConfirmation] = useState(false);
   const [gameToDelete, setGameToDelete] = useState(null);
@@ -59,7 +60,7 @@ function AccountPage() {
         // setBacklog(userBacklog.data);
 
         // const userWishlist = await getGameWishlist(user.id);
-        // setWishlist(userWishlist.data);
+        // User(userWishlist.data);
       } catch (error) {
         console.error("Error fetching user details", error);
       }
@@ -88,8 +89,8 @@ function AccountPage() {
         setShowOverlay("false");
       } else if (listName === "wishlist") {
         await deleteGameFromWishlist(user.id, gameId);
-        const updatedWishlist = wishlist.filter((game) => game.id !== gameId);
-        setWishlist(updatedWishlist);
+        const updatedWishlist = userWishlist.filter((game) => game.id !== gameId);
+        setUserWishlist(updatedWishlist);
         setShowConfirmation(false);
         setShowOverlay(false);
       }
@@ -185,8 +186,8 @@ function AccountPage() {
             <div className="account-collection-container">
               <div className="my-collection-container">
                 <h2>
-                  <IoGameControllerOutline /> My Collection ({userCollection.length}
-                  )
+                  <IoGameControllerOutline /> My Collection (
+                  {userCollection.length})
                 </h2>
               </div>
               <ul>
@@ -194,7 +195,7 @@ function AccountPage() {
                   <p className="empty-list-text">Add games from the catalog!</p>
                 ) : (
                   userCollection.slice(0, 5).map((game) => (
-                    <li key={game.id} >
+                    <li key={game.id}>
                       <Link to={`/games/${game.id}`}>{game.title}</Link>
                       <button
                         className="trash-can"
@@ -256,14 +257,14 @@ function AccountPage() {
             <div className="account-wishlist-container">
               <div className="my-wishlist-container">
                 <h2>
-                  <FaRegHeart /> My Wishlist ({wishlist.length})
+                  <FaRegHeart /> My Wishlist ({userWishlist.length})
                 </h2>
               </div>
               <ul>
-                {wishlist.length === 0 ? (
+                {userWishlist.length === 0 ? (
                   <p className="empty-list-text">Add games from the catalog!</p>
                 ) : (
-                  wishlist.slice(0, 5).map((game) => (
+                  userWishlist.slice(0, 5).map((game) => (
                     <li key={game.id}>
                       <Link to={`/games/${game.id}`}>{game.title}</Link>
                       <button
@@ -279,7 +280,7 @@ function AccountPage() {
                 )}
               </ul>
               <div className="full-wishlist-container">
-                {wishlist.length > 0 && (
+                {userWishlist.length > 0 && (
                   <>
                     <Link to={`/wishlist`}>View Full Wishlist</Link>
                     <IoArrowForwardCircleOutline />

@@ -2,6 +2,7 @@
   max-width: 1200px; /* Set a max-width for the content */
   margin: 0 auto; /* Center the content horizontally */
   padding: 20px; /* Add padding for spacing around the content */
+  margin-bottom: 80px;
 }
 
 .welcome-message {

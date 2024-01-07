@@ -9,6 +9,6 @@
 }
 
 .sort-buttons button.selected {
-  background-color: #FF0BFF;
+  background-color: rgba(255, 11, 255, 0.8);
   color: #ffffff;
 }

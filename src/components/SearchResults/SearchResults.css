@@ -57,7 +57,7 @@
 }
 
 .option:hover {
-  background-color: #00ffff;
+  background-color: #0ebac7;
 }
 
 .arrow {
@@ -103,8 +103,9 @@
   grid-auto-rows: minmax(100px, auto);
   gap: 20px;
   justify-items: center;
-  margin-left: 20px;
-  margin-right: 20px;
+  /* margin-left: 20px;
+  margin-right: 20px; */
+  margin-bottom: 30px;
 }
 
 .grid-view .search-results-item {

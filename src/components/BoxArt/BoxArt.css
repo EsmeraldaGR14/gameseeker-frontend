@@ -98,13 +98,13 @@ img {
 }
 
 .clipboard.minus {
-  background-color: #FF0BFF;
+  background-color: rgba(255, 11, 255, 0.8);
   color: white
 }
 
 .heart.minus {
-  background-color: #00ffff;
-  color: black
+  background-color: #0ebac7;
+  color: white
 }
 
 .card-item__details .card-item__details--title {

@@ -39,10 +39,17 @@ function BoxArt({
   const [isClipboardHovered, setClipboardHovered] = useState(false);
   const [isHeartHovered, setHeartHovered] = useState(false);
   const { user, setBacklog, backlog, setUserCollection, userCollection, userWishlist, setUserWishlist } = useUser();
-  const [titleText, setTitleText] = useState(`${name} (${year})`);
   const [inCollection, setInCollection] = useState(false);
   const [inBacklog, setInBacklog] = useState(false);
   const [inWishlist, setInWishlist] = useState(false);
+
+  const [titleText, setTitleText] = useState(() => {
+    if (year === null) {
+      return `${name}`;
+    } else {
+      return `${name} (${year})`;
+    }
+  });
 
   const handleMouseMove = (e) => {
     // if (!hoverEnabled) return;
@@ -112,6 +119,7 @@ function BoxArt({
         setInWishlist(true);
         setUserWishlist([...userWishlist, game]);
       }, 1000);
+      console.log(userWishlist)
     } catch (error) {
       console.error("Error adding game to wishlist:", error);
     }
