@@ -53,7 +53,7 @@ function LoginPage() {
   };
 
   return (
-    <div className="login-page-body">
+    <div className="container">
       <div className="sign-in-container">
         <form className="sign-in-form" onSubmit={handleLogIn}>
           <p>Log In</p>

@@ -128,42 +128,42 @@ function SearchResultsPage() {
   return (
     <div className="container">
       <div className="sorting-and-filtering">
-      <SortingButtons games={searchResults} setSortedGames={setSearchResults} />
-      {/* <FilterDropdown
+        <SortingButtons
+          games={searchResults}
+          setSortedGames={setSearchResults}
+        />
+        {/* <FilterDropdown
         games={filteredResults}
         setFilteredResults={setFilteredResults}
       /> */}
-      <div className="subscription-filter">
-        <div className="dropdown">
-          <div className="dropdown-title" onClick={toggleDropdown}>
-            <span>
-               Filter by Services
-    
-            </span>
-            <span className={`arrow ${isDropdownOpen ? "up" : "down"}`}>
-              {isDropdownOpen ? "\u25B2" : "\u25BC"}
-            </span>
-          </div>
-          {isDropdownOpen && (
-            <div className="dropdown-options">
-              {subscriptionServices.map((service) => (
-                <div
-                  key={service}
-                  className="option"
-                  onClick={() => handleServiceToggle(service)}
-                >
-                  <input
-                    type="checkbox"
-                    checked={selectedServices.includes(service)}
-                    onChange={() => {}}
-                  />
-                  {service}
-                </div>
-              ))}
+        <div className="subscription-filter">
+          <div className="dropdown">
+            <div className="dropdown-title" onClick={toggleDropdown}>
+              <span>Filter by Services</span>
+              <span className={`arrow ${isDropdownOpen ? "up" : "down"}`}>
+                {isDropdownOpen ? "\u25B2" : "\u25BC"}
+              </span>
             </div>
-          )}
+            {isDropdownOpen && (
+              <div className="dropdown-options">
+                {subscriptionServices.map((service) => (
+                  <div
+                    key={service}
+                    className="option"
+                    onClick={() => handleServiceToggle(service)}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={selectedServices.includes(service)}
+                      onChange={() => {}}
+                    />
+                    {service}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
       </div>
       <div className="search-results grid-view">
         <div className={`search-results-title`}>
@@ -181,41 +181,43 @@ function SearchResultsPage() {
           )}
         </div>
         <div className="search-results grid-view">
-          {filteredResults.length > 0
-            ? (filteredResults.map((game) => (
-                <Link
-                  to={`/games/${game.id}`}
-                  className="item-link"
-                  key={game.id}
-                >
-                  <BoxArt
-                    className="boxart"
-                    image={game.boxart}
-                    name={game.title}
-                    year={extractYear(game.release_date)}
-                    openModal={openModal}
-                  />
-                </Link>
-              ))
-           ) : searchResults.length > 0 ? (
+          {filteredResults.length > 0 ? (
+            filteredResults.map((game) => (
+              <Link
+                to={`/games/${game.id}`}
+                className="item-link"
+                key={game.id}
+              >
+                <BoxArt
+                  className="boxart"
+                  image={game.boxart}
+                  name={game.title}
+                  year={extractYear(game.release_date)}
+                  openModal={openModal}
+                  gameId={game.id}
+                />
+              </Link>
+            ))
+          ) : searchResults.length > 0 ? (
             searchResults.map((game) => (
-                <Link
-                  to={`/games/${game.id}`}
-                  className="item-link"
-                  key={game.id}
-                >
-                  <BoxArt
-                    className="boxart"
-                    image={game.boxart}
-                    name={game.title}
-                    year={extractYear(game.release_date)}
-                    openModal={openModal}
-                  />
-                </Link>
-              ))
-               ) : (
-    <p>No results found</p>
-  )}
+              <Link
+                to={`/games/${game.id}`}
+                className="item-link"
+                key={game.id}
+              >
+                <BoxArt
+                  className="boxart"
+                  image={game.boxart}
+                  name={game.title}
+                  year={extractYear(game.release_date)}
+                  openModal={openModal}
+                  gameId={game.id}
+                />
+              </Link>
+            ))
+          ) : (
+            <p>No results found</p>
+          )}
           <ScrollButton />
           <div className="search-modal-id">
             {isModalOpen && (

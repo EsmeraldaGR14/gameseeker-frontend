@@ -67,6 +67,7 @@ const handleCloseError = () => {
 };
 
   return (
+    <div className="container">
     <div className="sign-up-container">
       <form className="sign-up-form" onSubmit={handleSignUp}>
         <p>Sign Up</p>
@@ -127,6 +128,7 @@ const handleCloseError = () => {
           />
         )}
       </div>
+    </div>
     </div>
   );
 }
