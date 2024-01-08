@@ -1,14 +1,13 @@
-/* .login-page-body {
-  background: linear-gradient(50deg, #FF0BFF, #5E17EB, #00ffff);
-  height: 100vh;
-  font-family:'Open Sans', sans-serif;
-} */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
 
 .sign-in-container {
-  position: absolute;
-  transform: translate(-50%,-50%);
-  top: 50%;
-  left: 50%;
+  position: relative;
+  margin: 50px;
 }
 
 .sign-in-form {
@@ -185,6 +184,14 @@
   right: -60px;
   background-image: url('https://seeklogo.com/images/P/playstation-plus-logo-5DBDF15160-seeklogo.com.png');
 }
+
+/* .drop-5 {
+  height: 60px;
+  width: 60px;
+  bottom: 170px;
+  left: 90px;
+  z-index: -1;
+} */
 
 a,
 input:focus,
