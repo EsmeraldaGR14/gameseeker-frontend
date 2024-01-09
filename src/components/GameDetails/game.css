@@ -23,7 +23,7 @@
   padding: 16px;
 }
 
-button {
+/* button {
   background-color: #5e17eb;
   color: white;
   padding: 10px;
@@ -31,7 +31,8 @@ button {
   border: none;
   border-radius: 52px;
   gap: 50px;
-}
+} */
+
 .rating-circle {
   width: 30px;
   height: 30px;

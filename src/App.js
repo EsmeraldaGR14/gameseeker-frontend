@@ -3,13 +3,13 @@ import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./components/UserContext";
-import GameDetails from "./components/GameDetails/GameDetails";
+// import GameDetails from "./components/GameDetails/GameDetails";
 import Spinner from "./utilities/common/Spinner/Spinner";
 import Navbar from "./components/Navbar/Navbar";
-import Home from "./components/Home/Home";
-import Catalog from "./components/Catalog/Catalog";
-import Backlog from "./components/Backlog/BacklogPage";
-import Collection from "./components/Collection/CollectionPage";
+// import Home from "./components/Home/Home";
+// import Catalog from "./components/Catalog/Catalog";
+// import Backlog from "./components/Backlog/BacklogPage";
+// import Collection from "./components/Collection/CollectionPage";
 import Footer from "./components/Footer/Footer";
 
 // import CustomCursor from "./components/CustomCursor/CustomCursor";
@@ -24,6 +24,19 @@ const SignUpPage = React.lazy(() =>
 const AccountPage = React.lazy(() =>
   import("./components/AccountPage/AccountPage")
 );
+// const Wishlist = React.lazy(() =>
+//   import("./components/Wishlist/Wishlist")
+// );
+const Collection = React.lazy(() =>
+  import("./components/Collection/CollectionPage")
+);
+const Backlog = React.lazy(() =>
+  import("./components/Backlog/BacklogPage")
+);
+const Catalog = React.lazy(() => import("./components/Catalog/Catalog"));
+const Home = React.lazy(() => import("./components/Home/Home"));
+const GameDetails = React.lazy(() => import("./components/GameDetails/GameDetails"));
+
 
 function App() {
   return (
@@ -43,6 +56,7 @@ function App() {
               <Route path="/backlog" element={<Backlog />} />
               <Route path="/games/:id" element={<GameDetails />} />
               <Route path="/collection" element={<Collection />} />
+              {/* <Route path="/wishlist" element={<Wishlist />} /> */}
               <Route path="/404" element={<h1>404 Not Found!</h1>} />
               <Route path="*" element={<h1>404 Not Found!</h1>} />
             </Routes>

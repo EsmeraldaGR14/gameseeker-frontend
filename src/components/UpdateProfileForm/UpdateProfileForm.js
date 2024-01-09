@@ -1,53 +1,142 @@
 import React, { useState } from "react";
-import { updateUser, getUserById } from "../../utilities/Api/Users";
+import { updateUserEmail, updateUserPassword, getUserById } from "../../utilities/Api/Users";
 import { useUser } from "../UserContext";
+import { useNavigate } from "react-router-dom";
+import "./UpdateProfileForm.css";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Modal from "../../utilities/common/Modal/Modal";
+import DeletionModal from "../../utilities/common/Modal/DeletionModal";
 
-const UpdateProfileForm = ({ userData, onCancelEdit, email, password }) => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const { user, setUser } = useUser();
+const UpdateProfileForm = ({
+  onCancelEdit,
+  handleUserDelete,
+  showUserDeletionConfirmation,
+  handleUserCloseConfirmation,
+  userData
+}) => {
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const { user, logout } = useUser();
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [isSuccessModalVisible, setSuccessModalVisible] = useState(false);
+  const [isFailureModalVisible, setFailureModalVisible] = useState(false);
 
   const handleEmailChange = (e) => {
-    setFormData({ ...formData, email: e.target.value });
+    setEmail(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
-    setFormData({ ...formData, password: e.target.value });
+    setPassword(e.target.value);
+  };
+
+  const handleCancel = () => {
+    onCancelEdit();
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (formData.email && formData.email !== email) {
-        await updateUser(user.id, { email: formData.email });
+      const userDetails = await getUserById(user.id);
+
+      if (email && email === userDetails[0]?.email) {
+        setFailureModalVisible(true);
+        return;
       }
-      if (formData.password && formData.password !== password) {
-        await updateUser(user.id, { password: formData.password });
+
+      // if (password && password === userDetails[0]?.password) {
+      //   console.log("Entered password is the same as the current one");
+      //   return;
+      // }
+
+      if (email) {
+        await updateUserEmail(user.id, { email: email });
+        setSuccessModalVisible(true);
       }
-      const updatedUser = await getUserById(user.id);
-      setUser(updatedUser);
-      setFormData({ email: "", password: "" });
+      if (password) {
+        await updateUserPassword(user.id, { password: password });
+        setSuccessModalVisible(true);
+      }
     } catch (error) {
-      console.error("Error updating user profile", error);
+      console.log("Error updating user profile", error);
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleModalClose = () => {
+    logout();
+    setSuccessModalVisible(false);
+    navigate("/login");
+  };
+
+   const handleFailureModalClose = () => {
+     setFailureModalVisible(false);
+   };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Email:</label>
-        <input type="email" value={email} onChange={handleEmailChange} required/>
-      </div>
-      <div>
-        <label>Password:</label>
+    <div className="update-container">
+      <form className="update-form" onSubmit={handleSubmit}>
+        <p>Update Login</p>
+
         <input
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-          required
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={handleEmailChange}
         />
-      </div>
-      <button type="submit">Update Profile</button>
-    </form>
+
+        <br></br>
+        <div className="password-container">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+          <span
+            aria-label={showPassword ? "Hide Password" : "Show Password"}
+            className="password-toggle"
+            onClick={togglePasswordVisibility}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
+        <button className="update-button" type="submit">
+          Update Profile
+        </button>
+        <button className="cancel-button" type="button" onClick={handleCancel}>
+          Cancel
+        </button>
+      </form>
+      {isSuccessModalVisible && (
+        <Modal
+          isOpen={isSuccessModalVisible}
+          onClose={() => handleModalClose()}
+          title={`Profile Successfully Updated`}
+          message={`Please log in again with your new credentials.`}
+          type={"success"}
+        />
+      )}
+      {isFailureModalVisible && (
+        <Modal
+          isOpen={isFailureModalVisible}
+          onClose={() => handleFailureModalClose()}
+          title={`Profile Not Updated`}
+          message={`New email cannot be the same as the current one.`}
+        />
+      )}
+      {showUserDeletionConfirmation && (
+        <DeletionModal
+          isOpen={showUserDeletionConfirmation}
+          onClose={handleUserCloseConfirmation}
+          message={`Are you sure you want to delete ${userData?.[0]?.email}? All of your lists will also be deleted. This action cannot be undone.`}
+          onConfirm={handleUserDelete}
+        />
+      )}
+    </div>
   );
 };
 

@@ -3,6 +3,7 @@ import { getAllGames } from "../../utilities/Api/Games";
 import CatalogGames from "./CatalogGames/CatalogGames";
 import CatalogPagination from "./CatalogPagination/CatalogPagination";
 import "./Catalog.css";
+import Modal from "../../utilities/common/Modal/Modal";
 
 /*
  FILTERS
@@ -21,9 +22,13 @@ function Catalog() {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [gamesPerPage] = useState(25);
+<<<<<<< HEAD
   const [showFilters, setShowFilters] = useState(false);
+=======
+  const [isModalOpen, setIsModalOpen] = useState(false);
+>>>>>>> main
 
-  const filters = ["Genre", "Realeased Date", "Platform", "Title"];
+  const filters = ["Genre", "Release Date", "Platform", "Title"];
 
   useEffect(() => {
     const getAllGamesForTheCatalog = async () => {
@@ -62,6 +67,16 @@ function Catalog() {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const openModal = () => {
+    setIsModalOpen(true);
+
+    // const modalElement = document.querySelector(".catalog-modal");
+    // if (modalElement) {
+    //   modalElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    // }
+  };
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <div className="catalog">
       <div className="container">
@@ -92,13 +107,28 @@ function Catalog() {
               ))}
           </div>
         </div>
-        <CatalogGames loading={loading} currentGames={currentGames} />
+        <CatalogGames
+          loading={loading}
+          currentGames={currentGames}
+          openModal={openModal}
+        />
         <CatalogPagination
           gamesPerPage={gamesPerPage}
           games={games.length}
           paginate={paginate}
         />
       </div>
+      
+        {isModalOpen && (
+          <Modal
+            title="Cannot add to list"
+            message="If you want to use this feature please sign up for an account."
+            type={"error"}
+            onClose={closeModal}
+            openModal={openModal}
+          />
+        )}
+     
     </div>
   );
 }

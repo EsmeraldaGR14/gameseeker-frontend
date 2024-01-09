@@ -1,11 +1,67 @@
-.sort-buttons {
+.sorting-and-filtering {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
 }
 
-.sort-buttons button {
+.subscription-filter {
   margin-top: 10px;
-  margin-right: 10px;
+  position: relative;
+}
+
+.dropdown {
+  position: relative;
+  display: flex;
+  text-align: center;
+}
+
+.dropdown-title {
+  padding: 10px;
+  border: none;
+  border-radius: 52px;
+  background-color: #5e17eb;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 100px;
+}
+
+.dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: none;
+  border-radius: 52px;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1;
+  color: black;
+  padding: 5px;
+  display: block;
+  box-shadow: 0 14px 35px 0 rgba(9,9,12,0.4);
+  transform: translateY(20px);
+  transition: all 200ms linear;
+}
+
+.option {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.option input {
+  margin-right: 8px;
+}
+
+.option:hover {
+  background-color: #0ebac7;
+}
+
+.arrow {
+  font-size: 14px;
 }
 
 .list-view .search-results {
@@ -47,8 +103,9 @@
   grid-auto-rows: minmax(100px, auto);
   gap: 20px;
   justify-items: center;
-  margin-left: 20px;
-  margin-right: 20px;
+  /* margin-left: 20px;
+  margin-right: 20px; */
+  margin-bottom: 30px;
 }
 
 .grid-view .search-results-item {
@@ -79,11 +136,6 @@
 
 .search-results-title {
   margin-left: 20px;
-}
-
-.sort-buttons button.selected {
-  background-color: #3498db;
-  color: #ffffff;
 }
 
 @media (max-width: 857px) {

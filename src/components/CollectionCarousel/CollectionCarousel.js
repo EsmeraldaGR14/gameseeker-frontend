@@ -1,26 +1,31 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React from "react";
 import GenericCarousel from "../Carousel/Carousel";
 import { useUser } from "../UserContext";
-import { getGameCollection } from "../../utilities/Api/Collection";
 
-function CollectionCarousel() {
-  const { user } = useUser();
-  const [collectionData, setCollectionData] = useState([]);
+function CollectionCarousel({ openModal }) {
+  const { userCollection } = useUser();
+  // const [collectionData, setCollectionData] = useState([]);
 
-  const getCollectionById = useCallback(async () => {
-    try {
-      let result = await getGameCollection(user.id);
-      setCollectionData(result.data);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [user.id]);
+  // const getCollectionById = useCallback(async () => {
+  //   try {
+  //     let result = await getGameCollection(user.id);
+  //     setCollectionData(result.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, [user.id]);
 
-  useEffect(() => {
-    getCollectionById();
-  }, [getCollectionById]);
+  // useEffect(() => {
+  //   getCollectionById();
+  // }, [getCollectionById]);
 
-  return <GenericCarousel label="Collection" items={collectionData} />;
+  return (
+    <GenericCarousel
+      label="Collection"
+      items={userCollection}
+      openModal={openModal}
+    />
+  );
 }
 
 export default CollectionCarousel;

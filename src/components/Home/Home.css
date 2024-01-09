@@ -2,6 +2,7 @@
   max-width: 1200px; /* Set a max-width for the content */
   margin: 0 auto; /* Center the content horizontally */
   padding: 20px; /* Add padding for spacing around the content */
+  margin-bottom: 80px;
 }
 
 .welcome-message {
@@ -10,5 +11,24 @@
 
 .carousel-section {
   margin-bottom: 40px; /* Add spacing between carousel sections */
+}
+
+.hero-image {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 400px;
+  /* padding: 5px 5px; */
+  border-radius: 10px;
+  position: relative;
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.5s;
 }
 

@@ -4,11 +4,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: black;
-  margin: auto;
-  max-width: 1400px; 
+  background-color: #333333;
+  margin: 0;
   color: white;
-  padding-bottom: 60px;
 }
 
 code {
@@ -19,4 +17,22 @@ code {
 html {
   position: relative;
   min-height: 100%;
+}
+
+button {
+  background-color: #5e17eb;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 52px;
+  gap: 50px;
+}
+
+.container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  width: 100%;
+  flex-grow: 1;
 }

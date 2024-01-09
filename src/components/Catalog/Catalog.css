@@ -5,7 +5,6 @@
 
 /* make this more of a global css so that we dont have to do it each component individually  */
 .catalog .container {
-  max-width: 1024px;
   margin: 0 auto;
   padding: 0 30px;
 }
