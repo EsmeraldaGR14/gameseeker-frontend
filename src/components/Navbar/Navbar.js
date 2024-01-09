@@ -22,10 +22,10 @@ function Navbar() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  async function handleRandomGame () {
+  async function handleRandomGame() {
     try {
       const allGames = await getAllGames();
-      const gameIds = allGames.map((game) => game.id); 
+      const gameIds = allGames.map((game) => game.id);
       const randomIndex = Math.floor(Math.random() * gameIds.length);
       const randomGameId = gameIds[randomIndex];
       navigate(`/games/${randomGameId}`);
@@ -67,6 +67,13 @@ function Navbar() {
                 to="/backlog"
               >
                 BACKLOG
+              </NavLink>
+              <NavLink
+                className="navbar-link"
+                activeClassName="active-link"
+                to="/wishlist"
+              >
+                WISHLIST
               </NavLink>
             </>
           )}
