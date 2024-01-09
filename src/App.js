@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar/Navbar";
 // import Backlog from "./components/Backlog/BacklogPage";
 // import Collection from "./components/Collection/CollectionPage";
 import Footer from "./components/Footer/Footer";
+import Wishlist from "./components/Wishlist/Wishlist";
 
 // import CustomCursor from "./components/CustomCursor/CustomCursor";
 
@@ -30,13 +31,12 @@ const AccountPage = React.lazy(() =>
 const Collection = React.lazy(() =>
   import("./components/Collection/CollectionPage")
 );
-const Backlog = React.lazy(() =>
-  import("./components/Backlog/BacklogPage")
-);
+const Backlog = React.lazy(() => import("./components/Backlog/BacklogPage"));
 const Catalog = React.lazy(() => import("./components/Catalog/Catalog"));
 const Home = React.lazy(() => import("./components/Home/Home"));
-const GameDetails = React.lazy(() => import("./components/GameDetails/GameDetails"));
-
+const GameDetails = React.lazy(() =>
+  import("./components/GameDetails/GameDetails")
+);
 
 function App() {
   return (
@@ -56,7 +56,7 @@ function App() {
               <Route path="/backlog" element={<Backlog />} />
               <Route path="/games/:id" element={<GameDetails />} />
               <Route path="/collection" element={<Collection />} />
-              {/* <Route path="/wishlist" element={<Wishlist />} /> */}
+              <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/404" element={<h1>404 Not Found!</h1>} />
               <Route path="*" element={<h1>404 Not Found!</h1>} />
             </Routes>
