@@ -43,13 +43,12 @@ function BoxArt({
   const [inBacklog, setInBacklog] = useState(false);
   const [inWishlist, setInWishlist] = useState(false);
 
-  const [titleText, setTitleText] = useState(() => {
-    if (year === null) {
-      return `${name}`;
-    } else {
-      return `${name} (${year})`;
-    }
-  });
+  const [titleText, setTitleText] = useState('');
+
+     useEffect(() => {
+      console.log(`boxart props`, name, year);
+      setTitleText(year === null ? `${name}` : `${name} (${year})`);
+     }, [name, year])
 
   const handleMouseMove = (e) => {
     // if (!hoverEnabled) return;
@@ -269,6 +268,7 @@ function BoxArt({
 
   const handleClipboardHover = (e) => {
     setClipboardHovered(true);
+    console.log(name)
     if (inBacklog) {
       setTitleText(`Delete from Backlog`);
     } else {

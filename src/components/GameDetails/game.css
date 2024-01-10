@@ -74,3 +74,9 @@
 /* writing-mode: vertical-lr; -ms-writing-mode: tb-lr;  display: flex;
     align-items: center;
     justify-content: center;*/
+
+.single-page-button {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px
+}

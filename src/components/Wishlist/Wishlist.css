@@ -1,8 +1,8 @@
-.container {
+/* .container {
   display: block;
-}
+} */
 
-.collection-container {
+.wishlist-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   margin: 10px 30px;

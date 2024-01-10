@@ -7,10 +7,11 @@ import BoxArt from "../BoxArt/BoxArt";
 import { Link } from "react-router-dom";
 import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
 import { extractYear } from "../../utilities/helpers/extractYear";
+import SortingButtons from "../../utilities/common/SortingButtons/SortingButtons";
 
 function Wishlist() {
   const { user } = useUser();
-  const [game, setGame] = useState([]);
+  const [games, setGames] = useState([]);
 
   useEffect(() => {
     getGameWishlistById();
@@ -19,7 +20,7 @@ function Wishlist() {
   async function getGameWishlistById() {
     try {
       let result = await getGameWishlist(user.id);
-      setGame(result.data);
+      setGames(result.data);
     } catch (error) {
       console.log(error);
     }
@@ -27,10 +28,11 @@ function Wishlist() {
 
   return (
     <>
-      <h1>Wishlist</h1>
       <div className="container">
+        <SortingButtons games={games} setSortedGames={setGames} />
+        <h1>Wishlist</h1>
         <div className="collection-container">
-          {game.map(({ id, title, boxart, release_date }) => (
+          {games.map(({ id, title, boxart, release_date }) => (
             <Link key={id} to={`/games/${id}`} className="boxart-container">
               <BoxArt
                 image={boxart}
