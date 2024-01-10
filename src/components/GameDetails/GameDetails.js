@@ -65,6 +65,7 @@ function GameDetails() {
 
   return (
     <>
+    <div className="container">
       <div className="game-container">
         <div className="game-details-boxart">
           <img className="boxart-img" src={game.boxart} alt="boxart" />
@@ -111,6 +112,7 @@ function GameDetails() {
             <p>{game.rating}</p>
           </div> */}
         </div>
+      </div>
       </div>
     </>
   );

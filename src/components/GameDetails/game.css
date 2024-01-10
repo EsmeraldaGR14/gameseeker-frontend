@@ -1,7 +1,7 @@
 .game-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  margin: 15px 75px;
+  /* margin: 15px 75px; */
 }
 
 .boxart-img {
