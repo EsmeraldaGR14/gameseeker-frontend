@@ -4,29 +4,14 @@ import CatalogGames from "./CatalogGames/CatalogGames";
 import CatalogPagination from "./CatalogPagination/CatalogPagination";
 import "./Catalog.css";
 import Modal from "../../utilities/common/Modal/Modal";
-
-/*
- FILTERS
-
- * genre
- * rating input by user 
- * rating asc/desc
- * platforms
- * realsed
- * asc/desc title
-
- */
+import SortingButtons from "../../utilities/common/SortingButtons/SortingButtons";
 
 function Catalog() {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [gamesPerPage] = useState(25);
-<<<<<<< HEAD
-  const [showFilters, setShowFilters] = useState(false);
-=======
+  const [gamesPerPage] = useState(24);
   const [isModalOpen, setIsModalOpen] = useState(false);
->>>>>>> main
 
   const filters = ["Genre", "Release Date", "Platform", "Title"];
 
@@ -50,15 +35,14 @@ function Catalog() {
 
   const filterTheGames = (e) => {
     console.log(e.target.value);
-    // setFilter()
   };
 
-  function showAllFilters() {
-    console.log("before", showFilters);
+  // function showAllFilters() {
+  //   console.log("before", showFilters);
 
-    setShowFilters(!showFilters);
-    console.log("after", showFilters);
-  }
+  //   setShowFilters(!showFilters);
+  //   console.log("after", showFilters);
+  // }
 
   // get currentGames
   const indexOfLastGame = currentPage * gamesPerPage;
@@ -88,25 +72,28 @@ function Catalog() {
           action-packed blockbusters to indie gems, our curated selection has
           something for everyone. Start your gaming journey now!
         </p>
-        {/* filters */}
-        <div>
-          <button className="show-all-filters" onClick={showAllFilters}>
-            {showFilters ? "Hide Filters" : "Show Filters"}
-          </button>
 
-          <div className="filters">
-            {showFilters &&
-              filters.map((filter) => (
-                <button
-                  key={filter}
-                  value={filter}
-                  onClick={(e) => filterTheGames(e)}
-                >
-                  {filter}
-                </button>
-              ))}
-          </div>
+        {/*  */}
+        <div>
+          <SortingButtons games={games} setSortedGames={setGames} />
         </div>
+        {/*  */}
+
+        {/* filters */}
+
+        {/* <div>
+          <label htmlFor="filterDropdown">Filter:</label>
+          <select id="filterDropdown" onChange={(e) => filterTheGames(e)}>
+            <option value="" disabled selected>
+              Select a filter
+            </option>
+            {filters.map((filter) => (
+              <option key={filter} value={filter}>
+                {filter}
+              </option>
+            ))}
+          </select>
+        </div> */}
         <CatalogGames
           loading={loading}
           currentGames={currentGames}
@@ -118,19 +105,19 @@ function Catalog() {
           paginate={paginate}
         />
       </div>
-      
-        {isModalOpen && (
-          <Modal
-            title="Cannot add to list"
-            message="If you want to use this feature please sign up for an account."
-            type={"error"}
-            onClose={closeModal}
-            openModal={openModal}
-          />
-        )}
-     
+
+      {isModalOpen && (
+        <Modal
+          title="Cannot add to list"
+          message="If you want to use this feature please sign up for an account."
+          type={"error"}
+          onClose={closeModal}
+          openModal={openModal}
+        />
+      )}
     </div>
   );
 }
 
 export default Catalog;
+// -----------------------------------------------------------------------------------------
