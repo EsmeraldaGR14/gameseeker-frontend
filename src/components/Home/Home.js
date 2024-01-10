@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import LatestGamesCarousel from "../LatestGames/LatestGames";
 import BacklogCarousel from "../BacklogCarousel/BacklogCarousel";
 import CollectionCarousel from "../CollectionCarousel/CollectionCarousel";
+import WishlistCarousel from "../WishlistCarousel/WishlistCarousel";
 import "./Home.css"
 import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
 import Modal from "../../utilities/common/Modal/Modal";
@@ -10,7 +11,7 @@ import { useUser } from "../UserContext";
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { user, backlog, userCollection } = useUser();
+  const { user, backlog, userCollection, userWishlist } = useUser();
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -35,16 +36,22 @@ function Home() {
       </section>
       {user.isLoggedIn && (
         <>
-        {userCollection.length > 0 && (
-          <section>
-            <h2>Collection</h2>
-            <CollectionCarousel openModal={openModal} />
-          </section>
-        )}
+          {userCollection.length > 0 && (
+            <section>
+              <h2>Collection</h2>
+              <CollectionCarousel openModal={openModal} />
+            </section>
+          )}
           {backlog.length > 0 && (
             <section>
               <h2>Backlog</h2>
               <BacklogCarousel openModal={openModal} />
+            </section>
+          )}
+          {userWishlist.length > 0 && (
+            <section>
+              <h2>Wishlist</h2>
+              <WishlistCarousel openModal={openModal} />
             </section>
           )}
           <ScrollButton />
