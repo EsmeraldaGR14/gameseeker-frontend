@@ -37,46 +37,8 @@ function CatalogPagination({ gamesPerPage, games, paginate }) {
     }
   };
 
-  // return (
-  //   <nav>
-  //     <div>
-  //       {number === 1 ? (
-  //         ""
-  //       ) : (
-  //         <>
-  //           {" "}
-  //           <button onClick={() => goToPage("minus")}>Previous</button>
-  //         </>
-  //       )}
-  //       <form onSubmit={(e) => handleGoToPageNumber(e)}>
-  //         {/* handle error where the user is not able to input a number higher than the amount of pages available */}
-  //         <label htmlFor="page-number">Page</label>
-
-  //         <input
-  //           type="text"
-  //           id="page-number"
-  //           name="page-number"
-  //           onChange={handleOnChange}
-  //           value={EventTarget.value}
-  //         ></input>
-  //         <button>GO</button>
-  //       </form>
-  //       <p> of {pageNumbers.length}</p>
-  //       {number >= pageNumbers.length ? (
-  //         ""
-  //       ) : (
-  //         <>
-  //           {" "}
-  //           <button onClick={() => goToPage("plus")}>Next</button>
-  //         </>
-  //       )}
-  //     </div>
-  //   </nav>
-  // );
-
   return (
     <nav>
-      {/* hide pagination until loading is done */}
       <div className="pagination-wrapper">
         <button
           className="pagination-button"
