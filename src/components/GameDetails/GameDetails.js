@@ -5,10 +5,7 @@ import { getGameById } from "../../utilities/Api/Games";
 import Platform from "./Platform";
 import Genre from "./Genre";
 import Publisher from "./Publisher";
-import PlaystationLogo from "../Font-assets/icons8-playstation-logo-48.png";
 import Developers from "./Developers";
-import XboxLogo from "../Font-assets/icons8-xbox-48.png";
-//import SteamLogo from "../Font-assets/icons8-steam-48.png";
 import "./game.css";
 import { addGameToCollection } from "../../utilities/Api/Collection";
 import { addGameToBacklog } from "../../utilities/Api/Backlog";
@@ -25,6 +22,7 @@ import { deleteGameFromCollection } from "../../utilities/Api/Collection";
 import { deleteGameFromBacklog } from "../../utilities/Api/Backlog";
 import { deleteGameFromWishlist } from "../../utilities/Api/Wishlist";
 import { getUserById } from "../../utilities/Api/Users";
+import Subscriptions from "./Subscriptions";
 
 function GameDetails() {
   const { id } = useParams();
@@ -59,6 +57,7 @@ function GameDetails() {
       let result = await getGameById(id);
       // console.log("this is result:", result);
       setGame(result[0]);
+      console.log(game.subscription)
     } catch (error) {
       console.log(error);
     }
@@ -199,18 +198,6 @@ function GameDetails() {
     }
   }, [user.isLoggedIn, user.id, id]);
 
-  // const handleButtonHover = (e) => {
-  //    setCollectionText(
-  //      inCollection ? "Delete from collection" : "Add to collection"
-  //    );
-  // };
-
-  // const handleButtonLeave = (e) => {
-  //   setCollectionText(
-  //     inCollection ? `Delete from collection` : `Add to collection`
-  //   );
-  // };
-
    const handleDeleteGameConfirmation = () => {
      setShowConfirmation(true);
    };
@@ -306,13 +293,15 @@ function GameDetails() {
               <h2>Play Now</h2>
               <section className="filter">
                 <p>
-                  <span>Stream</span>
+                  <span>Available on:</span>
                 </p>
-                <img src={PlaystationLogo} alt="logo" />
-                <img src={XboxLogo} alt="logo" />
+                {game.subscription && (
+                  <Subscriptions subscriptions={game.subscription} />
+                )}
               </section>
               <div className="single-page-button">
                 <button
+                  className="collection-button"
                   onClick={
                     inCollection
                       ? () => {
@@ -325,6 +314,7 @@ function GameDetails() {
                   {collectionText}
                 </button>
                 <button
+                  className="backlog-button"
                   onClick={
                     inBacklog
                       ? () => {
@@ -337,6 +327,7 @@ function GameDetails() {
                   {backlogText}
                 </button>
                 <button
+                  className="wishlist-button"
                   onClick={
                     inWishlist
                       ? () => {
