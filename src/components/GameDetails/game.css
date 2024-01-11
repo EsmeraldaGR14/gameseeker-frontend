@@ -80,3 +80,21 @@
   justify-content: flex-end;
   gap: 10px
 }
+
+@media only screen and (max-width: 1024px) {
+  .game-container {
+    display: grid;
+    gap: 10px;
+
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .game-container {
+    display: grid;
+    gap: 5px;
+
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

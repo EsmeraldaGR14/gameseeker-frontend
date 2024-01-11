@@ -5,5 +5,24 @@
 .wishlist-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
   margin: 10px 30px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .wishlist-container {
+    display: grid;
+    gap: 10px;
+
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .wishlist-container {
+    display: grid;
+    gap: 5px;
+
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

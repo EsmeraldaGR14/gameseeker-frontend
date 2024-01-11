@@ -29,11 +29,9 @@ function Collection() {
   return (
     <>
       <div className="container">
-        <SortingButtons
-          games={games}
-          setSortedGames={setGames}
-        />
         <h1>Collection</h1>
+        {/* <p>Here are the games that you own</p> */}
+        <SortingButtons games={games} setSortedGames={setGames} />
         <div className="collection-container">
           {games.map(({ id, title, boxart, release_date }) => (
             <Link key={id} to={`/games/${id}`} className="boxart-container">
