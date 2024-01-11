@@ -66,8 +66,9 @@
 } */
 
 .filter img {
-  width: 50px;
+  width: 100px;
   margin: 5px;
+  border-radius: 5px;
 }
 /* transform: rotate(180deg); */
 
@@ -78,5 +79,27 @@
 .single-page-button {
   display: flex;
   justify-content: flex-end;
-  gap: 10px
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.wishlist-button {
+  background-color: #0096a1;
+}
+
+.backlog-button {
+  background-color: rgba(255, 11, 255, 0.8);
+}
+
+@media (max-width: 768px) {
+  .game-container {
+    display: block; 
+  }
+
+  .game-details-boxart,
+  .game-details-title,
+  .game-details-subscription,
+  .single-page-button {
+    width: 100%; 
+  }
 }

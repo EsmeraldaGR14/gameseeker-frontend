@@ -371,3 +371,55 @@ function BoxArt({
 }
 
 export default BoxArt;
+
+// UPDATE game 
+// SET subscription = '{"PlayStation Plus Essential"}'
+// WHERE id = 14;
+
+// UPDATE game 
+// SET subscription = '{"PlayStation Plus Premium"}'
+// WHERE id = 16;
+
+// UPDATE game
+// SET subscription = '{"Ubisoft+"}'
+// WHERE id = 17;
+
+// UPDATE game 
+// SET subscription = '{"PlayStation Plus Essential"}'
+// WHERE id = 18;
+
+// UPDATE game 
+// SET subscription = '{"PlayStation Plus Extra"}'
+// WHERE id = 19;
+
+// UPDATE game
+// SET subscription = '{"Apple Arcade"}'
+// WHERE id = 20;
+
+// UPDATE game 
+// SET subscription = '{"PlayStation Plus Essential"}'
+// WHERE id = 21;
+
+// UPDATE game 
+// SET subscription = '{"Apple Arcade"}'
+// WHERE id = 54;
+
+// UPDATE game
+// SET subscription = '{"Ubisoft+"}'
+// WHERE id = 22;
+
+// UPDATE game 
+// SET subscription = '{"PlayStation Plus Extra"}'
+// WHERE id = 23;
+
+// UPDATE game 
+// SET subscription = '{"Xbox Game Pass Core"}'
+// WHERE id = 24;
+
+// UPDATE game
+// SET subscription = '{"Ubisoft+"}'
+// WHERE id = 25;
+
+// UPDATE game
+// SET subscription = '{"EA Play"}'
+// WHERE id = 1;
