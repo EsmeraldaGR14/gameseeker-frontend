@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
+import "./CatalogPagination.css";
 
 function CatalogPagination({ gamesPerPage, games, paginate }) {
   const [number, setNumber] = useState(1);
@@ -38,37 +39,45 @@ function CatalogPagination({ gamesPerPage, games, paginate }) {
 
   return (
     <nav>
-      <div>
-        {number === 1 ? (
-          ""
-        ) : (
-          <>
-            {" "}
-            <button onClick={() => goToPage("minus")}>Previous</button>
-          </>
-        )}
-        <form onSubmit={(e) => handleGoToPageNumber(e)}>
-          {/* handle error where the user is not able to input a number higher than the amount of pages available */}
-          <label htmlFor="page-number">Page</label>
+      <div className="pagination-wrapper">
+        <button
+          className="pagination-button"
+          onClick={() => goToPage("minus")}
+          disabled={number === 1}
+        >
+          Previous
+        </button>
 
-          <input
-            type="text"
-            id="page-number"
-            name="page-number"
-            onChange={handleOnChange}
-            value={EventTarget.value}
-          ></input>
-          <button>GO</button>
-        </form>
-        <p> of {pageNumbers.length}</p>
-        {number >= pageNumbers.length ? (
-          ""
-        ) : (
-          <>
-            {" "}
-            <button onClick={() => goToPage("plus")}>Next</button>
-          </>
-        )}
+        <div className="pagination-form-wrapper">
+          <form
+            className="pagination-form"
+            onSubmit={(e) => handleGoToPageNumber(e)}
+          >
+            <label className="pagination-label" htmlFor="page-number">
+              Page
+            </label>
+            <input
+              className="pagination-input"
+              type="text"
+              id="page-number"
+              name="page-number"
+              onChange={handleOnChange}
+              value={number}
+            />
+            <button type="submit" className="pagination-input-button">
+              GO
+            </button>
+          </form>
+          <p className="pagination-p"> of {pageNumbers.length}</p>
+        </div>
+
+        <button
+          className="pagination-button"
+          onClick={() => goToPage("plus")}
+          disabled={number >= pageNumbers.length}
+        >
+          Next
+        </button>
       </div>
     </nav>
   );

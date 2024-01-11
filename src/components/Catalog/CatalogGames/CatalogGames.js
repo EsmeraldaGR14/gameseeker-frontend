@@ -6,19 +6,15 @@ import ScrollButton from "../../../utilities/common/ScrollButton/ScrollButton";
 import { extractYear } from "../../../utilities/helpers/extractYear";
 
 const CatalogGames = ({ loading, currentGames, openModal }) => {
-  if (loading) {
-    return <Spinner />;
-  }
+  // if (loading) {
+  //   return <Spinner />;
+  // }
 
   return (
     <>
       <div className="grid-container">
         {currentGames.map(({ id, title, boxart, release_date }) => (
-          <Link
-            key={id}
-            to={`/games/${id}`}
-            className="boxart-container"
-          >
+          <Link key={id} to={`/games/${id}`} className="boxart-container">
             <BoxArt
               image={boxart}
               name={title}
