@@ -18,6 +18,9 @@ import { FaRegClipboard, FaRegHeart, FaRegTrashAlt } from "react-icons/fa";
 import {IoGameControllerOutline, IoArrowForwardCircleOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import DeletionModal from "../../utilities/common/Modal/DeletionModal";
+import { getGameBacklog } from "../../utilities/Api/Backlog";
+import { getGameCollection } from "../../utilities/Api/Collection";
+import { getGameWishlist } from "../../utilities/Api/Wishlist";
 
 function AccountPage() {
   const {
@@ -53,14 +56,14 @@ function AccountPage() {
         const userDetails = await getUserById(user.id);
         setUserData(userDetails);
 
-        // const userCollection = await getGameCollection(user.id);
-        // setUserCollection(userCollection.data);
+        const userCollection = await getGameCollection(user.id);
+        setUserCollection(userCollection.data);
 
-        // const userBacklog = await getGameBacklog(user.id);
-        // setBacklog(userBacklog.data);
+        const userBacklog = await getGameBacklog(user.id);
+        setBacklog(userBacklog.data);
 
-        // const userWishlist = await getGameWishlist(user.id);
-        // User(userWishlist.data);
+        const userWishlist = await getGameWishlist(user.id);
+        setUserWishlist(userWishlist.data);
       } catch (error) {
         console.error("Error fetching user details", error);
       }
@@ -69,7 +72,7 @@ function AccountPage() {
     if (user.isLoggedIn) {
       fetchUserData();
     }
-  }, [user]);
+  }, [user, setUserData, setUserCollection, setBacklog, setUserWishlist]);
 
   const handleDelete = async (gameId, listName) => {
     try {

@@ -47,7 +47,6 @@ export const UserProvider = ({ children }) => {
         try {
           const result = await getGameBacklog(user.id);
           setBacklog(result.data);
-          console.log("Backlog data fetched:", result.data);
         } catch (error) {
           console.error("Error fetching backlog data:", error);
         }
@@ -63,7 +62,6 @@ export const UserProvider = ({ children }) => {
         try {
           const result = await getGameCollection(user.id);
           setUserCollection(result.data);
-          console.log("Backlog data fetched:", result.data);
         } catch (error) {
           console.error("Error fetching backlog data:", error);
         }
@@ -79,7 +77,6 @@ export const UserProvider = ({ children }) => {
         try {
           const result = await getGameWishlist(user.id);
           setUserWishlist(result.data);
-          console.log("Backlog data fetched:", result.data);
         } catch (error) {
           console.error("Error fetching backlog data:", error);
         }

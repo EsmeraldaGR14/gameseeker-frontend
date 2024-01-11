@@ -27,6 +27,7 @@ button {
   border: none;
   border-radius: 52px;
   gap: 50px;
+  text-align: center;
 }
 
 .container {

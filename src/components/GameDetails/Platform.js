@@ -7,7 +7,7 @@ function Platform({ platform }) {
     
   return (
     <p>
-      <strong>Platforms:</strong> {string}
+      <strong>Platforms(s):</strong> {string}
     </p>
   );
 }

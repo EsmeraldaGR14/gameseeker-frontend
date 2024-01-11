@@ -42,11 +42,9 @@ function BoxArt({
   const [inCollection, setInCollection] = useState(false);
   const [inBacklog, setInBacklog] = useState(false);
   const [inWishlist, setInWishlist] = useState(false);
-
   const [titleText, setTitleText] = useState('');
 
      useEffect(() => {
-      console.log(`boxart props`, name, year);
       setTitleText(year === null ? `${name}` : `${name} (${year})`);
      }, [name, year])
 
@@ -82,6 +80,7 @@ function BoxArt({
         setInCollection(true);
         setUserCollection([...userCollection, game]);
       }, 1000);
+      console.log(gameId);
     } catch (error) {
       console.error("Error adding game to collection:", error);
     }
@@ -118,7 +117,6 @@ function BoxArt({
         setInWishlist(true);
         setUserWishlist([...userWishlist, game]);
       }, 1000);
-      console.log(userWishlist)
     } catch (error) {
       console.error("Error adding game to wishlist:", error);
     }
@@ -130,6 +128,7 @@ function BoxArt({
       try {
         await deleteGameFromCollection(user.id, gameId);
         setTitleText("Deleted from Collection");
+        console.log(gameId);
         setTimeout(() => {
           setInCollection(false);
           setUserCollection((prevUserCollection) =>
@@ -268,7 +267,6 @@ function BoxArt({
 
   const handleClipboardHover = (e) => {
     setClipboardHovered(true);
-    console.log(name)
     if (inBacklog) {
       setTitleText(`Delete from Backlog`);
     } else {

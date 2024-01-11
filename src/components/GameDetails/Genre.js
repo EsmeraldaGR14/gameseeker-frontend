@@ -10,7 +10,7 @@ function Genre({ genre }) {
     
   return (
     <p>
-      <strong>Genre:</strong> {string}
+      <strong>Genre(s):</strong> {string}
     </p>
   );
 }
