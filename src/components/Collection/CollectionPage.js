@@ -7,10 +7,11 @@ import BoxArt from "../BoxArt/BoxArt";
 import { Link } from "react-router-dom";
 import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
 import { extractYear } from "../../utilities/helpers/extractYear";
+import SortingButtons from "../../utilities/common/SortingButtons/SortingButtons";
 
 function Collection() {
   const { user } = useUser();
-  const [game, setGame] = useState([]);
+  const [games, setGames] = useState([]);
 
   useEffect(() => {
     getCollectionById();
@@ -19,17 +20,22 @@ function Collection() {
   async function getCollectionById() {
     try {
       let result = await getGameCollection(user.id);
-      setGame(result.data);
+      setGames(result.data);
+      console.log(result.data)
     } catch (error) {
       console.log(error);
     }
   }
   return (
     <>
-      <h1>Collection</h1>
       <div className="container">
+        <SortingButtons
+          games={games}
+          setSortedGames={setGames}
+        />
+        <h1>Collection</h1>
         <div className="collection-container">
-          {game.map(({ id, title, boxart, release_date }) => (
+          {games.map(({ id, title, boxart, release_date }) => (
             <Link key={id} to={`/games/${id}`} className="boxart-container">
               <BoxArt
                 image={boxart}

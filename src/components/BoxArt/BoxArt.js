@@ -42,14 +42,11 @@ function BoxArt({
   const [inCollection, setInCollection] = useState(false);
   const [inBacklog, setInBacklog] = useState(false);
   const [inWishlist, setInWishlist] = useState(false);
+  const [titleText, setTitleText] = useState('');
 
-  const [titleText, setTitleText] = useState(() => {
-    if (year === null) {
-      return `${name}`;
-    } else {
-      return `${name} (${year})`;
-    }
-  });
+     useEffect(() => {
+      setTitleText(year === null ? `${name}` : `${name} (${year})`);
+     }, [name, year])
 
   const handleMouseMove = (e) => {
     // if (!hoverEnabled) return;
@@ -83,6 +80,7 @@ function BoxArt({
         setInCollection(true);
         setUserCollection([...userCollection, game]);
       }, 1000);
+      console.log(gameId);
     } catch (error) {
       console.error("Error adding game to collection:", error);
     }
@@ -119,7 +117,6 @@ function BoxArt({
         setInWishlist(true);
         setUserWishlist([...userWishlist, game]);
       }, 1000);
-      console.log(userWishlist)
     } catch (error) {
       console.error("Error adding game to wishlist:", error);
     }
@@ -131,6 +128,7 @@ function BoxArt({
       try {
         await deleteGameFromCollection(user.id, gameId);
         setTitleText("Deleted from Collection");
+        console.log(gameId);
         setTimeout(() => {
           setInCollection(false);
           setUserCollection((prevUserCollection) =>

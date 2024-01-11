@@ -8,7 +8,7 @@ function Publisher({ publisher }) {
        .join("");
   return (
     <p>
-      <strong>Publisher:</strong> {string}
+      <strong>Publisher(s):</strong> {string}
     </p>
   );
 }
