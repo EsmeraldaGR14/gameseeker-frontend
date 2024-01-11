@@ -29,9 +29,10 @@ function Wishlist() {
   return (
     <>
       <div className="container">
-        <SortingButtons games={games} setSortedGames={setGames} />
         <h1>Wishlist</h1>
-        <div className="collection-container">
+        {/* <p></p> */}
+        <SortingButtons games={games} setSortedGames={setGames} />
+        <div className="wishlist-container">
           {games.map(({ id, title, boxart, release_date }) => (
             <Link key={id} to={`/games/${id}`} className="boxart-container">
               <BoxArt
