@@ -74,7 +74,7 @@ function Catalog() {
         </p>
 
         {/*  */}
-        <div>
+        <div className="catalog-sorting-buttons">
           <SortingButtons games={games} setSortedGames={setGames} />
         </div>
         {/*  */}
