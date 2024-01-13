@@ -131,6 +131,7 @@ function SearchResultsPage() {
         <SortingButtons
           games={searchResults}
           setSortedGames={setSearchResults}
+          isSearchResults={true}
         />
         {/* <FilterDropdown
         games={filteredResults}

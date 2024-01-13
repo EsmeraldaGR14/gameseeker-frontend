@@ -3,9 +3,13 @@ import React, { useState, useCallback, useEffect } from "react";
 import { extractYear } from "../../helpers/extractYear";
 import "./SortingButtons.css";
 
-function SortingButtons({ games, setSortedGames }) {
-  const [sortCriteria, setSortCriteria] = useState("relevance");
-  const [selectedSortCriteria, setSelectedSortCriteria] = useState("relevance");
+function SortingButtons({ games, setSortedGames, isSearchResults }) {
+  const [sortCriteria, setSortCriteria] = useState(
+    isSearchResults ? "relevance" : "dateAdded"
+  );
+  const [selectedSortCriteria, setSelectedSortCriteria] = useState(
+    isSearchResults ? "relevance" : "dateAdded"
+  );
 
   const removeTheFromTitle = (title) => {
     const normalizedTitle = title.toLowerCase();
@@ -17,7 +21,6 @@ function SortingButtons({ games, setSortedGames }) {
   const handleCriteria = (criteria) => {
     setSortCriteria(criteria);
     setSelectedSortCriteria(criteria);
-    console.log(games);
   };
 
   const handleSort = useCallback(() => {
@@ -33,17 +36,21 @@ function SortingButtons({ games, setSortedGames }) {
           const releaseDateA = extractYear(a.release_date);
           const releaseDateB = extractYear(b.release_date);
 
-           if (releaseDateA === "N/A" && releaseDateB !== "N/A") {
-             return 1; // Move games with "N/A" release date to the bottom
-           } else if (releaseDateB === "N/A" && releaseDateA !== "N/A") {
-             return -1; // Move games with "N/A" release date to the bottom
-           } else {
-             // Handle valid date strings
-             const dateA = new Date(releaseDateA).getTime();
-             const dateB = new Date(releaseDateB).getTime();
+          if (releaseDateA === "N/A" && releaseDateB !== "N/A") {
+            return 1; // Move games with "N/A" release date to the bottom
+          } else if (releaseDateB === "N/A" && releaseDateA !== "N/A") {
+            return -1; // Move games with "N/A" release date to the bottom
+          } else {
+            // Handle valid date strings
+            const dateA = new Date(releaseDateA).getTime();
+            const dateB = new Date(releaseDateB).getTime();
 
-             return dateB - dateA;
-           }
+            return dateB - dateA;
+          }
+        });
+      } else if (sortCriteria === "dateAdded") {
+        sortedGames.sort((a, b) => {
+          return a.index - b.index;
         });
       }
       setSortedGames(sortedGames);
@@ -59,12 +66,21 @@ function SortingButtons({ games, setSortedGames }) {
   return (
     <div className="container">
       <div className="sort-buttons">
+        {isSearchResults && (
+          <button
+            type="button"
+            onClick={() => handleCriteria("relevance")}
+            className={selectedSortCriteria === "relevance" ? "selected" : ""}
+          >
+            Relevance
+          </button>
+        )}
         <button
           type="button"
-          onClick={() => handleCriteria("relevance")}
-          className={selectedSortCriteria === "relevance" ? "selected" : ""}
+          onClick={() => handleCriteria("dateAdded")}
+          className={selectedSortCriteria === "dateAdded" ? "selected" : ""}
         >
-          Relevance
+          Date Added
         </button>
         <button
           type="button"

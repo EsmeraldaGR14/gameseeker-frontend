@@ -13,7 +13,6 @@
 
 .search-input::placeholder {
   color: #888;
-  font-weight: bold;
 }
 
 .search-submit {
