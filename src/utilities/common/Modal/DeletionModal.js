@@ -7,6 +7,7 @@ function DeletionModal({ isOpen, onClose, message, onConfirm }) {
   }
 
   return (
+    <div className='deletion-modal-container'>
     <div className="deletion-modal">
       <p className="message">{message}</p>
       <div className="options">
@@ -17,6 +18,7 @@ function DeletionModal({ isOpen, onClose, message, onConfirm }) {
           No
         </button>
       </div>
+    </div>
     </div>
   );
   }

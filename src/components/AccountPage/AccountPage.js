@@ -39,8 +39,11 @@ function AccountPage() {
   const [gameToDelete, setGameToDelete] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const [listName, setListName] = useState("");
-  const [showOverlay, setShowOverlay] = useState(false);
+  // const [showOverlay, setShowOverlay] = useState(false);
   const navigate = useNavigate();
+  const [listBacklog, setListBacklog] = useState([])
+  const [listCollection, setListCollection] = useState([])
+  const [listWishlist, setListWishlist] = useState([])
 
   const handleEditProfile = () => {
     setIsEditMode(true);
@@ -58,12 +61,17 @@ function AccountPage() {
 
         const userCollection = await getGameCollection(user.id);
         setUserCollection(userCollection.data);
-
+        
+        setListCollection(userCollection.data);
         const userBacklog = await getGameBacklog(user.id);
+       
         setBacklog(userBacklog.data);
-
+        setListBacklog(userBacklog.data);
+        
         const userWishlist = await getGameWishlist(user.id);
         setUserWishlist(userWishlist.data);
+        setListWishlist(userWishlist.data);
+        
       } catch (error) {
         console.error("Error fetching user details", error);
       }
@@ -72,32 +80,41 @@ function AccountPage() {
     if (user.isLoggedIn) {
       fetchUserData();
     }
-  }, [user, setUserData, setUserCollection, setBacklog, setUserWishlist]);
+  }, [
+    user,
+    setUserData,
+    setListCollection,
+    setListBacklog,
+    setListWishlist,
+  ]);
 
   const handleDelete = async (gameId, listName) => {
     try {
       if (listName === "collection") {
         await deleteGameFromCollection(user.id, gameId);
-        const updatedCollection = userCollection.filter(
+        const updatedCollection = listCollection.filter(
           (game) => game.id !== gameId
         );
         setUserCollection(updatedCollection);
+        setListCollection(updatedCollection)
         setShowConfirmation(false);
-        setShowOverlay("false");
+        // setShowOverlay("false");
       } else if (listName === "backlog") {
         await deleteGameFromBacklog(user.id, gameId);
-        const updatedBacklog = backlog.filter((game) => game.id !== gameId);
+        const updatedBacklog = listBacklog.filter((game) => game.id !== gameId);
         setBacklog(updatedBacklog);
+        setListBacklog(updatedBacklog);
         setShowConfirmation(false);
-        setShowOverlay("false");
+        // setShowOverlay("false");
       } else if (listName === "wishlist") {
         await deleteGameFromWishlist(user.id, gameId);
-        const updatedWishlist = userWishlist.filter((game) => game.id !== gameId);
+        const updatedWishlist = listWishlist.filter((game) => game.id !== gameId);
         setUserWishlist(updatedWishlist);
+        setListWishlist(updatedWishlist);
         setShowConfirmation(false);
-        setShowOverlay(false);
+        // setShowOverlay(false);
       }
-      setShowOverlay(false);
+      // setShowOverlay(false);
     } catch (error) {
       console.error("Error deleting game", error);
     }
@@ -107,7 +124,7 @@ function AccountPage() {
     try {
       await deleteUser(user.id);
       setUserDeletionConfirmation(false);
-      setShowOverlay(false);
+      // setShowOverlay(false);
       logout();
       navigate("/");
     } catch (error) {
@@ -119,29 +136,30 @@ function AccountPage() {
     setShowConfirmation(true);
     setGameToDelete(game);
     setListName(listName);
-    setShowOverlay(true);
+    // setShowOverlay(true);
   };
   
   const handleCloseConfirmation = () => {
     setShowConfirmation(false);
     setGameToDelete(null);
     setListName("");
-    setShowOverlay(false);
+    // setShowOverlay(false);
   };
 
   const handleDeleteUserConfirmation = () => {
     setUserDeletionConfirmation(true);
-    setShowOverlay(true);
+    // setShowOverlay(true);
   };
 
   const handleUserCloseConfirmation = () => {
     setUserDeletionConfirmation(false);
-    setShowOverlay(false);
+    // setShowOverlay(false);
   };
 
   return (
     <div className="container">
-      {showOverlay && <div className="deletion-overlay" />}
+      {userData && (
+        <>
       <div className="sort-buttons">
         <button
           className="edit-profile-button"
@@ -190,15 +208,15 @@ function AccountPage() {
               <div className="my-collection-container">
                 <h2>
                   <IoGameControllerOutline /> My Collection (
-                  {userCollection.length})
+                  {userCollection?.length})
                 </h2>
               </div>
               <ul>
-                {userCollection.length === 0 ? (
+                {listCollection?.length === 0 ? (
                   <p className="empty-list-text">Add games from the catalog!</p>
                 ) : (
-                  userCollection.slice(0, 5).map((game) => (
-                    <li key={game.id}>
+                  listCollection.slice(0, 5).map((game) => (
+                    <li key={game?.id}>
                       <Link to={`/games/${game.id}`}>{game.title}</Link>
                       <button
                         className="trash-can"
@@ -213,7 +231,7 @@ function AccountPage() {
                 )}
               </ul>
               <div className="full-collection-container">
-                {userCollection.length > 0 && (
+                {listCollection?.length > 0 && (
                   <>
                     <Link to={`/collection`}>View Full Collection</Link>
                     <IoArrowForwardCircleOutline />
@@ -221,6 +239,7 @@ function AccountPage() {
                 )}
               </div>
             </div>
+           
             <div className="account-backlog-container">
               <div className="my-backlog-container">
                 <h2>
@@ -228,11 +247,11 @@ function AccountPage() {
                 </h2>
               </div>
               <ul>
-                {backlog.length === 0 ? (
+                {listBacklog?.length === 0 ? (
                   <p className="empty-list-text">Add games from the catalog!</p>
                 ) : (
-                  backlog.slice(0, 5).map((game) => (
-                    <li key={game.id}>
+                  listBacklog.slice(0, 5).map((game) => (
+                    <li key={game?.id}>
                       <div className="list-item-content">
                         <Link to={`/games/${game.id}`}>{game.title}</Link>
                         <button
@@ -249,7 +268,7 @@ function AccountPage() {
                 )}
               </ul>
               <div className="full-backlog-container">
-                {backlog.length > 0 && (
+                {listBacklog?.length > 0 && (
                   <>
                     <Link to={`/backlog`}>View Full Backlog</Link>
                     <IoArrowForwardCircleOutline />
@@ -257,6 +276,7 @@ function AccountPage() {
                 )}
               </div>
             </div>
+           
             <div className="account-wishlist-container">
               <div className="my-wishlist-container">
                 <h2>
@@ -264,11 +284,11 @@ function AccountPage() {
                 </h2>
               </div>
               <ul>
-                {userWishlist.length === 0 ? (
+                {listWishlist?.length === 0 ? (
                   <p className="empty-list-text">Add games from the catalog!</p>
                 ) : (
-                  userWishlist.slice(0, 5).map((game) => (
-                    <li key={game.id}>
+                  listWishlist.slice(0, 5).map((game) => (
+                    <li key={game?.id}>
                       <Link to={`/games/${game.id}`}>{game.title}</Link>
                       <button
                         className="wishlist-trash-can"
@@ -283,7 +303,7 @@ function AccountPage() {
                 )}
               </ul>
               <div className="full-wishlist-container">
-                {userWishlist.length > 0 && (
+                {listWishlist?.length > 0 && (
                   <>
                     <Link to={`/wishlist`}>View Full Wishlist</Link>
                     <IoArrowForwardCircleOutline />
@@ -291,6 +311,7 @@ function AccountPage() {
                 )}
               </div>
             </div>
+            
             {showConfirmation && (
               <DeletionModal
                 isOpen={showConfirmation}
@@ -299,6 +320,7 @@ function AccountPage() {
                 onConfirm={() => handleDelete(gameToDelete?.id, listName)}
               />
             )}
+            
             {showUserDeletionConfirmation && (
               <DeletionModal
                 isOpen={showUserDeletionConfirmation}
@@ -311,6 +333,8 @@ function AccountPage() {
         )}
         <ScrollButton />
       </div>
+      </>
+      )}
     </div>
   );
 }

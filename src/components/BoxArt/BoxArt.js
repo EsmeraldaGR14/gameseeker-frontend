@@ -73,16 +73,17 @@ function BoxArt({
       openModal();
       return;
     }
-    try {
-      await addGameToCollection(user.id, gameId);
-      setTitleText("Added to Collection");
-      setTimeout(() => {
-        setInCollection(true);
-        setUserCollection([...userCollection, game]);
-      }, 1000);
-      console.log(gameId);
-    } catch (error) {
-      console.error("Error adding game to collection:", error);
+    if (user.isLoggedIn && gameId) {
+      try {
+        await addGameToCollection(user.id, gameId);
+        setTitleText("Added to Collection");
+        setTimeout(() => {
+          setInCollection(true);
+          setUserCollection([...userCollection, game]);
+        }, 1000);
+      } catch (error) {
+        console.error("Error adding game to collection:", error);
+      }
     }
   };
 
@@ -92,6 +93,7 @@ function BoxArt({
       openModal();
       return;
     }
+    if (user.isLoggedIn && gameId) {
     try {
       await addGameToBacklog(user.id, gameId);
       setTitleText("Added to Backlog");
@@ -102,6 +104,7 @@ function BoxArt({
     } catch (error) {
       console.error("Error adding game to backlog:", error);
     }
+  }
   };
 
   const handleAddToWishlist = async (e) => {
@@ -110,6 +113,7 @@ function BoxArt({
       openModal();
       return;
     }
+    if (user.isLoggedIn && gameId) {
     try {
       await addGameToWishlist(user.id, gameId);
       setTitleText("Added to Wishlist");
@@ -120,21 +124,20 @@ function BoxArt({
     } catch (error) {
       console.error("Error adding game to wishlist:", error);
     }
+  }
   };
 
   const handleDeleteFromCollection = async (e) => {
     e.preventDefault();
-    if (user.isLoggedIn) {
+    if (user.isLoggedIn && gameId) {
       try {
         await deleteGameFromCollection(user.id, gameId);
+        const updatedCollection = await getGameCollection(user.id);
+        setUserCollection(updatedCollection.data);
         setTitleText("Deleted from Collection");
-        console.log(gameId);
         setTimeout(() => {
           setInCollection(false);
-          setUserCollection((prevUserCollection) =>
-            prevUserCollection.filter((game) => game.id !== gameId)
-          );
-        }, 1000);
+        }, 1000); 
       } catch (error) {
         console.error("Error deleting game", error);
       }
@@ -146,12 +149,11 @@ function BoxArt({
     if (user.isLoggedIn) {
       try {
         await deleteGameFromBacklog(user.id, gameId);
+        const updatedBacklog = await getGameBacklog(user.id);
+        setBacklog(updatedBacklog.data);
         setTitleText("Deleted from Backlog");
         setTimeout(() => {
           setInBacklog(false);
-          setBacklog((prevBacklog) =>
-            prevBacklog.filter((game) => game.id !== gameId)
-          );
         }, 1000);
       } catch (error) {
         console.error("Error deleting game", error);
@@ -164,12 +166,11 @@ function BoxArt({
     if (user.isLoggedIn) {
       try {
         await deleteGameFromWishlist(user.id, gameId);
+        const updatedUserWishlist = await getGameWishlist(user.id);
+        setUserWishlist(updatedUserWishlist.data);
         setTitleText("Deleted from Wishlist");
         setTimeout(() => {
           setInWishlist(false);
-          setUserWishlist((prevUserWishlist) =>
-            prevUserWishlist.filter((game) => game.id !== gameId)
-          );
         }, 1000);
       } catch (error) {
         console.error("Error deleting game", error);
@@ -249,7 +250,7 @@ function BoxArt({
      checkIfGameInBacklog();
      checkIfGameInWishlist();
    }
- }, [user.isLoggedIn, user.id, gameId]);
+ }, [user.isLoggedIn, user.id, gameId, backlog, userWishlist, userCollection]);
 
   const handleControllerHover = (e) => {
     setControllerHovered(true);

@@ -10,12 +10,12 @@ import { extractYear } from "../../utilities/helpers/extractYear";
 import SortingButtons from "../../utilities/common/SortingButtons/SortingButtons";
 
 function Wishlist() {
-  const { user } = useUser();
+  const { user, userWishlist } = useUser();
   const [games, setGames] = useState([]);
 
   useEffect(() => {
     getGameWishlistById();
-  }, []);
+  }, [userWishlist]);
 
   async function getGameWishlistById() {
     try {
@@ -31,7 +31,12 @@ function Wishlist() {
       <div className="container">
         <SortingButtons games={games} setSortedGames={setGames} />
         <h1>Wishlist</h1>
-        <div className="collection-container">
+        <h2>
+          {games.length > 0
+            ? `You have ${games.length} game(s) in your wishlist.`
+            : "Add games to your wishlist!"}
+        </h2>
+        <div className="wishlist-container">
           {games.map(({ id, title, boxart, release_date }) => (
             <Link key={id} to={`/games/${id}`} className="boxart-container">
               <BoxArt

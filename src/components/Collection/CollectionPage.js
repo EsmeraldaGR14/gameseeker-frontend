@@ -10,22 +10,22 @@ import { extractYear } from "../../utilities/helpers/extractYear";
 import SortingButtons from "../../utilities/common/SortingButtons/SortingButtons";
 
 function Collection() {
-  const { user } = useUser();
+  const { user, userCollection} = useUser();
   const [games, setGames] = useState([]);
 
   useEffect(() => {
     getCollectionById();
-  }, []);
+  }, [userCollection]);
 
   async function getCollectionById() {
     try {
       let result = await getGameCollection(user.id);
       setGames(result.data);
-      console.log(result.data)
     } catch (error) {
       console.log(error);
     }
   }
+
   return (
     <>
       <div className="container">
@@ -34,8 +34,13 @@ function Collection() {
           setSortedGames={setGames}
         />
         <h1>Collection</h1>
+        <h2>
+          {games?.length > 0
+            ? `You have ${games?.length} game(s) in your collection.`
+            : "Add games to your collection!"}
+        </h2>
         <div className="collection-container">
-          {games.map(({ id, title, boxart, release_date }) => (
+          {games?.map(({ id, title, boxart, release_date }) => (
             <Link key={id} to={`/games/${id}`} className="boxart-container">
               <BoxArt
                 image={boxart}
