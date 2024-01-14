@@ -52,6 +52,78 @@
   margin-bottom: 25px;
 }
 
+.sorting-and-filtering {
+  display: flex;
+  align-items: center;
+}
+
+.subscription-filter {
+  margin-top: 10px;
+  position: relative;
+}
+
+.dropdown {
+  position: relative;
+  display: flex;
+  text-align: center;
+}
+
+.dropdown-title {
+  padding: 10px;
+  border: none;
+  border-radius: 52px;
+  background-color: #5e17eb;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 100px;
+}
+
+.dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: none;
+  border-radius: 52px;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1;
+  color: black;
+  padding: 5px;
+  display: block;
+  box-shadow: 0 14px 35px 0 rgba(9,9,12,0.4);
+  transform: translateY(20px);
+  transition: all 200ms linear;
+}
+
+.option {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.option input {
+  margin-right: 8px;
+}
+
+.option:hover {
+  background-color: #0ebac7;
+}
+
+.arrow {
+  font-size: 14px;
+}
+
+.selected-services-message {
+  display: block;
+  border-radius: 10px;
+  ;
+}
+
 @media only screen and (max-width: 1024px) {
   .catalog .grid-container {
     display: grid;
