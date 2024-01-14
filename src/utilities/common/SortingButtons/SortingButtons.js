@@ -75,13 +75,15 @@ function SortingButtons({ games, setSortedGames, isSearchResults }) {
             Relevance
           </button>
         )}
-        <button
-          type="button"
-          onClick={() => handleCriteria("dateAdded")}
-          className={selectedSortCriteria === "dateAdded" ? "selected" : ""}
-        >
-          Date Added
-        </button>
+        {!isSearchResults && (
+          <button
+            type="button"
+            onClick={() => handleCriteria("dateAdded")}
+            className={selectedSortCriteria === "dateAdded" ? "selected" : ""}
+          >
+            Date Added
+          </button>
+        )}
         <button
           type="button"
           onClick={() => handleCriteria("title")}

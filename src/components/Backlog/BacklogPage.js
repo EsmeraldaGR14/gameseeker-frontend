@@ -29,6 +29,7 @@ function Backlog() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedServices, setSelectedServices] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
+  const [selectedServicesMessage, setSelectedServicesMessage] = useState("");
 
   useEffect(() => {
     getBacklogById();
@@ -38,7 +39,6 @@ function Backlog() {
     try {
       let result = await getGameBacklog(user.id);
       setGames(result.data);
-      console.log(games)
     } catch (error) {
       console.log(error);
     }
@@ -47,15 +47,20 @@ function Backlog() {
   const handleFilter = async () => {
     try {
       let allGames = [...games];
+      let message = "";
       if (selectedServices.length > 0) {
         allGames = allGames.filter(
           (game) =>
             Array.isArray(game.subscription) &&
             game.subscription.some((sub) => selectedServices.includes(sub))
         );
+        message = `Filtered by ${
+          selectedServices.length
+        } service(s): ${selectedServices.join(", ")}`;
       }
 
       setFilteredResults(allGames);
+      setSelectedServicesMessage(message);
     } catch (error) {
       console.error("Error filtering games:", error);
     }
@@ -76,6 +81,7 @@ function Backlog() {
   useEffect(() => {
     if (selectedServices.length === 0) {
       setFilteredResults([]);
+      setSelectedServicesMessage("");
     } else {
       handleFilter();
     }
@@ -84,6 +90,12 @@ function Backlog() {
   return (
     <>
       <div className="container">
+        <h1>Backlog</h1>
+        <h2>
+          {games.length > 0
+            ? `You have ${games.length} game(s) in your backlog.`
+            : "Add games to your backlog!"}
+        </h2>
         <div className="sorting-and-filtering">
           <SortingButtons
             games={games}
@@ -119,12 +131,11 @@ function Backlog() {
             </div>
           </div>
         </div>
-        <h1>Backlog</h1>
-        <h2>
-          {games.length > 0
-            ? `You have ${games.length} game(s) in your backlog.`
-            : "Add games to your backlog!"}
-        </h2>
+        {selectedServicesMessage && (
+          <div className="selected-services-message">
+            {selectedServicesMessage}
+          </div>
+        )}
         <div className="backlog-container">
           {filteredResults.length > 0
             ? filteredResults.map((game) => (

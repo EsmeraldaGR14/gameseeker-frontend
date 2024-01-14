@@ -25,6 +25,7 @@
 }
 
 .dropdown-title {
+  white-space: nowrap;
   padding: 10px;
   border: none;
   border-radius: 52px;

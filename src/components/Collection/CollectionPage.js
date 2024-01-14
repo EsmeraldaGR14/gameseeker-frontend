@@ -28,6 +28,7 @@ function Collection() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedServices, setSelectedServices] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
+  const [selectedServicesMessage, setSelectedServicesMessage] = useState("");
 
   useEffect(() => {
     getCollectionById();
@@ -45,15 +46,20 @@ function Collection() {
   const handleFilter = async () => {
     try {
       let allGames = [...games]
+      let message = "";
       if (selectedServices.length > 0) {
         allGames = allGames.filter(
           (game) =>
             Array.isArray(game.subscription) &&
             game.subscription.some((sub) => selectedServices.includes(sub))
         );
+        message = `Filtered by ${
+          selectedServices.length
+        } service(s): ${selectedServices.join(", ")}`;
       }
 
       setFilteredResults(allGames);
+      setSelectedServicesMessage(message);
     } catch (error) {
       console.error("Error filtering games:", error);
     }
@@ -74,6 +80,7 @@ function Collection() {
   useEffect(() => {
     if (selectedServices.length === 0) {
       setFilteredResults([]);
+      setSelectedServicesMessage("");
     } else {
       handleFilter();
     }
@@ -82,6 +89,12 @@ function Collection() {
   return (
     <>
       <div className="container">
+        <h1>Collection</h1>
+        <h2>
+          {games?.length > 0
+            ? `You have ${games?.length} game(s) in your collection.`
+            : "Add games to your collection!"}
+        </h2>
         <div className="sorting-and-filtering">
           <SortingButtons
             games={games}
@@ -117,12 +130,11 @@ function Collection() {
             </div>
           </div>
         </div>
-        <h1>Collection</h1>
-        <h2>
-          {games?.length > 0
-            ? `You have ${games?.length} game(s) in your collection.`
-            : "Add games to your collection!"}
-        </h2>
+        {selectedServicesMessage && (
+          <div className="selected-services-message">
+            {selectedServicesMessage}
+          </div>
+        )}
         <div className="collection-container">
           {filteredResults.length > 0
             ? filteredResults.map((game) => (

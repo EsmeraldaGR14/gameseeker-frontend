@@ -5,6 +5,7 @@ import CatalogPagination from "./CatalogPagination/CatalogPagination";
 import "./Catalog.css";
 import Modal from "../../utilities/common/Modal/Modal";
 import SortingButtons from "../../utilities/common/SortingButtons/SortingButtons";
+import FilterDropdown from "../../utilities/common/FilterDropdown/FilterDropdown";
 
 const subscriptionServices = [
   "PlayStation Plus Essential",
@@ -64,7 +65,6 @@ function Catalog() {
       }
 
       setFilteredResults(allGames);
-      console.log(selectedServices)
       setSelectedServicesMessage(message);
     } catch (error) {
       console.error("Error filtering games:", error);
@@ -131,7 +131,7 @@ function Catalog() {
           <div className="subscription-filter">
             <div className="dropdown">
               <div className="dropdown-title" onClick={toggleDropdown}>
-                <span>Filter by Services</span>
+                <span className="filter-title">Filter by Services</span>
                 <span className={`arrow ${isDropdownOpen ? "up" : "down"}`}>
                   {isDropdownOpen ? "\u25B2" : "\u25BC"}
                 </span>
@@ -163,6 +163,7 @@ function Catalog() {
             {selectedServicesMessage}
           </div>
         )}
+
         <CatalogGames
           loading={loading}
           currentGames={currentGames}
@@ -190,4 +191,3 @@ function Catalog() {
 }
 
 export default Catalog;
-// -----------------------------------------------------------------------------------------

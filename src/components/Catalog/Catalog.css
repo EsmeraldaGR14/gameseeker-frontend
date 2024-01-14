@@ -27,7 +27,7 @@
   display: grid;
   gap: 15px;
   grid-template-columns: repeat(4, 1fr);
-  /* margin: 10px 100px; */
+  margin-top: 15px;
 }
 
 .catalog .button-container {
@@ -69,6 +69,7 @@
 }
 
 .dropdown-title {
+  white-space: nowrap;
   padding: 10px;
   border: none;
   border-radius: 52px;
@@ -78,6 +79,7 @@
   justify-content: center;
   align-items: center;
   flex-basis: 100px;
+  margin-right: 10px;
 }
 
 .dropdown-options {
@@ -116,12 +118,18 @@
 
 .arrow {
   font-size: 14px;
+  margin-left: 5px;
 }
 
 .selected-services-message {
   display: block;
   border-radius: 10px;
-  ;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  background-color: white;
+  color: black
 }
 
 @media only screen and (max-width: 1024px) {
