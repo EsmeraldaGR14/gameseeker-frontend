@@ -5,7 +5,7 @@ import CatalogPagination from "./CatalogPagination/CatalogPagination";
 import "./Catalog.css";
 import Modal from "../../utilities/common/Modal/Modal";
 import SortingButtons from "../../utilities/common/SortingButtons/SortingButtons";
-import FilterDropdown from "../../utilities/common/FilterDropdown/FilterDropdown";
+// import FilterDropdown from "../../utilities/common/FilterDropdown/FilterDropdown";
 
 const subscriptionServices = [
   "PlayStation Plus Essential",

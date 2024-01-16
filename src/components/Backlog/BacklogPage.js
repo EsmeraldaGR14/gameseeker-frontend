@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
 import { extractYear } from "../../utilities/helpers/extractYear";
 import SortingButtons from "../../utilities/common/SortingButtons/SortingButtons";
+import BacklogHero from "../Font-assets/pexels-mart-production-8885140.jpg"
 
 const subscriptionServices = [
   "PlayStation Plus Essential",
@@ -90,12 +91,17 @@ function Backlog() {
   return (
     <>
       <div className="container">
-        <h1>Backlog</h1>
-        <h2>
-          {games.length > 0
-            ? `You have ${games.length} game(s) in your backlog.`
-            : "Add games to your backlog!"}
-        </h2>
+        <div className="collection-hero">
+          <img src={BacklogHero} alt="Hero" />
+           <div className="hero-text">
+          <h1>Backlog</h1>
+          <h2>
+            {games.length > 0
+              ? `You have ${games.length} game(s) in your backlog.`
+              : "Add games to your backlog!"}
+          </h2>
+        </div>
+        </div>
         <div className="sorting-and-filtering">
           <SortingButtons
             games={games}

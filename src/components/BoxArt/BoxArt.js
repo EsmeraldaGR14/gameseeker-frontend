@@ -30,7 +30,7 @@ function BoxArt({
   className,
   gameId,
   openModal,
-  game
+  game,
   // handleHover,
   // handleHoverLeave,
   // hoverEnabled,

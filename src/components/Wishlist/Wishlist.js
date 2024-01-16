@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import ScrollButton from "../../utilities/common/ScrollButton/ScrollButton";
 import { extractYear } from "../../utilities/helpers/extractYear";
 import SortingButtons from "../../utilities/common/SortingButtons/SortingButtons";
+import WishlistHero from "../Font-assets/pexels-erik-mclean-7360386.jpg"
 
 const subscriptionServices = [
   "PlayStation Plus Essential",
@@ -89,12 +90,17 @@ function Wishlist() {
   return (
     <>
       <div className="container">
-        <h1>Wishlist</h1>
-        <h2>
-          {games.length > 0
-            ? `You have ${games.length} game(s) in your wishlist.`
-            : "Add games to your wishlist!"}
-        </h2>
+        <div className="collection-hero">
+          <img src={WishlistHero} alt="Hero" />
+          <div className="hero-text">
+          <h1>Wishlist</h1>
+          <h2>
+            {games.length > 0
+              ? `You have ${games.length} game(s) in your wishlist.`
+              : "Add games to your wishlist!"}
+          </h2>
+        </div>
+        </div>
         <div className="sorting-and-filtering">
           <SortingButtons
             games={games}

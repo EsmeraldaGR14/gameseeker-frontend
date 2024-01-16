@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./FilterDropdown.css";
-import Nvidia from "/Users/irfan/Desktop/gameseeker-frontend/src/components/Font-assets/nvidia.png"
+// import Nvidia from "/Users/irfan/Desktop/gameseeker-frontend/src/components/Font-assets/nvidia.png"
 import { BsNvidia } from "react-icons/bs";
 import { SiUbisoft } from "react-icons/si";
 import { BsNintendoSwitch } from "react-icons/bs";
