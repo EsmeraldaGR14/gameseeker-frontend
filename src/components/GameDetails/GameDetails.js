@@ -345,7 +345,7 @@ function GameDetails() {
           </div>
         </div>
         {/* {game && game.screenshots && ( */}
-        <Screenshots gameScreenshots={game.screenshots} boxart={game.boxart} />
+        {/* <Screenshots gameScreenshots={game.screenshots} boxart={game.boxart} /> */}
         {/* )} */}
         {isModalOpen && (
           <Modal
