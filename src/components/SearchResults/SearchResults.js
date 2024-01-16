@@ -64,7 +64,6 @@ function SearchResultsPage() {
       }
 
       setFilteredResults(filteredGames);
-      console.log(`filteredGames ${filteredGames}`);
     } catch (error) {
       console.error("Error filtering games:", error);
     }
@@ -80,12 +79,6 @@ function SearchResultsPage() {
       : [...selectedServices, service];
 
     setSelectedServices(updatedServices);
-    console.log(
-      `Checkbox for service "${service}" clicked. Updated services:`,
-      updatedServices
-    );
-    //  console.log(`originalGames ${[originalGames]}`);
-    // console.log(`Games ${searchResults}`);
   };
 
   useEffect(() => {
@@ -95,16 +88,6 @@ function SearchResultsPage() {
       handleFilter(searchQuery);
     }
   }, [selectedServices]);
-
-  // const handleSort = (criteria) => {
-  //   setSortCriteria(criteria);
-  //   setSelectedSortCriteria(criteria);
-  //   handleSearch(searchQuery);
-  // };
-
-  // const handleView = (view) => {
-  //   setViewType(view);
-  // };
 
   useEffect(() => {
     if (searchQuery) {
@@ -118,59 +101,28 @@ function SearchResultsPage() {
   const openModal = () => {
     setIsModalOpen(true);
 
-    // const modalElement = document.querySelector(".search-modal-id");
-    // if (modalElement) {
-    //   modalElement.scrollIntoView({ behavior: "smooth", block: "end" });
-    // }
   };
   const closeModal = () => setIsModalOpen(false);
 
+  function formatSelectedServices(selectedServices) {
+    return selectedServices.map((service, index) => (
+      <span key={index}>
+        {service}
+        {index < selectedServices.length - 1 && ", "}
+      </span>
+    ));
+  }
+
+
   return (
     <div className="container">
-      <div className="sorting-and-filtering">
-        <SortingButtons
-          games={searchResults}
-          setSortedGames={setSearchResults}
-        />
-        {/* <FilterDropdown
-        games={filteredResults}
-        setFilteredResults={setFilteredResults}
-      /> */}
-        <div className="subscription-filter">
-          <div className="dropdown">
-            <div className="dropdown-title" onClick={toggleDropdown}>
-              <span>Filter by Services</span>
-              <span className={`arrow ${isDropdownOpen ? "up" : "down"}`}>
-                {isDropdownOpen ? "\u25B2" : "\u25BC"}
-              </span>
-            </div>
-            {isDropdownOpen && (
-              <div className="dropdown-options">
-                {subscriptionServices.map((service) => (
-                  <div
-                    key={service}
-                    className="option"
-                    onClick={() => handleServiceToggle(service)}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={selectedServices.includes(service)}
-                      onChange={() => {}}
-                    />
-                    {service}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
       <div className="search-results grid-view">
         <div className={`search-results-title`}>
           <h1>Search Results</h1>
           {filteredResults.length > 0 ? (
-            <p>
-              {filteredResults.length} result(s) found for {selectedServices}:
+            <p className="filtered-services">
+              {filteredResults.length} result(s) found for{" "}
+              {formatSelectedServices(selectedServices)}:
             </p>
           ) : (
             searchResults.length > 0 && (
@@ -179,6 +131,45 @@ function SearchResultsPage() {
               </p>
             )
           )}
+        </div>
+        <div className="sorting-and-filtering">
+          <SortingButtons
+            games={searchResults}
+            setSortedGames={setSearchResults}
+            isSearchResults={true}
+          />
+          {/* <FilterDropdown
+        games={filteredResults}
+        setFilteredResults={setFilteredResults}
+      /> */}
+          <div className="subscription-filter">
+            <div className="dropdown">
+              <div className="dropdown-title" onClick={toggleDropdown}>
+                <span>Filter by Services</span>
+                <span className={`arrow ${isDropdownOpen ? "up" : "down"}`}>
+                  {isDropdownOpen ? "\u25B2" : "\u25BC"}
+                </span>
+              </div>
+              {isDropdownOpen && (
+                <div className="dropdown-options">
+                  {subscriptionServices.map((service) => (
+                    <div
+                      key={service}
+                      className="option"
+                      onClick={() => handleServiceToggle(service)}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selectedServices.includes(service)}
+                        onChange={() => {}}
+                      />
+                      {service}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
         <div className="search-results grid-view">
           {filteredResults.length > 0 ? (

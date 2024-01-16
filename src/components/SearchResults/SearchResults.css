@@ -1,6 +1,7 @@
 .sorting-and-filtering {
   display: flex;
   align-items: center;
+  margin-bottom: 15px;
 }
 
 .subscription-filter {
@@ -15,6 +16,7 @@
 }
 
 .dropdown-title {
+  white-space: nowrap;
   padding: 10px;
   border: none;
   border-radius: 52px;
@@ -62,6 +64,7 @@
 
 .arrow {
   font-size: 14px;
+  margin-left: 5px;
 }
 
 .list-view .search-results {

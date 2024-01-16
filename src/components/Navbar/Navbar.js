@@ -56,21 +56,21 @@ function Navbar() {
             <>
               <NavLink
                 className="navbar-link"
-                activeClassName="active-link"
+                activeclassname="active-link"
                 to="/collection"
               >
                 COLLECTION
               </NavLink>
               <NavLink
                 className="navbar-link"
-                activeClassName="active-link"
+                activeclassname="active-link"
                 to="/backlog"
               >
                 BACKLOG
               </NavLink>
               <NavLink
                 className="navbar-link"
-                activeClassName="active-link"
+                activeclassname="active-link"
                 to="/wishlist"
               >
                 WISHLIST
@@ -82,14 +82,14 @@ function Navbar() {
             <>
               <NavLink
                 className="navbar-link"
-                activeClassName="active-link"
+                activeclassname="active-link"
                 to="/account"
               >
                 ACCOUNT
               </NavLink>
               <NavLink
                 className="navbar-link"
-                activeClassName="active-link"
+                activeclassname="active-link"
                 onClick={handleLogout}
                 to="/"
               >
@@ -100,14 +100,14 @@ function Navbar() {
             <>
               <NavLink
                 className="navbar-link"
-                activeClassName="active-link"
+                activeclassname="active-link"
                 to="/login"
               >
                 LOG IN
               </NavLink>
               <NavLink
                 className="navbar-link"
-                activeClassName="active-link"
+                activeclassname="active-link"
                 to="/signup"
               >
                 SIGN UP

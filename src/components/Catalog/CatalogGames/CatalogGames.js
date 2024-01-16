@@ -5,7 +5,7 @@ import Spinner from "../../../utilities/common/Spinner/Spinner";
 import ScrollButton from "../../../utilities/common/ScrollButton/ScrollButton";
 import { extractYear } from "../../../utilities/helpers/extractYear";
 
-const CatalogGames = ({ loading, currentGames, openModal }) => {
+const CatalogGames = ({ loading, currentGames, openModal, filteredResults }) => {
   // if (loading) {
   //   return <Spinner />;
   // }
@@ -13,7 +13,22 @@ const CatalogGames = ({ loading, currentGames, openModal }) => {
   return (
     <>
       <div className="grid-container">
-        {currentGames.map(({ id, title, boxart, release_date }) => (
+        {filteredResults.length > 0
+            ? filteredResults.map((game) => (
+                <Link
+                  to={`/games/${game.id}`}
+                  className="boxart-container"
+                  key={game.id}
+                >
+                  <BoxArt
+                    image={game.boxart}
+                    name={game.title}
+                    year={extractYear(game.release_date)}
+                    gameId={game.id}
+                  />
+                </Link>
+              ))
+            : currentGames.map(({ id, title, boxart, release_date }) => (
           <Link key={id} to={`/games/${id}`} className="boxart-container">
             <BoxArt
               image={boxart}

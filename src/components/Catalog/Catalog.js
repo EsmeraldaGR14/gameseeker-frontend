@@ -5,6 +5,20 @@ import CatalogPagination from "./CatalogPagination/CatalogPagination";
 import "./Catalog.css";
 import Modal from "../../utilities/common/Modal/Modal";
 import SortingButtons from "../../utilities/common/SortingButtons/SortingButtons";
+// import FilterDropdown from "../../utilities/common/FilterDropdown/FilterDropdown";
+
+const subscriptionServices = [
+  "PlayStation Plus Essential",
+  "PlayStation Plus Extra",
+  "PlayStation Plus Premium",
+  "Xbox Game Pass Core",
+  "Xbox Game Pass",
+  "PC Game Pass",
+  "GeForce Now",
+  "Nintendo Switch Online",
+  "Ubisoft+",
+  "Apple Arcade",
+];
 
 function Catalog() {
   const [games, setGames] = useState([]);
@@ -12,8 +26,10 @@ function Catalog() {
   const [currentPage, setCurrentPage] = useState(1);
   const [gamesPerPage] = useState(24);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const filters = ["Genre", "Release Date", "Platform", "Title"];
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [filteredResults, setFilteredResults] = useState([]);
+  const [selectedServicesMessage, setSelectedServicesMessage] = useState("");
 
   useEffect(() => {
     const getAllGamesForTheCatalog = async () => {
@@ -33,16 +49,49 @@ function Catalog() {
     getAllGamesForTheCatalog();
   }, []);
 
-  const filterTheGames = (e) => {
-    console.log(e.target.value);
+  const handleFilter = async () => {
+    try {
+      let allGames = [...games];
+      let message = "";
+      if (selectedServices.length > 0) {
+        allGames = allGames.filter(
+          (game) =>
+            Array.isArray(game.subscription) &&
+            game.subscription.some((sub) => selectedServices.includes(sub))
+        );
+        message = `Filtered by ${
+          selectedServices.length
+        } service(s): ${selectedServices.join(", ")}`;
+      }
+
+      setFilteredResults(allGames);
+      setSelectedServicesMessage(message);
+    } catch (error) {
+      console.error("Error filtering games:", error);
+    }
   };
 
-  // function showAllFilters() {
-  //   console.log("before", showFilters);
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
 
-  //   setShowFilters(!showFilters);
-  //   console.log("after", showFilters);
-  // }
+  const handleServiceToggle = (service) => {
+    const updatedServices = selectedServices.includes(service)
+      ? selectedServices.filter((s) => s !== service)
+      : [...selectedServices, service];
+
+    setSelectedServices(updatedServices);
+  };
+
+  useEffect(() => {
+    if (selectedServices.length === 0) {
+      setFilteredResults([]);
+      setSelectedServicesMessage('');
+    } else {
+      handleFilter();
+    }
+  }, [selectedServices]);
+
 
   // get currentGames
   const indexOfLastGame = currentPage * gamesPerPage;
@@ -73,30 +122,52 @@ function Catalog() {
           something for everyone. Start your gaming journey now!
         </p>
 
-        {/*  */}
-        <div className="catalog-sorting-buttons">
-          <SortingButtons games={games} setSortedGames={setGames} />
+        <div className="sorting-and-filtering">
+          <SortingButtons
+            games={games}
+            setSortedGames={setGames}
+            isSearchResults={false}
+          />
+          <div className="subscription-filter">
+            <div className="dropdown">
+              <div className="dropdown-title" onClick={toggleDropdown}>
+                <span className="filter-title">Filter by Services</span>
+                <span className={`arrow ${isDropdownOpen ? "up" : "down"}`}>
+                  {isDropdownOpen ? "\u25B2" : "\u25BC"}
+                </span>
+              </div>
+              {isDropdownOpen && (
+                <div className="dropdown-options">
+                  {subscriptionServices.map((service) => (
+                    <div
+                      key={service}
+                      className="option"
+                      onClick={() => handleServiceToggle(service)}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selectedServices.includes(service)}
+                        onChange={() => {}}
+                      />
+                      {service}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-        {/*  */}
 
-        {/* filters */}
+        {selectedServicesMessage && (
+          <div className="selected-services-message">
+            {selectedServicesMessage}
+          </div>
+        )}
 
-        {/* <div>
-          <label htmlFor="filterDropdown">Filter:</label>
-          <select id="filterDropdown" onChange={(e) => filterTheGames(e)}>
-            <option value="" disabled selected>
-              Select a filter
-            </option>
-            {filters.map((filter) => (
-              <option key={filter} value={filter}>
-                {filter}
-              </option>
-            ))}
-          </select>
-        </div> */}
         <CatalogGames
           loading={loading}
           currentGames={currentGames}
+          filteredResults={filteredResults}
           openModal={openModal}
         />
         <CatalogPagination
@@ -120,4 +191,3 @@ function Catalog() {
 }
 
 export default Catalog;
-// -----------------------------------------------------------------------------------------

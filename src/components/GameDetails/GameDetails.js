@@ -23,6 +23,7 @@ import { deleteGameFromBacklog } from "../../utilities/Api/Backlog";
 import { deleteGameFromWishlist } from "../../utilities/Api/Wishlist";
 import { getUserById } from "../../utilities/Api/Users";
 import Subscriptions from "./Subscriptions";
+import Screenshots from "./Screenshots"
 
 function GameDetails() {
   const { id } = useParams();
@@ -55,9 +56,9 @@ function GameDetails() {
   async function fetchGameById() {
     try {
       let result = await getGameById(id);
-      // console.log("this is result:", result);
+      console.log("this is result:", result);
       setGame(result[0]);
-      console.log(game.subscription)
+      console.log(game)
     } catch (error) {
       console.log(error);
     }
@@ -343,6 +344,9 @@ function GameDetails() {
             </article>
           </div>
         </div>
+        {/* {game && game.screenshots && ( */}
+        <Screenshots gameScreenshots={game.screenshots} boxart={game.boxart} />
+        {/* )} */}
         {isModalOpen && (
           <Modal
             isOpen={isModalOpen}
