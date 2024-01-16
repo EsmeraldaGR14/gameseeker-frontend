@@ -91,7 +91,7 @@ function Backlog() {
   return (
     <>
       <div className="container">
-        <div className="collection-hero">
+        <div className="backlog-hero">
           <img src={BacklogHero} alt="Hero" />
            <div className="hero-text">
           <h1>Backlog</h1>

@@ -90,7 +90,7 @@ function Wishlist() {
   return (
     <>
       <div className="container">
-        <div className="collection-hero">
+        <div className="wishlist-hero">
           <img src={WishlistHero} alt="Hero" />
           <div className="hero-text">
           <h1>Wishlist</h1>

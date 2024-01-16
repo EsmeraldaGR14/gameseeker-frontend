@@ -9,6 +9,114 @@
   margin: 10px 30px
 }
 
+.sorting-and-filtering {
+  display: flex;
+  align-items: center;
+}
+
+.subscription-filter {
+  margin-top: 10px;
+  position: relative;
+}
+
+.dropdown {
+  position: relative;
+  display: flex;
+  text-align: center;
+}
+
+.dropdown-title {
+  white-space: nowrap;
+  padding: 10px;
+  border: none;
+  border-radius: 52px;
+  background-color: #5e17eb;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 100px;
+}
+
+.dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: none;
+  border-radius: 52px;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1;
+  color: black;
+  padding: 5px;
+  display: block;
+  box-shadow: 0 14px 35px 0 rgba(9,9,12,0.4);
+  transform: translateY(20px);
+  transition: all 200ms linear;
+}
+
+.option {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.option input {
+  margin-right: 8px;
+}
+
+.option:hover {
+  background-color: #0ebac7;
+}
+
+.arrow {
+  font-size: 14px;
+}
+
+.selected-services-message {
+  display: block;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  background-color: white;
+  color: black
+}
+
+.backlog-hero {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 350px;
+  padding: 5px 5px;
+  border-radius: 10px;
+  position: relative;
+  margin-top: 15px;
+}
+
+.backlog-hero img {
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.5s;
+}
+
+.hero-text {
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  margin-top: 10px;
+  text-align: left;
+  color: white; 
+  z-index: 2;
+}
+
 @media only screen and (max-width: 1024px) {
   .backlog-container {
     display: grid;
