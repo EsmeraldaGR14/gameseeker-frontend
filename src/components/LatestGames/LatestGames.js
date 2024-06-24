@@ -23,7 +23,7 @@ function LatestGamesCarousel({ openModal }) {
         const latestGames = sortedGames.slice(0, 10);
 
         setLatestGames(latestGames);
-        console.log(latestGames);
+        // console.log(latestGames);
       } catch (error) {
         console.error("Error fetching latest games:", error);
       }
