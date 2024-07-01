@@ -4,10 +4,8 @@ import { useUser } from "../UserContext";
 import { getGameWishlist } from "../../utilities/Api/Wishlist";
 
 function WishlistCarousel({ openModal }) {
-  // const { userWishlist} = useUser();
-
-  const { user } = useUser();
-  const [userWishlist, setWishlist] = useState([]);
+  const { user, userWishlist } = useUser();
+  const [wishlistData, setWishlist] = useState([]);
 
   const getWishlistById = useCallback(async () => {
     try {
@@ -19,14 +17,15 @@ function WishlistCarousel({ openModal }) {
     }
   }, [user.id]);
 
+  //When the wishlist in the user context is updated by the boxart refetch the updated info
   useEffect(() => {
     getWishlistById();
-  }, [getWishlistById]);
+  }, [userWishlist]);
 
   return (
     <GenericCarousel
       label="Wishlist"
-      items={userWishlist}
+      items={wishlistData}
       openModal={openModal}
     />
   );

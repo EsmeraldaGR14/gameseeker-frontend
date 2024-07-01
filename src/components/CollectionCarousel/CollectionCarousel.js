@@ -4,8 +4,7 @@ import { useUser } from "../UserContext";
 import { getGameCollection } from "../../utilities/Api/Collection";
 
 function CollectionCarousel({ openModal }) {
-  // const { userCollection } = useUser();
-  const { user } = useUser();
+  const { user, userCollection } = useUser();
   const [collectionData, setCollectionData] = useState([]);
 
   const getCollectionById = useCallback(async () => {
@@ -17,9 +16,10 @@ function CollectionCarousel({ openModal }) {
     }
   }, [user.id]);
 
+  //When the collection in the user context is updated by the boxart refetch the updated info
   useEffect(() => {
     getCollectionById();
-  }, [getCollectionById]);
+  }, [userCollection]);
 
   return (
     <GenericCarousel

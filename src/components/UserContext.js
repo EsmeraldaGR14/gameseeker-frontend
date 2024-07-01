@@ -77,7 +77,6 @@ export const UserProvider = ({ children }) => {
         try {
           const result = await getGameWishlist(user.id);
           setUserWishlist(result.data);
-          console.log(userWishlist)
         } catch (error) {
           console.error("Error fetching backlog data:", error);
         }
